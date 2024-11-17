@@ -1,5 +1,6 @@
 import React from 'react'
 import { Spotlight } from './ui/Spotlight'
+import { TextGenerateEffect } from './ui/TextGenerateEffect'
 
 const Hero = () => {
   return (
@@ -16,16 +17,31 @@ const Hero = () => {
         <Spotlight className="left-80 top-28 h-[80vh] w-[50vw]" fill="blue" />
       </div>
 
-      <div className="h-screen w-full dark:bg-black-100 bg-white  dark:bg-grid-white/[0.3] bg-grid-black/[0.2] relative flex items-center justify-center">
-          {/* Radial gradient for the container to give a faded look */}
-          <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black-100 bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]" />
-      </div>
+      
+      <div className="h-screen w-full dark:bg-black-100 bg-white dark:bg-grid-white/[0.04] bg-grid-black/[0.06] flex items-center justify-center absolute top-0 left-0">
+      
+        {/* Radial gradient for the container to give a faded look */}
+        <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black-100 bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]" />
 
-      <div className='flex justify-center'>
-        <div className='max-w-[89vw]'>
-          <h2 className='uppercase tracking-widest text-xs text-center text-blue-100 max-w-80'>
-            Dynamic Web Magic i lied
+        
+      </div>
+      
+
+      <div className="flex justify-center relative my-20 z-10">
+        <div className='max-w-[89vw] md:max-w-2xl lg:max-w-[60vw] flex flex-col items-center justify-center'>
+          <h2 className="uppercase tracking-widest text-xs text-center text-blue-100 max-w-80">
+            Dynamic Web Magic did it work helooooooooooooooooooooooooooooooo geniues
+
           </h2>
+
+          <TextGenerateEffect 
+            className='text-center text-[40px] text-4xl md:text-5xl lg:text-6xl'
+            words='Transforming Concepts into Seamless Experiences hello this shouold be purp'
+          />
+
+          <p className='text-center md:tracking-wider mb-4 text-sm md:text-lg lg:text-2xl'>
+            I am a Full Stack Software Engineer with a passion for building scalable web applications. I specialize in React, Node.js, and MongoDB, and I am always looking to learn new technologies. I am currently seeking opportunities to work on exciting projects and grow as a developer.
+          </p>
         </div>
 
       </div>
