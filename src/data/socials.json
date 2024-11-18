@@ -1,0 +1,19 @@
+{
+  "socials": [
+    {
+      "name": "LinkedIn",
+      "href": "https://linkedin.com/in/ryan-ni",
+      "icon": "linkedin"
+    },
+    {
+      "name": "GitHub",
+      "href": "https://github.com/ryunzz",
+      "icon": "github"
+    },
+    {
+      "name": "Email",
+      "href": "mailto:rani@ucsd.com",
+      "icon": "mail"
+    }
+  ]
+}

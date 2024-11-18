@@ -1,0 +1,64 @@
+{
+  "projects": [
+    {
+      "name": "Power Tag",
+      "description": "solar-powered portable battery with integrated GPS tracking accessible through mobile app made with Kotlin",
+      "image": "/power-tag.png",
+      "tags": [
+        "Kotlin",
+        "C++",
+        "Google Maps API",
+        "Bynk API",
+        "GSM Communication",
+        "Solar Cells",
+        "Arduino",
+        "OnShape"
+      ],
+      "links": [
+        {
+          "name": "Source",
+          "href": "https://github.com/ryunzz/IEEE-QP",
+          "icon": "github"
+        }
+      ]
+    },
+    {
+      "name": "Slug Mommy",
+      "description": "A personalized virtual assistant to help optimize daily tasks and improve mental well-being",
+      "href": "https://slug-mommy.vercel.app/",
+      "image": "/slug-mommy.png",
+      "tags": [
+        "SvelteKit",
+        "TypeScript",
+        "SupaBase",
+        "Tailwind CSS",
+        "OpenAI API"
+      ],
+      "links": [
+        {
+          "name": "Website",
+          "href": "https://slug-mommy.vercel.app/",
+          "icon": "globe"
+        }
+      ]
+    },
+    {
+      "name": "Cal Craft",
+      "description": "A personalized dietary intake-based insulin tracking system",
+      "image": "/cal-craft.png",
+      "tags": ["React.js", "Material UI", "Python", "Firebase", "Pandas", "YOLOv8", "Roboflow", "Beautiful Soup"],
+      "links": [
+        {
+          "name": "Website (Revamping RN)",
+          "href": "https://github.com/ryunzz/cal-craft",
+          "icon": "globe"
+        },
+        {
+          "name": "Source",
+          "href": "https://github.com/ryunzz/cal-craft",
+          "icon": "github"
+        }
+      ]
+    }
+  ]
+}
