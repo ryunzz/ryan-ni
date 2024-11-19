@@ -29,7 +29,7 @@ const experience = z.object({
   href: z.string(),
   title: z.string(),
   logo: z.string(),
-  start: z.string(),
+  start: z.string().optional(),
   end: z.string().optional(),
   description: z.array(z.string()).optional(),
   links: z.array(iconLink).optional(),
