@@ -1,0 +1,39 @@
+{
+  "education": [
+    {
+      "name": "University of California, San Diego",
+      "href": "https://www.ucsc.edu/",
+      "title": "BS in Computer Science + Cognitive Science (Machine Learning Specialization)",
+      "logo": "/ucsd.png",
+      "expected graduation": "Jun 2026",
+      "description":[ 
+        "UCSD Tau Beta Pi Scholarship - (Engineering Honor Society + Scholarship; top 10% Engineering Jrs/Srs invited)",
+        "Software Lead + Hardware Lead - IEEE FA24 QP (Institute of Electrical and Electronics Engineers)",
+        "2x Project Committee - PIB (Project in a Box)",
+        "CSE Inductee - HKN (Engineering Student Honor Society - Eta Kappa Nu)",
+        "Team Captain - Intramural Volleyball",
+        "Active Member - ACM (Association for Computing Machinery)",
+        "Active Member - KASA (Korean American Association)"
+      ]
+    },
+    {
+      "name": "University of California, Santa Cruz",
+      "href": "https://www.ucsc.edu/",
+      "title": "1st yr of BS in Computer Science + Electrical Engineering",
+      "logo": "/ucsc.png",
+      "start": "Sep 2023",
+      "end": "Jun 2024",
+      "description":[
+        "1/19 UCSC Tau Beta Pi Scholars - (Engineering Honor Society + Scholarship; top 10% Engineering Jrs/Srs invited)",
+        "Co-Founder - Sluggish Solutions (Hackathon/Project Team): • #1 @ CruzHacks 2024• #1 @ ACM x GraceHacks 2023",
+        "Founder / President - TRACE (Technology Repairs And Computer Education)",
+        "External Affairs Officer - SFIG (Slug Fund Investment Group)",
+        "Active Competitor - Rocketry [ NAR (National Association of Rocketry) L1 HPR Certification ]",
+        "Vision Division - Slugbotics (Robotics / ARM Team)",
+        "Charity Show Committee Head (Skit Director / MC) - VSA (Vietnamese Student Association)",
+        "Team Captain - Intramural Volleyball",
+        "Active Member - Taekwondo Club"
+      ]
+    }
+  ]
+}
