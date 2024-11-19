@@ -4,7 +4,7 @@
       "name": "Dream Voyage",
       "href": "https://dreamore.app/",
       "title": "Software Engineering Intern (Full Stack)",
-      "logo": "/dream-voyage.png",
+      "logo": "/DV.png",
       "start": "Jan 2023",
       "end": "Sep 2023",
       "description": [
@@ -17,42 +17,26 @@
       "name": "CodeREV Kids",
       "href": "https://www.coderevkids.com/",
       "title": "Head STEM Instructor / Curriculum Developer",
-      "logo": "/sit.png",
-      "start": "Apr 2023",
-      "end": "Jun 2023",
+      "logo": "/CRK.png",
+      "start": "Sep 2023",
+      "end": "Apr 2024",
       "description": [
-        "Built NFTVue, a NFT gallery website that allows students to connect their crypto wallets to view and verify their school event-issued NFTs",
-        "Worked on DemoConstruct, a full-stack web application (React + Python) that uses Meshroom to reconstruct 3D models from captured images"
-      ],
-      "links": [
-        {
-          "name": "NFTVue",
-          "href": "https://nftvue.vercel.app",
-          "icon": "globe"
-        }
+        "Instructed 200+ students in STEM projects spanning over robotics utilizing Arduino microcontrollers breadboards and the Arduino IDE to program student-built robots, programming applications, and game design projects",
+        "Restructured 5+ sections of CodeREV Kids' curriculum, enhancing student comprehension and engagement",
+        "Leveraged previous engineering experience to consult 100+ student projects, providing constructive feedback to students to improve upon their projects"
       ]
-    },
+    },  
     {
-      "name": "DBS Bank",
-      "href": "https://www.dbs.com.sg",
-      "title": "Software Developer (Intern)",
-      "logo": "/dbs.png",
-      "start": "May 2022",
-      "end": "Dec 2022",
+      "name": "Brains & Motion Education",
+      "href": "https://www.brains-and-motion.com/",
+      "title": "Lead STEM Instructor",
+      "logo": "/BAM.png",
+      "start": "Jun 2022",
+      "end": "Aug 2022",
       "description": [
-        "Worked on the backend for the digital exchange and asset custody application using Spring Boot and Java",
-        "Built an admin dashboard web application for a DBS Metaverse event using Spring Security and Angular"
-      ]
-    },
-    {
-      "name": "Activate Interactive Pte Ltd",
-      "href": "https://www.activate.sg",
-      "title": "Software Developer (Intern)",
-      "logo": "/activate.png",
-      "start": "May 2019",
-      "end": "Aug 2019",
-      "description": [
-        "Developed RP Connect, the iOS and Android mobile app for Republic Polytechnic using React Native"
+        "Intructed 500+ students in STEM projects spanning over robotics, programming, and game design",
+        "Developed tailored slides for classes, significantly improving concept comprehension among students",
+        "Fostered partnerships with 20+ local businesses, encouraged real-world application/display of 30+ student projects"
       ]
     }
   ]
