@@ -1,13 +1,19 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Providers from "@/components/Providers";
-import { cn } from "@/src/lib/utils";
+import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { ADLaM_Display, Inter } from "next/font/google";
 import "./globals.css";
 
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+
+const adlam = ADLaM_Display({ 
+    subsets: ['latin'], 
+    variable: '--font-adlam',
+    weight: ['400'], 
+  });
 
 export const metadata: Metadata = {
   title: "Ryan Ni Portfolio",
@@ -25,6 +31,7 @@ export default function RootLayout({
         className={cn(
           "mx-auto flex min-h-screen max-w-3xl flex-col px-8 font-sans antialiased",
           inter.variable,
+          adlam.variable,
         )}
       >
         <Providers>

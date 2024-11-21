@@ -42,7 +42,7 @@
         }, 
         {
           "name": "Source",
-          "href": "_____________________",
+          "href": "https://slug-mommy.vercel.app/",
           "icon": "github"
         }
       ]
@@ -51,13 +51,13 @@
     {
       "name": "Cal Craft",
       "description": "A personalized dietary intake-based insulin tracking system",
-      "href": "_____________________",
+      "href": "https://github.com/ryunzz/cal-craft",
       "image": "/cal-craft.png",
       "tags": ["React.js", "Material UI", "Python", "Firebase", "Pandas", "YOLOv8", "Roboflow", "Beautiful Soup"],
       "links": [
         {
           "name": "Website (Revamping RN)",
-          "href": "_____________________",
+          "href": "https://github.com/ryunzz/cal-craft",
           "icon": "globe"
         },
         {
