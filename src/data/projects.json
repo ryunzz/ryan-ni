@@ -50,7 +50,7 @@
     },
     {
       "name": "Cal Craft",
-      "description": "A personalized dietary intake-based insulin tracking system",
+      "description": "A personalized dietary intake-based insulin tracking system to improve diabetes management",
       "href": "https://github.com/ryunzz/cal-craft",
       "image": "/cal-craft.png",
       "tags": ["React.js", "Material UI", "Python", "Firebase", "Pandas", "YOLOv8", "Roboflow", "Beautiful Soup"],
