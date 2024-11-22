@@ -11,7 +11,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 
-const LIMIT = 2; // for formatting only show 2 max
+const LIMIT = 4; // for formatting only show 2 max
 
 
 export default async function Home() {
@@ -28,9 +28,11 @@ export default async function Home() {
           priority
         />
         <div className="flex flex-col">
-          <TextGenerateEffect
-            words="hi, i'm Ryan Ni"
-          />
+            <TextGenerateEffect
+              className="title text-2xl sm:text-3xl"
+              words="hey, i'm Ryan Ni"
+              duration={0.3}
+            />
           <p className="mt-4 font-light">
             Software Engineer
           </p>
@@ -48,7 +50,7 @@ export default async function Home() {
 
       <section className="flex flex-col gap-8">
         <div className="flex justify-between">
-          <h2 className="title text-2xl sm:text-3xl">Featured Projects</h2>
+          <h2 className="title text-2xl sm:text-3xl">Recent Projects</h2>
           <LinkWithIcon
             href="/projects"
             position="right"

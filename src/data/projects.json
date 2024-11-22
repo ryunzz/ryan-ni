@@ -2,13 +2,14 @@
   "projects": [
     {
       "name": "Power Tag",
-      "description": "solar-powered portable battery with integrated GPS tracking accessible through mobile app made with Kotlin",
-      "image": "/power-tag.png",
+      "description": "Solar-powered portable battery with integrated GPS tracking accessible through Kotlin mobile app",
+      "image": "/power-tag.jpg",
       "tags": [
         "Kotlin",
         "C++",
         "Google Maps API",
         "Bynk API",
+        "Figma",
         "GSM Communication",
         "Solar Cells",
         "Arduino",
@@ -24,6 +25,8 @@
     },
     {
       "name": "Slug Mommy",
+      "devpost": "https://devpost.com/software/slug-mommy",
+      "awarded": "#1 Best UI/UX @ CruzHacks 2024",
       "description": "A personalized virtual assistant to help optimize daily tasks and improve mental well-being",
       "href": "https://slug-mommy.vercel.app/",
       "image": "/slug-mommy.png",
@@ -50,6 +53,8 @@
     },
     {
       "name": "Cal Craft",
+      "devpost": "https://devpost.com/software/cal-craft",
+      "awarded": "#1 Best Empowerment @ ACM x GHacks 2023",
       "description": "A personalized dietary intake-based insulin tracking system to improve diabetes management",
       "href": "https://github.com/ryunzz/cal-craft",
       "image": "/cal-craft.png",

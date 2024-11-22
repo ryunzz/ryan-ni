@@ -1,4 +1,5 @@
 import { Badge } from "@/components/ui/Badge";
+import React from "react";
 import {
   Card,
   CardContent,
@@ -11,13 +12,14 @@ import Image from "next/image";
 import Link from "next/link";
 import Markdown from "react-markdown";
 import Icon from "./Icon";
+import { Button } from "./ui/Button";
 
 interface Props {
   project: Project;
 }
 
 export function ProjectCard({ project }: Props) {
-  const { name, href, description, image, tags, links } = project;
+  const { name, devpost, awarded, href, description, image, tags, links } = project;
 
   return (
     <Card className="flex flex-col">
@@ -36,6 +38,8 @@ export function ProjectCard({ project }: Props) {
       </CardHeader>
       <CardContent className="flex flex-col gap-2">
         <CardTitle>{name}</CardTitle>
+  
+        
         <Markdown className="prose max-w-full text-pretty font-sans text-xs text-muted-foreground dark:prose-invert">
           {description}
         </Markdown>
@@ -43,7 +47,7 @@ export function ProjectCard({ project }: Props) {
       <CardFooter className="flex h-full flex-col items-start justify-between gap-4">
         {tags && tags.length > 0 && (
           <div className="mt-2 flex flex-wrap gap-1">
-            {tags.toSorted().map((tag) => (
+            {tags.map((tag) => (
               <Badge
                 key={tag}
                 className="px-1 py-0 text-[10px]"
@@ -65,6 +69,15 @@ export function ProjectCard({ project }: Props) {
               </Link>
             ))}
           </div>
+        )}
+        
+        {devpost && (
+          <Link href={devpost} target="_blank">
+            <span className="font-semibold text-xs">Awarded:</span>
+            <Button variant="outline">
+              <span className="font-semibold text-xs">{awarded}</span>
+            </Button>
+          </Link>
         )}
       </CardFooter>
     </Card>

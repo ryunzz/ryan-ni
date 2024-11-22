@@ -59,7 +59,7 @@ const config: Config = {
       },
       fontFamily: {
         sans: "var(--font-sans)",
-        serif: "var(--font-serif)",
+        adlam: ["'ADLaM Display'", "sans-serif"],
       },
       keyframes: {
         "accordion-down": {
@@ -85,6 +85,11 @@ const config: Config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
+  plugins: [
+    require("tailwindcss-animate"),
+    require("@tailwindcss/typography")
+  ],
+
+  
 };
 export default config;

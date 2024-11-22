@@ -12,6 +12,8 @@ export type IconLink = z.infer<typeof iconLink>;
 
 const project = z.object({
   name: z.string(),
+  devpost: z.string().url().optional(),
+  awarded: z.string().optional(),
   description: z.string(),
   href: z.string().url().optional(),
   image: z.string().optional(),
