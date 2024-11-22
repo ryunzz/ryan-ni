@@ -11,9 +11,14 @@
       "icon": "github"
     },
     {
-      "name": "Email",
-      "href": "mailto:rani@ucsd.com",
-      "icon": "mail"
+      "name": "Devpost",
+      "href": "https://devpost.com/ryan-ni",
+      "icon": "hexagon"
+    },
+    {
+      "name": "YouTube",
+      "href": "https://www.youtube.com/@ryun-zz",
+      "icon": "youtube"
     }
   ]
 }

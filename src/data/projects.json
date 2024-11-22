@@ -9,10 +9,10 @@
         "C++",
         "Google Maps API",
         "Bynk API",
-        "Figma",
+        "Arduino",
         "GSM Communication",
         "Solar Cells",
-        "Arduino",
+        "Figma",
         "OnShape"
       ],
       "links": [
@@ -20,6 +20,11 @@
           "name": "Source",
           "href": "https://github.com/ryunzz/IEEE-QP",
           "icon": "github"
+        },
+        {
+          "name": "Documentation",
+          "href": "https://docs.google.com/document/d/1vHXY2cktga8L-Rg751vY4500SpIR977lDCjheDakogU/edit?usp=sharing",
+          "icon": "file-check"
         }
       ]
     },
@@ -34,8 +39,10 @@
         "SvelteKit",
         "TypeScript",
         "SupaBase",
+        "OpenAI API",
         "Tailwind CSS",
-        "OpenAI API"
+        "Maxterial UI",
+        "Figma"
       ],
       "links": [
         {

@@ -19,7 +19,7 @@ export default function TimelineItem({ experience }: Props) {
         target="_blank"
         className="absolute -left-16 top-4 flex items-center justify-center rounded-full bg-white"
       >
-        <Avatar className="size-12 border">
+        <Avatar className="size-12 border border-blue">
           <AvatarImage
             src={logo}
             alt={name}

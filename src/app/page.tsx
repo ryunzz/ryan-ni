@@ -6,7 +6,9 @@ import { Button } from "@/components/ui/Button";
 import { TextGenerateEffect } from "@/components/ui/TextGenerateEffect";
 import {
   FileDown,
-  ArrowRightIcon
+  ArrowRightIcon,
+  MapPin,
+  Mail
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -34,8 +36,22 @@ export default async function Home() {
               duration={0.3}
             />
           <p className="mt-4 font-light">
-            Software Engineer
+            Software Engineer | Full Stack Developer
           </p>
+
+          
+
+          <div className=" flex items-center font-light">
+            <MapPin className="mr-2 size-5 " /> California, USA |
+
+            <Link href="mailto:rani@ucsd.edu?subject=Hello&body=Hi Ryan, I would like to get in touch with you!">
+              <div className=" flex items-center font-light hover:text-blue">
+                <Mail className=" ml-2 mr-2 size-5 " />
+                rani@ucsd.edu
+              </div>
+            </Link>
+          </div>
+
           <section className="mt-8 flex items-center gap-8">
             <Link href="/Ryan Ni Resume.pdf" target="_blank">
               <Button variant="outline">
