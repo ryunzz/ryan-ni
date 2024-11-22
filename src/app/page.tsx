@@ -1,4 +1,4 @@
-// import Experience from "@/components/Experience";  //uncomment this after making Experience tabs
+import Experience from "@/components/Experience";  //uncomment this after making Experience tabs
 import LinkWithIcon from "@/components/LinkWithIcon";
 import Projects from "@/components/Projects";
 import Socials from "@/components/Socials";
@@ -11,7 +11,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 
-const LIMIT = 4; // for formatting only show 2 max
+const LIMIT = 2; // for formatting only show 2 max
 
 
 export default async function Home() {
@@ -30,7 +30,7 @@ export default async function Home() {
         <div className="flex flex-col">
             <TextGenerateEffect
               className="title text-2xl sm:text-3xl"
-              words="hey, i'm Ryan Ni"
+              words="hi, i'm Ryan Ni👋"
               duration={0.3}
             />
           <p className="mt-4 font-light">
@@ -39,8 +39,8 @@ export default async function Home() {
           <section className="mt-8 flex items-center gap-8">
             <Link href="/Ryan Ni Resume.pdf" target="_blank">
               <Button variant="outline">
-                <span className="font-semibold">Resume</span>
-                <FileDown className="ml-2 size-5" />
+                <span className="font-semibold ">Resume</span>
+                <FileDown className="ml-2 size-5 animate-bounce" />
               </Button>
             </Link>
             <Socials />
@@ -48,6 +48,7 @@ export default async function Home() {
         </div>
       </section>
 
+      <Experience />
       <section className="flex flex-col gap-8">
         <div className="flex justify-between">
           <h2 className="title text-2xl sm:text-3xl">Recent Projects</h2>
