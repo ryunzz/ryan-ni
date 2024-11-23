@@ -38,7 +38,6 @@ export default async function Home() {
           <p className="mt-4 font-light">
             Software Engineer | Full Stack Developer
           </p>
-
           
 
           <div className=" flex items-center font-light">

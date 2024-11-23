@@ -14,7 +14,7 @@ const TabsList = React.forwardRef<
   <TabsPrimitive.List
     ref={ref}
     className={cn(
-      "inline-flex h-9 items-center justify-center rounded-lg bg-muted p-1 text-muted-foreground",
+      "inline-flex h-9 items-center justify-center rounded-lg bg-muted p-1 text-muted-foreground ",
       className
     )}
     {...props}
@@ -25,16 +25,49 @@ TabsList.displayName = TabsPrimitive.List.displayName
 const TabsTrigger = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger>
->(({ className, ...props }, ref) => (
-  <TabsPrimitive.Trigger
-    ref={ref}
-    className={cn(
-      "inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow",
-      className
-    )}
-    {...props}
-  />
-))
+>(({ className, ...props }, ref) => {
+  const rippleContainerRef = React.useRef<HTMLDivElement>(null)
+
+  const handleRipple = (event: React.MouseEvent<HTMLDivElement>) => {
+    const rippleContainer = rippleContainerRef.current
+    if (!rippleContainer) return
+
+    const rect = rippleContainer.getBoundingClientRect()
+    const size = Math.max(rect.width, rect.height)
+    const x = event.clientX - rect.left - size / 2
+    const y = event.clientY - rect.top - size / 2
+
+    const ripple = document.createElement("div")
+    ripple.style.width = ripple.style.height = `${size}px`
+    ripple.style.left = `${x}px`
+    ripple.style.top = `${y}px`
+    ripple.className = "ripple"
+
+    rippleContainer.appendChild(ripple)
+
+    ripple.addEventListener("animationend", () => {
+      ripple.remove()
+    })
+  }
+
+  return (
+    <TabsPrimitive.Trigger
+      ref={ref}
+      className={cn(
+        "relative overflow-hidden hover:bg-gray-200 dark:hover:bg-gray-900 inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow",
+        className
+      )}
+      {...props}
+    >
+      <div
+        ref={rippleContainerRef}
+        className="absolute inset-0 overflow-hidden rounded-md"
+        onClick={handleRipple}
+      ></div>
+      {props.children}
+    </TabsPrimitive.Trigger>
+  )
+})
 TabsTrigger.displayName = TabsPrimitive.Trigger.displayName
 
 const TabsContent = React.forwardRef<

@@ -20,7 +20,7 @@ export function ProjectCard({ project }: Props) {
   const { name, href, description, image, tags, links } = project;
 
   return (
-    <Card className="flex flex-col">
+    <Card className="flex flex-col hover:translate-y-[-8px] hover:bg-gray-200 dark:hover:bg-gray-900 transform transition ease-out duration-100 ">
       <CardHeader>
         {image && (
           <Link href={href || image}>
@@ -34,7 +34,7 @@ export function ProjectCard({ project }: Props) {
           </Link>
         )}
       </CardHeader>
-      <CardContent className="flex flex-col gap-2">
+      <CardContent className="flex flex-col gap-2 ">
         <CardTitle>{name}</CardTitle>
         <Markdown className="prose max-w-full text-pretty font-sans text-xs text-muted-foreground dark:prose-invert">
           {description}

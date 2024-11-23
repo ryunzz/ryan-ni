@@ -1,6 +1,6 @@
 import Link from "next/link";
 import ThemeToggle from "./ThemeToggle";
-
+import { Button } from "./ui/Button";
 const navLinks = [
   {
     name: "home",
@@ -21,11 +21,18 @@ export default function Header() {
     <header className="sticky top-0 z-50 bg-background/75 py-6 backdrop-blur-sm">
       <nav className="flex items-center justify-between">
         <ul className="flex gap-4 sm:gap-8">
-          {navLinks.map((nav, id) => (
-            <li key={id} className="link">
-              <Link href={nav.href}>{nav.name}</Link>
-            </li>
-          ))}
+        
+            {navLinks.map((nav, id) => (
+              <Button
+              size="sm"
+              variant="ghost"
+              >
+                <li key={id} className="link">
+                  <Link href={nav.href}>{nav.name}</Link>
+                </li>
+              </Button>
+            ))}
+        
         </ul>
         <div className="flex gap-0 sm:gap-4">
           <ThemeToggle />
