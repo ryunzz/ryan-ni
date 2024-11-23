@@ -23,14 +23,16 @@ export default function Header() {
         <ul className="flex gap-4 sm:gap-8">
         
             {navLinks.map((nav, id) => (
-              <Button
-              size="sm"
-              variant="ghost"
-              >
-                <li key={id} className="link">
+              
+              <li key={id} className="link">
+                <Button
+                  size="sm"
+                  variant="ghost"
+                >
                   <Link href={nav.href}>{nav.name}</Link>
-                </li>
-              </Button>
+                </Button>
+              </li>
+              
             ))}
         
         </ul>
