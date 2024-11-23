@@ -6,6 +6,8 @@ export default function Socials() {
   const socials = socialSchema.parse(data).socials;
 
   return (
+
+
     <section className="flex gap-6">
       {socials.map((item) => (
         <a

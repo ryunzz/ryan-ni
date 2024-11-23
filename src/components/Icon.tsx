@@ -12,6 +12,9 @@ const Icon = ({ name, ...props }: IconProps) => {
   const LucideIcon = lazy(dynamicIconImports[name]);
 
   return (
+
+
+    
     <Suspense fallback={fallback}>
       <LucideIcon {...props} />
     </Suspense>
