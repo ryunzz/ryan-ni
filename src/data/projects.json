@@ -1,6 +1,28 @@
 {
   "projects": [
     {
+      "name": "SSVEP BCI Controlled Car",
+      "description": "Brain-computer interface project using EEG signals to control a car, translating brainwave frequencies into motion commands",
+      "image": "/SSVEP.jpg",
+      "tags": [
+        "C++",
+        "Python",
+        "Tkinter",
+        "Pillow",
+        "SciKit-Learn",
+        "Unicorn SWE Suite",
+        "Unicorn Hybrid EEG", 
+        "Arduino"
+      ],
+      "links": [
+        {
+          "name": "Documentation",
+          "href": "https://docs.google.com/document/d/1vHXY2cktga8L-Rg751vY4500SpIR977lDCjheDakogU/edit?usp=sharing",
+          "icon": "file-check"
+        }
+      ]
+    },
+    {
       "name": "Power Tag",
       "description": "Solar-powered portable battery with integrated GPS tracking accessible through Kotlin mobile app",
       "image": "/power-tag.jpg",
@@ -32,7 +54,7 @@
       "name": "Slug Mommy",
       "devpost": "https://devpost.com/software/slug-mommy",
       "awarded": "#1 Best UI/UX @ CruzHacks 2024",
-      "description": "A personalized virtual assistant to help optimize daily tasks and improve mental well-being",
+      "description": "Personalized virtual assistant to help optimize daily tasks and improve mental well-being",
       "href": "https://slug-mommy.vercel.app/",
       "image": "/slug-mommy.png",
       "tags": [
@@ -62,7 +84,7 @@
       "name": "Cal Craft",
       "devpost": "https://devpost.com/software/cal-craft",
       "awarded": "#1 Best Empowerment @ ACM x GHacks 2023",
-      "description": "A personalized dietary intake-based insulin tracking system to improve diabetes management",
+      "description": "Personalized dietary intake-based insulin tracking system to improve diabetes management",
       "href": "https://github.com/ryunzz/cal-craft",
       "image": "/cal-craft.png",
       "tags": ["React.js", "Material UI", "Python", "Firebase", "Pandas", "YOLOv8", "Roboflow", "Beautiful Soup"],
