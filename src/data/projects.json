@@ -3,7 +3,7 @@
     {
       "name": "SSVEP BCI Controlled Car",
       "description": "Brain-computer interface project using EEG signals to control a car, translating brainwave frequencies into motion commands",
-      "image": "/SSVEP.jpg",
+      "image": "/TNT.jpg",
       "tags": [
         "C++",
         "Python",
