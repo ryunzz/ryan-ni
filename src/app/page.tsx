@@ -63,7 +63,13 @@ export default async function Home() {
         </div>
       </section>
 
-      <Experience />
+      <section className="flex flex-col gap-8">
+        <div className="flex justify-between">
+          <h2 className="title text-2xl sm:text-3xl">Experience</h2>
+        </div>
+        <Experience />
+      </section>
+
       <section className="flex flex-col gap-8">
         <div className="flex justify-between">
           <h2 className="title text-2xl sm:text-3xl">Current Projects</h2>
