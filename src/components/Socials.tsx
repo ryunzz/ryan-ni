@@ -14,7 +14,10 @@ export default function Socials() {
           href={item.href}
           key={item.name}
           target="_blank"
-          className="text-muted-foreground hover:text-foreground"
+          className=" inline-flex justify-center whitespace-nowrap px-2 py-2 rounded-full border-gray-500  dark:border-neutral-800 border-2 dark:bg-neutral-900 dark:bg-opacity-50
+            hover:bg-blue dark:hover:bg-blue
+
+            text-muted-foreground hover:text-foreground"
           rel="noopener noreferrer"
           title={item.name}
         >

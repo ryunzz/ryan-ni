@@ -1,6 +1,17 @@
 {
   "career": [
-    
+    {
+      "name": "University of California, San Diego",
+      "href": "https://apps.apple.com/tr/app/sine-daily-manifest/id6472605644",
+      "title": "Computational Linguistics Research Assistant",
+      "logo": "/ucsd.jpg",
+      "start": "Dec 2024",
+      "description": [
+        "Analyzing 1,200+ empirical data points identifying significant patterns in language learning and visualized data using R", 
+        "Accelerated data processing efficiency by 60% by automating audio-to-text transcription workflows using Wispr API",
+        "Revising sections of our research paper for the 2025 ACL Conference and consistently contributing to 20+ datasets"
+      ]
+    },
     {
       "name": "Dream Voyage",
       "href": "https://apps.apple.com/tr/app/sine-daily-manifest/id6472605644",

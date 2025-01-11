@@ -1,0 +1,48 @@
+{
+  "projects": [
+    {
+      "name": "Slug Mommy",
+      "description": "#1 Best UI / UX @ Cruz Hacks 2024; \r\r Personalized virtual assistant to help optimize daily tasks and improve mental well-being",
+      "href": "https://slug-mommy.vercel.app/",
+      "image": "/slug-mommy.png",
+      "tags": [
+        "SvelteKit",
+        "TypeScript",
+        "SupaBase",
+        "OpenAI API",
+        "Tailwind CSS",
+        "Maxterial UI",
+        "Figma"
+      ],
+      "links": [
+        {
+          "name": "Website",
+          "href": "https://slug-mommy.vercel.app/",
+          "icon": "globe"
+        }, 
+        {
+          "name": "Source",
+          "href": "https://slug-mommy.vercel.app/",
+          "icon": "github"
+        }
+      ]
+    
+    },
+    {
+      "name": "Cal Craft",
+      "devpost": "https://devpost.com/software/cal-craft",
+      "awarded": "#1 Best Empowerment @ ACM x GHacks 2023",
+      "description": " #1 Best Empowerment @ ACM Hacks 2023; \r\r Trained custom ML model to allow personalized diabetes insulin tracking via user imploaded images",
+      "href": "https://github.com/ryunzz/cal-craft",
+      "image": "/cal-craft.png",
+      "tags": ["React.js", "Material UI", "Python", "Firebase", "Pandas", "YOLOv8 (Object Detection)", "Roboflow", "Beautiful Soup"],
+      "links": [
+        {
+          "name": "Source",
+          "href": "https://github.com/ryunzz/cal-craft",
+          "icon": "github"
+        }
+      ]
+    }
+  ]
+}

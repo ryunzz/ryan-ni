@@ -1,19 +1,22 @@
 import Experience from "@/components/Experience";  //uncomment this after making Experience tabs
 import LinkWithIcon from "@/components/LinkWithIcon";
 import Projects from "@/components/Projects";
-import Socials from "@/components/Socials";
+import SocialBar from "@/components/SocialBar";
 import { Button } from "@/components/ui/Button";
 import { TextGenerateEffect } from "@/components/ui/TextGenerateEffect";
 import {
   FileDown,
   ArrowRightIcon,
   MapPin,
-  Mail
+  Mail,
+  MailOpen,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import MailHover from "@/components/MailHover";
 
-const LIMIT = 2; // for formatting only show 2 max
+const LIMIT = 4; // for formatting only show 2 max
+
 
 
 export default async function Home() {
@@ -35,20 +38,16 @@ export default async function Home() {
               words="hi, i'm Ryan Ni👋"
               duration={0.3}
             />
-          <p className="mt-4 font-light">
+          <p className="mt-4 font-light pb-1">
             Software Engineer | Full Stack Developer
           </p>
           
 
           <div className=" flex items-center font-light">
-            <MapPin className="mr-2 size-5 " /> California, USA |
-
-            <Link href="mailto:rani@ucsd.edu?subject=Hello&body=Hi Ryan, I would like to get in touch with you!">
-              <div className=" flex items-center font-light hover:text-blue">
-                <Mail className=" ml-2 mr-2 size-5 " />
-                rani@ucsd.edu
-              </div>
-            </Link>
+            <MapPin className="mr-1 size-5 " /> California, USA |
+            
+            <MailHover/> 
+        
           </div>
 
           <section className="mt-8 flex items-center gap-8">
@@ -58,7 +57,7 @@ export default async function Home() {
                 <FileDown className="ml-2 size-5 animate-bounce" />
               </Button>
             </Link>
-            <Socials />
+            <SocialBar />
           </section>
         </div>
       </section>
@@ -72,7 +71,7 @@ export default async function Home() {
 
       <section className="flex flex-col gap-8">
         <div className="flex justify-between">
-          <h2 className="title text-2xl sm:text-3xl">Current Projects</h2>
+          <h2 className="title text-2xl sm:text-3xl">Recent Projects</h2>
           <LinkWithIcon
             href="/projects"
             position="right"

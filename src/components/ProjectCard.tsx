@@ -17,7 +17,7 @@ interface Props {
 }
 
 export function ProjectCard({ project }: Props) {
-  const { name, href, description, image, tags, links } = project;
+  const { name, href, description, image, tags, links, devpost, awarded } = project;
 
   return (
     <Card className="flex flex-col hover:translate-y-[-8px] hover:bg-gray-200 dark:hover:bg-gray-900 transform transition ease-out duration-100 ">
@@ -36,6 +36,13 @@ export function ProjectCard({ project }: Props) {
       </CardHeader>
       <CardContent className="flex flex-col gap-2 ">
         <CardTitle>{name}</CardTitle>
+
+        {devpost && awarded && (
+            <Link href={devpost} target="_blank" className="prose max-w-full text-pretty font-sans text-xs text-muted-foreground dark:prose-invert hover:text-blue text-decoration-line: underline">
+              {awarded}
+            </Link>
+          )}
+
         <Markdown className="prose max-w-full text-pretty font-sans text-xs text-muted-foreground dark:prose-invert">
           {description}
         </Markdown>
@@ -56,7 +63,7 @@ export function ProjectCard({ project }: Props) {
         )}
         {links && links.length > 0 && (
           <div className="flex flex-row flex-wrap items-start gap-1">
-            {links.toSorted().map((link, idx) => (
+            {links.map((link, idx) => (
               <Link href={link?.href} key={idx} target="_blank">
                 <Badge key={idx} className="flex gap-2 px-2 py-1 text-[10px]">
                   <Icon name={link.icon} className="size-3" />
