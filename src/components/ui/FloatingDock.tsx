@@ -58,7 +58,7 @@ const FloatingDockMobile = ({
                 initial={{ opacity: 0, x: 0 }}
                 animate={{
                   opacity: 1,
-                  x: (idx + 1) * 10,
+                  x: (idx + 1) * 6,
                 }}
                 exit={{
                   opacity: 0,

@@ -39,7 +39,7 @@ export default async function Home() {
               duration={0.3}
             />
           <p className="mt-4 font-light pb-1">
-            Software Engineer | Full Stack Developer
+            Software Engineer | Full Stack Developer 
           </p>
           
 
