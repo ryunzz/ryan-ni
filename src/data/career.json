@@ -1,10 +1,22 @@
 {
   "career": [
     {
-      "name": "University of California, San Diego",
-      "href": "https://apps.apple.com/tr/app/sine-daily-manifest/id6472605644",
+      "name": "UCSD XR Lab - Dr. Kirsh (CSE Dept.)",
+      "href": "https://cse.ucsd.edu/",
+      "title": "AI Research Assistant",
+      "logo": "/ucsd-cse.png",
+      "start": "Dec 2024",
+      "description": [
+        "Developing and training speech emotion recognition model with ~70% IoU accuracy using Python and TensorFlow",
+        "Accelerated data processing efficiency by 60% by automating audio-to-text transcription workflows using Wispr API",  
+        "Building lab’s custom AI agents to reduce repetitive data annotation tasks by 30% for 3 ongoing lab projects"
+      ]
+    },
+    {
+      "name": "UCSD LIL Lab - Dr. Zettersten (Cog Sci Dept.)",
+      "href": "https://cogsci.ucsd.edu/",
       "title": "Computational Linguistics Research Assistant",
-      "logo": "/ucsd.jpg",
+      "logo": "/ucsd-cog-sci.png",
       "start": "Dec 2024",
       "description": [
         "Analyzing 3,000+ empirical data points identifying significant patterns in language learning and visualized data using R", 
