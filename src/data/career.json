@@ -3,19 +3,19 @@
     {
       "name": "UCSD XR Lab - Dr. Kirsh (CSE Dept.)",
       "href": "https://cse.ucsd.edu/",
-      "title": "AI Research Assistant",
+      "title": "Software Engineer + AI Research Assistant",
       "logo": "/ucsd-cse.png",
       "start": "Dec 2024",
       "description": [
         "Developing and training speech emotion recognition model with ~70% IoU accuracy using Python and TensorFlow",
         "Accelerated data processing efficiency by 60% by automating audio-to-text transcription workflows using Wispr API",  
         "Building lab’s custom AI agents to reduce repetitive data annotation tasks by 30% for 3 ongoing lab projects"
-      ]
+      ] 
     },
     {
       "name": "UCSD LIL Lab - Dr. Zettersten (Cog Sci Dept.)",
       "href": "https://cogsci.ucsd.edu/",
-      "title": "Computational Linguistics Research Assistant",
+      "title": "Software Engineer + Research Assistant",
       "logo": "/ucsd-cog-sci.png",
       "start": "Dec 2024",
       "description": [

@@ -126,6 +126,32 @@
     },
     {
       "type": "misc",
+      "name": "Valentine's Day Website",
+      "description": "Valentine's Day webiste to ask my girlfriend to my my valentine!",
+      "image": "/valentines.png",
+      "tags": [
+        "React.js",
+        "TypeScript",
+        "Tailwind CSS",
+        "Node.js",
+        "Express.js"
+      ],
+      "links": [
+        {
+          "name": "Website",
+          "href": "https://i-love-yuni.vercel.app/",
+          "icon": "globe"
+        }, 
+        {
+          "name": "Source",
+          "href": "https://github.com/ryunzz/i-love-yuni",
+          "icon": "github"
+        }
+      ]
+    
+    },
+    {
+      "type": "misc",
       "name": "Magic 8 Cube",
       "description": "\"Magic 8 Ball\" inspired project, except better because it's a cube, the superior shape.",
       "image": "/magic-8-cube.jpg",
