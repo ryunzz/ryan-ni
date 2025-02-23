@@ -7,9 +7,10 @@
       "logo": "/ucsd-cse.png",
       "start": "Dec 2024",
       "description": [
-        "Developing and training speech emotion recognition model with ~70% IoU accuracy using Python and TensorFlow",
+        "Migrating data pipeline from CSV stored in PostgreSQL database to HDF5 structure to increase speed of SER project",
         "Accelerated data processing efficiency by 60% by automating audio-to-text transcription workflows using Wispr API",  
-        "Building lab’s custom AI agents to reduce repetitive data annotation tasks by 30% for 3 ongoing lab projects"
+        "Building lab’s custom AI agents to reduce repetitive data annotation tasks by 30% for 3 ongoing lab projects",
+        "Researching non-Euclidean spaces’ effect on neural basis of spatial cognition and episodic memory in humans"
       ] 
     },
     {
@@ -19,8 +20,8 @@
       "logo": "/ucsd-cog-sci.png",
       "start": "Dec 2024",
       "description": [
+        "Implementing a React and JsPsych web applications to gather data and run experiments for on various lab projects",
         "Analyzing 3,000+ empirical data points identifying significant patterns in language learning and visualized data using R", 
-        "Accelerated data processing efficiency by 60% by automating audio-to-text transcription workflows using Wispr API",
         "Revising sections of our research paper for the 2025-26 ACL Conference and consistently contributing to 20+ datasets"
       ]
     },
