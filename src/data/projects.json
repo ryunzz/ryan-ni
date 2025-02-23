@@ -4,7 +4,7 @@
       "type": "software",
       "name": "Tellas",
       "description": "Simplifying customer service facing web applications for various size companies",
-      "image": "/tellas.jpg",
+      "image": "/tellas.png",
       "tags": [
         "TypeScript",
         "Zilliz",
