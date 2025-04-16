@@ -16,9 +16,9 @@ const adlam = ADLaM_Display({
   });
 
 export const metadata: Metadata = {
-  title: "Ryan Ni Portfolio",
-  description: "Hi, I'm Ryan Ni, this is my portoflio of my software engineering experience/projects",
   openGraph: {
+    title: "Ryan Ni Portfolio",
+    description: "Hi, I'm Ryan Ni, this is my portoflio of my software engineering experience/projects",
     images: ["/image/ryan.jpg"],
   },
   icons:{ 

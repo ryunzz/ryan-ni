@@ -1,31 +1,6 @@
 {
   "projects": [
     {
-      "type": "software",
-      "name": "Tellas",
-      "description": "Simplifying customer service facing web applications for various size companies",
-      "image": "/tellas.png",
-      "tags": [
-        "TypeScript",
-        "Zilliz",
-        "SupaBase",
-        "Docker",
-        "Node.js",
-        "Express.js",
-        "Stripe API",  
-        "Gemini API",
-        "Tailwind CSS"
-      ],
-      "links": [
-        {
-          "name": "Website",
-          "href": "https://tellas.vercel.app",
-          "icon": "globe"
-        }
-      ]
-    },
-    
-    {
       "type": "misc",
       "name": "SSVEP BCI Controlled Car",
       "description": "Converting a RC car into a brain-computer interface project by reading electroencephalogram signals (brainwave frequencies) to control a RC car",
@@ -47,6 +22,32 @@
           "name": "Docs",
           "href": "https://docs.google.com/presentation/d/1EyODMiufMpYiZuFsPL8Bl74bx7Jfy7Jj/edit?usp=sharing&ouid=112719106474251532338&rtpof=true&sd=true",
           "icon": "file-check"
+        }
+      ]
+    },
+    {
+      "type": "software",
+      "name": "Tellas",
+      "devpost": "https://tellas.vercel.app",
+      "awarded": "(Under Construction)",
+      "description": "SaaS that simplifies customer service facing web applications for various sized companies",
+      "image": "/tellas.png",
+      "tags": [
+        "TypeScript",
+        "Zilliz",
+        "SupaBase",
+        "Docker",
+        "Node.js",
+        "Express.js",
+        "Stripe API",  
+        "Gemini API",
+        "Tailwind CSS"
+      ],
+      "links": [
+        {
+          "name": "Website",
+          "href": "https://tellas.vercel.app",
+          "icon": "globe"
         }
       ]
     },

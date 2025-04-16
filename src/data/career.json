@@ -1,11 +1,34 @@
 {
   "career": [
     {
+      "name": "FAANG",
+      "href": "",
+      "title": "Incomming Software Engineer Intern",
+      "logo": "/stealth.jpg",
+      "start": "Jun 2025",
+      "end": "Sep 2025",
+      "description": [
+        "infra + full stack :)"
+      ] 
+    },
+    {
+      "name": "UCSD Video Processing Lab - Dr. Nguyen (ECE Dept.)",
+      "href": "https://ece.ucsd.edu/",
+      "title": "Software Engineer + CV Research Assistant",
+      "logo": "/ucsd-ece.png",
+      "start": "Feb 2025",
+      "description": [
+        "Leveraged YOLOv11 to classify student actions with 80% accuracy to evaluate attentiveness score during lectures",
+        "Accelerated real-time classification by 99% by leveraging Socket.IO to process continuous data from video feeds ",
+        "Researching applications of computer vision to provide data for professors to evaluate and improve their lectures"
+      ] 
+    },
+    {
       "name": "UCSD XR Lab - Dr. Kirsh (CSE Dept.)",
       "href": "https://cse.ucsd.edu/",
       "title": "Software Engineer + AI Research Assistant",
       "logo": "/ucsd-cse.png",
-      "start": "Dec 2024",
+      "start": "Jan 2025",
       "description": [
         "Migrating data pipeline from CSV stored in PostgreSQL database to HDF5 structure to increase speed of SER project",
         "Accelerated data processing efficiency by 60% by automating audio-to-text transcription workflows using Wispr API",  
@@ -36,32 +59,6 @@
         "Increased user traffic to 35,000+ monthly users by implementing a responsive user interface using React and TypeScript", 
         "Implemented cloud solutions such as AWS Lambda and RDS to scale application infrastructure that maintained web application system’s uptime at 90% during production and utilized Docker containers for version testing",
         "Developed the Community Post & Dream Interpretation features on the mobile application- deployed on the App Store"
-      ]
-    },
-    {
-      "name": "CodeREV Kids",
-      "href": "https://www.coderevkids.com/",
-      "title": "Head STEM Instructor / Curriculum Developer",
-      "logo": "/CRK.jpg",
-      "start": "Sep 2023",
-      "end": "Apr 2024",
-      "description": [
-        "Instructed 200+ students in STEM projects spanning over robotics utilizing Arduino microcontrollers breadboards and the Arduino IDE to program student-built robots, programming applications, and game design projects",
-        "Restructured 5+ sections of CodeREV Kids' curriculum, enhancing student comprehension and engagement",
-        "Leveraged previous engineering experience to consult 100+ student projects, providing constructive feedback to students to improve upon their projects"
-      ]
-    },  
-    {
-      "name": "Brains & Motion Education",
-      "href": "https://www.brains-and-motion.com/",
-      "title": "Lead STEM Instructor",
-      "logo": "/BAM.jpg",
-      "start": "Jun 2022",
-      "end": "Aug 2022",
-      "description": [
-        "Intructed 500+ students in STEM projects spanning over robotics, programming, and game design",
-        "Developed tailored slides for classes, significantly improving concept comprehension among students",
-        "Fostered partnerships with 20+ local businesses, encouraged real-world application/display of 30+ student projects"
       ]
     }
   ]
