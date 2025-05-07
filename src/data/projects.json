@@ -2,6 +2,77 @@
   "projects": [
     {
       "type": "misc",
+      "name": "LinguaLens",
+      "devpost": "https://devpost.com/software/lingualens-54t71u",
+      "awarded": "#2 Best Tech Innovation @ Bruin AI 2025",
+      "description": "Smart glasses (inspired by meta-raybans) with a spaghetti hinge for live transcription/translation and agentic actions via semantic voice assistant",
+      "image": "/lingualens.png",   
+      "tags": [
+        "C++",
+        "Python",
+        "DeepL API",
+        "Google STT API",
+        "OpenAI API",
+        "Arduino",
+        "OnShape",        
+        "Inkscape"
+      ],
+      "links": [
+        {
+          "name": "Video Demo",
+          "href": "https://www.youtube.com/watch?v=C2Ow8sc2uTg",
+          "icon": "youtube"
+        },
+        {
+          "name": "Source",
+          "href": "https://github.com/mayhong1/bruinaihack",
+          "icon": "github"
+        },
+        {
+          "name": "Devpost",
+          "href": "https://devpost.com/software/lingualens-54t71u",
+          "icon": "hexagon"
+        }
+      ]
+    },
+    {
+      "type": "misc",
+      "name": "Power Tag",
+      "devpost": "https://devpost.com/software/power-tag",
+      "awarded": "#1 Best Overall @ IEEE QP 2024",
+      "description": "Portable battery with integrated GPS location service accessible via embedded Google Maps map in Power Tag's Kotlin mobile app ",
+      "image": "/power-tag.jpg",
+      "tags": [
+        "Kotlin",
+        "C++",
+        "Google Maps API",
+        "Bynk API",
+        "Arduino",
+        "GSM Communication",
+        "Solar Cells",
+        "Figma",
+        "OnShape"
+      ],
+      "links": [
+        {
+          "name": "Video Demo",
+          "href": "https://www.youtube.com/watch?v=GnLkKyTUCf0&t=44s",
+          "icon": "youtube"
+        },
+        {
+          "name": "Source",
+          "href": "https://github.com/ryunzz/IEEE-QP",
+          "icon": "github"
+        },
+        {
+          "name": "Devpost",
+          "href": "https://devpost.com/software/power-tag",
+          "icon": "hexagon"
+        }
+      ]
+    },
+    {
+      "type": "misc",
       "name": "SSVEP BCI Controlled Car",
       "description": "Converting a RC car into a brain-computer interface project by reading electroencephalogram signals (brainwave frequencies) to control a RC car",
       "image": "/TNT.jpg",
@@ -48,42 +119,6 @@
           "name": "Website",
           "href": "https://tellas.vercel.app",
           "icon": "globe"
-        }
-      ]
-    },
-    {
-      "type": "misc",
-      "name": "Power Tag",
-      "devpost": "https://devpost.com/software/power-tag",
-      "awarded": "#1 Best Overall @ IEEE QP 2024",
-      "description": "Portable battery with integrated GPS tracking accessible via Power Tag's Kotlin mobile app ",
-      "image": "/power-tag.jpg",
-      "tags": [
-        "Kotlin",
-        "C++",
-        "Google Maps API",
-        "Bynk API",
-        "Arduino",
-        "GSM Communication",
-        "Solar Cells",
-        "Figma",
-        "OnShape"
-      ],
-      "links": [
-        {
-          "name": "Docs",
-          "href": "https://docs.google.com/document/d/1vHXY2cktga8L-Rg751vY4500SpIR977lDCjheDakogU/edit?usp=sharing",
-          "icon": "file-check"
-        },
-        {
-          "name": "Source",
-          "href": "https://github.com/ryunzz/IEEE-QP",
-          "icon": "github"
-        },
-        {
-          "name": "Devpost",
-          "href": "https://devpost.com/software/power-tag",
-          "icon": "hexagon"
         }
       ]
     },
