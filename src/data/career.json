@@ -1,17 +1,6 @@
 {
   "career": [
     {
-      "name": "FAANG",
-      "href": "",
-      "title": "Incomming Software Engineer Intern",
-      "logo": "/stealth.jpg",
-      "start": "Jun 2025",
-      "end": "Sep 2025",
-      "description": [
-        "infra + full stack :)"
-      ] 
-    },
-    {
       "name": "UCSD Video Processing Lab - Dr. Nguyen (ECE Dept.)",
       "href": "https://ece.ucsd.edu/",
       "title": "Software Engineer + CV Research Assistant",
