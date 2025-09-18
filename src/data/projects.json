@@ -72,57 +72,6 @@
       ]
     },
     {
-      "type": "misc",
-      "name": "SSVEP BCI Controlled Car",
-      "description": "Converting a RC car into a brain-computer interface project by reading electroencephalogram signals (brainwave frequencies) to control a RC car",
-      "image": "/TNT.jpg",
-      "tags": [
-        "C++",
-        "Python",
-        "Pandas",
-        "Tkinter",
-        "Pillow",
-        "SciKit-Learn",
-        "Arduino",        
-        "Unicorn SWE Suite",
-        "Unicorn Hybrid EEG"
-
-      ],
-      "links": [
-        {
-          "name": "Docs",
-          "href": "https://docs.google.com/presentation/d/1EyODMiufMpYiZuFsPL8Bl74bx7Jfy7Jj/edit?usp=sharing&ouid=112719106474251532338&rtpof=true&sd=true",
-          "icon": "file-check"
-        }
-      ]
-    },
-    {
-      "type": "software",
-      "name": "Tellas",
-      "devpost": "https://tellas.vercel.app",
-      "awarded": "(Under Construction)",
-      "description": "SaaS that simplifies customer service facing web applications for various sized companies",
-      "image": "/tellas.png",
-      "tags": [
-        "TypeScript",
-        "Zilliz",
-        "SupaBase",
-        "Docker",
-        "Node.js",
-        "Express.js",
-        "Stripe API",  
-        "Gemini API",
-        "Tailwind CSS"
-      ],
-      "links": [
-        {
-          "name": "Website",
-          "href": "https://tellas.vercel.app",
-          "icon": "globe"
-        }
-      ]
-    },
-    {
       "type": "software",
       "name": "Slug Mommy",
       "devpost": "https://devpost.com/software/slug-mommy",
@@ -187,29 +136,28 @@
     },
     {
       "type": "misc",
-      "name": "Valentine's Day Website",
-      "description": "Valentine's Day webiste to ask my girlfriend to my my valentine!",
-      "image": "/valentines.png",
+      "name": "SSVEP BCI Controlled Car",
+      "description": "Converting a RC car into a brain-computer interface project by reading electroencephalogram signals (brainwave frequencies) to control a RC car",
+      "image": "/TNT.jpg",
       "tags": [
-        "React.js",
-        "TypeScript",
-        "Tailwind CSS",
-        "Node.js",
-        "Express.js"
+        "C++",
+        "Python",
+        "Pandas",
+        "Tkinter",
+        "Pillow",
+        "SciKit-Learn",
+        "Arduino",        
+        "Unicorn SWE Suite",
+        "Unicorn Hybrid EEG"
+
       ],
       "links": [
         {
-          "name": "Website",
-          "href": "https://i-love-yuni.vercel.app/",
-          "icon": "globe"
-        }, 
-        {
-          "name": "Source",
-          "href": "https://github.com/ryunzz/i-love-yuni",
-          "icon": "github"
+          "name": "Docs",
+          "href": "https://docs.google.com/presentation/d/1EyODMiufMpYiZuFsPL8Bl74bx7Jfy7Jj/edit?usp=sharing&ouid=112719106474251532338&rtpof=true&sd=true",
+          "icon": "file-check"
         }
       ]
-    
     },
     {
       "type": "misc",

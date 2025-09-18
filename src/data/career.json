@@ -1,47 +1,51 @@
 {
   "career": [
     {
-      "name": "FAANG",
-      "href": "",
-      "title": "Incomming Software Engineer Intern",
-      "logo": "/stealth.jpg",
+      "name": "Apple",
+      "href": "https://apple.com/",
+      "title": " Software Engineer Intern – Intelligent System Experience (ISE)",
+      "logo": "/apple.png",
       "start": "Jun 2025",
       "end": "Sep 2025",
       "description": [
-        "infra + full stack :)"
+        "Awarded Top 5/1,500+ interns Best Future Apple Feature at iContest 2025 for new AI/ML feature prototypes for iOS/MacOS and pitched to 7 Executives, Directors, and Senior VPs to be integrated natively in Apple’s ecosystem",
+        "Overhauled sections of the codebase by streamlining a data provider to reduce code duplication by 66% within the Apple Intelligence (AI) Notification settings and fixed system/UI bugs with rerendering lists of data within the view",
+        "Built end-to-end notification testing application to debug notification UI and internal system/application bundles"
       ] 
     },
     {
-      "name": "UCSD Video Processing Lab - Dr. Nguyen (ECE Dept.)",
-      "href": "https://ece.ucsd.edu/",
-      "title": "Software Engineer + CV Research Assistant",
-      "logo": "/ucsd-ece.png",
-      "start": "Feb 2025",
+      "name": "Uber",
+      "href": "https://uber.com",
+      "title": "Software Engineer Independent Contractor – AI Solutions",
+      "logo": "/uber.png",
+      "start": "May 2025",
       "description": [
-        "Leveraged YOLOv11 to classify student actions with 80% accuracy to evaluate attentiveness score during lectures",
-        "Accelerated real-time classification by 99% by leveraging Socket.IO to process continuous data from video feeds ",
-        "Researching applications of computer vision to provide data for professors to evaluate and improve their lectures"
+        "Invited to provide feedback on platform design in Uber’s Early Access Program (EAP) on its AI/ML training platform ",
+        "Submitted 100+ deliverables; solving/evaluating coding problems/solutions, data labeling, and training AI models",
+        "Maintained a 99% deliverable approval rating by consistently exceeding a 92% accuracy threshold requirement"
       ] 
     },
     {
-      "name": "UCSD XR Lab - Dr. Kirsh (CSE Dept.)",
+      "name": "UCSD XR Lab",
       "href": "https://cse.ucsd.edu/",
-      "title": "Software Engineer + AI Research Assistant",
+      "title": "Software Engineer & Research Assistant, under Dr. Kirsh",
       "logo": "/ucsd-cse.png",
       "start": "Jan 2025",
+      "end": "Jun 2025",
       "description": [
-        "Migrating data pipeline from CSV stored in PostgreSQL database to HDF5 structure to increase speed of SER project",
-        "Accelerated data processing efficiency by 60% by automating audio-to-text transcription workflows using Wispr API",  
-        "Building lab’s custom AI agents to reduce repetitive data annotation tasks by 30% for 3 ongoing lab projects",
+        "Developed speech emotion recognition (SER) model with 80% precision with Python (PyTorch) and Kaggle/EmoDB",
+        "Boosted data pipeline speed by ~40% by replacing CSV-in-PostgreSQL with HDF5 reducing load latency and supporting near real-time file parsing for processing and analyzing lab experiment data for the speech emotion recognition project",
+        "Automated research paper categorization/compilation based on relevance of the content reducing the XR Lab’s workload by 30% across 3 ongoing projects and streamlining lab research- currently deployed on AWS Lightsail",
         "Researching non-Euclidean spaces’ effect on neural basis of spatial cognition and episodic memory in humans"
       ] 
     },
     {
-      "name": "UCSD LIL Lab - Dr. Zettersten (Cog Sci Dept.)",
+      "name": "UCSD LIL Lab",
       "href": "https://cogsci.ucsd.edu/",
-      "title": "Software Engineer + Research Assistant",
+      "title": "Software Engineer & Research Assistant, under Dr. Zettersten",
       "logo": "/ucsd-cog-sci.png",
       "start": "Dec 2024",
+      "end": "Jun 2025",
       "description": [
         "Implementing a React and JsPsych web applications to gather data and run experiments for on various lab projects",
         "Analyzing 3,000+ empirical data points identifying significant patterns in language learning and visualized data using R", 
