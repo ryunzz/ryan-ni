@@ -73,32 +73,6 @@
     },
     {
       "type": "software",
-      "name": "Tellas",
-      "devpost": "https://tellas.vercel.app",
-      "awarded": "(Under Construction)",
-      "description": "SaaS that simplifies customer service facing web applications for various sized companies",
-      "image": "/tellas.png",
-      "tags": [
-        "TypeScript",
-        "Zilliz",
-        "SupaBase",
-        "Docker",
-        "Node.js",
-        "Express.js",
-        "Stripe API",  
-        "Gemini API",
-        "Tailwind CSS"
-      ],
-      "links": [
-        {
-          "name": "Website",
-          "href": "https://tellas.vercel.app",
-          "icon": "globe"
-        }
-      ]
-    },
-    {
-      "type": "software",
       "name": "Slug Mommy",
       "devpost": "https://devpost.com/software/slug-mommy",
       "awarded": "#1 Best UI / UX @ Cruz Hacks 2024",
