@@ -19,7 +19,8 @@
 @keyframes bounce { 0%, 100% { transform: translateY(-25%); animation-timing-function: cubic-bezier(.8, 0, 1, 1); } 50% { transform: none; animation-timing-function: cubic-bezier(0, 0, .2, 1); } }
 @media (prefers-reduced-motion: reduce) { .resume svg { animation: none; } }
 .resume:hover { background: var(--link); color: var(--panel-000); }
-.resume:hover span { animation: none; background: none; -webkit-text-fill-color: currentColor; }
+/* hover inverts: dark label and icon on the blue fill (the sheen is switched off so the text is solid) */
+.resume:hover span { animation: none; background: none; color: var(--panel-000); -webkit-text-fill-color: var(--panel-000); }
 
 .tlink { color: var(--ink-muted); text-decoration: none; background: none; border: 0; padding: 0; font: inherit; cursor: pointer; }
 .tlink:hover { color: var(--link); text-decoration: underline; text-underline-offset: 3px; }
