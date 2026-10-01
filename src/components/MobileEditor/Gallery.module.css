@@ -1,0 +1,15 @@
+/* same rhythm as the experience cards: space-4 insets, project-title, body copy */
+.gallery { display: grid; gap: var(--space-2); padding: 0 var(--space-2); }
+.card { padding: var(--space-4); border-radius: var(--radius-md); scroll-snap-align: start; scroll-margin-top: var(--space-2); }
+.card[aria-current="true"] { background: var(--panel-300); }
+.pic { position: relative; display: block; width: 100%; aspect-ratio: 16 / 9; border-radius: var(--radius-md); overflow: hidden; background: var(--theater-black); }
+.img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.play { position: absolute; left: var(--space-3); bottom: var(--space-3); width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; background: rgba(0,0,0,.55); color: var(--ink); }
+.play svg { width: 16px; height: 16px; }
+.dur { position: absolute; right: var(--space-3); bottom: var(--space-3); padding: 2px 6px; border-radius: var(--radius-sm); background: rgba(0,0,0,.55); color: var(--ink); font: var(--type-tick); }
+.head { display: flex; align-items: baseline; gap: var(--space-2); margin-top: var(--space-3); }
+.head h3 { margin: 0; flex: 1; min-width: 0; font: var(--type-project-title); color: var(--ink); }
+.type { color: var(--ink-faint); font: 400 12px/16px var(--font-mono); }
+.awards { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-2); }
+.desc { margin: var(--space-2) 0 0; font: var(--type-body); color: var(--ink-muted); }
+.desc strong { color: var(--ink); font-weight: 600; }

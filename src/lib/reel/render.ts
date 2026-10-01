@@ -376,3 +376,22 @@ export function drawScreenLoop(ctx: CanvasRenderingContext2D, W: number, H: numb
   ctx.fillStyle = "rgba(0,0,0,.28)";
   ctx.fillRect(0, 0, W, H);
 }
+
+/** a still for gallery cards: the first V1 clip (still, stand-in footage or readme card) with the project's grade */
+export function drawPoster(ctx: CanvasRenderingContext2D, W: number, H: number, p: Project) {
+  const v1 = p.tracks.find((x) => x.id === "V1")?.clips[0];
+  ctx.fillStyle = "#000";
+  ctx.fillRect(0, 0, W, H);
+  if (!v1 || v1.type === "text") return drawCard(ctx, W, H, p);
+  if (v1.type === "image") drawStill(ctx, W, H, v1, 0, -1, 0);
+  else drawFootage(ctx, W, H, v1, 1.5);
+  if (p.kind === "video") {
+    ctx.save();
+    ctx.globalCompositeOperation = "soft-light";
+    ctx.fillStyle = "rgba(224,122,58,.45)";
+    ctx.fillRect(0, 0, W, H / 2);
+    ctx.fillStyle = "rgba(30,110,120,.45)";
+    ctx.fillRect(0, H / 2, W, H / 2);
+    ctx.restore();
+  }
+}

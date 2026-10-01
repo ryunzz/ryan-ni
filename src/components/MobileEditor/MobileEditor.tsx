@@ -1,7 +1,7 @@
 "use client";
-import { Fragment, useEffect, useMemo, useRef, useState } from "react";
+import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Clip as ClipT } from "@/lib/types";
-import { experience, reel, useSession } from "@/store/session";
+import { experience, me, reel, useSession } from "@/store/session";
 import { drawFootage, drawStill, onImageLoad } from "@/lib/reel/render";
 import { cx, short } from "@/lib/reel/util";
 import { Icon, type IconKey } from "../Icon";
@@ -9,10 +9,12 @@ import { Picture } from "../Picture";
 import { InfoPane } from "../InfoPane";
 import { clipStyles } from "../Timeline/Clip";
 import { ContactBlock, ExpCard } from "../ExperienceView/ExperienceView";
+import { Sheet } from "./Sheet";
+import { Gallery } from "./Gallery";
 import s from "./MobileEditor.module.css";
 
 const PX = 44; /* px per second */
-type Sheet = "projects" | "experience" | "info" | "contact" | null;
+type SheetKind = "projects" | "experience" | "info" | "contact" | null;
 
 function Thumb({ c }: { c: ClipT }) {
   const ref = useRef<HTMLCanvasElement>(null);
@@ -35,7 +37,7 @@ export function MobileEditor({ ref }: { ref?: React.Ref<HTMLDivElement> }) {
   const off = useSession((st) => st.off);
   const playing = useSession((st) => st.playing);
   const projects = useSession((st) => st.projects);
-  const [sheet, setSheet] = useState<Sheet>(null);
+  const [sheet, setSheet] = useState<SheetKind>(null);
   const sc = useRef<HTMLDivElement>(null);
   const strip = useRef<HTMLDivElement>(null);
   const tcRef = useRef<HTMLElement>(null);
@@ -77,14 +79,14 @@ export function MobileEditor({ ref }: { ref?: React.Ref<HTMLDivElement> }) {
     sy.timer = setTimeout(() => (sy.scrubbing = false), 120);
   };
 
-  useEffect(() => {
-    if (!sheet) return;
-    const esc = (e: KeyboardEvent) => e.key === "Escape" && setSheet(null);
-    window.addEventListener("keydown", esc);
-    return () => window.removeEventListener("keydown", esc);
-  }, [sheet]);
+  const close = useCallback(() => setSheet(null), []);
+  const play = (id: string) => { setSheet(null); const st = useSession.getState(); st.load(id); st.setPlaying(true); };
+  const groups = [
+    ["Technical projects", projects.filter((q) => !q.experience && q.section !== "personal")],
+    ["Personal projects", projects.filter((q) => !q.experience && q.section === "personal")],
+  ] as const;
 
-  const tools: [IconKey, string, Sheet][] = [["folder", "Projects", "projects"], ["user", "Experience", "experience"], ["info", "Info", "info"], ["mail", "Contact", "contact"]];
+  const tools: [IconKey, string, SheetKind][] = [["folder", "Projects", "projects"], ["user", "Experience", "experience"], ["info", "Info", "info"], ["mail", "Contact", "contact"]];
 
   return (
     <div ref={ref} className={s.mobile} tabIndex={-1} aria-label="Portfolio editor">
@@ -146,41 +148,39 @@ export function MobileEditor({ ref }: { ref?: React.Ref<HTMLDivElement> }) {
           </button>
         ))}
       </nav>
-      {sheet && (
-        <div className={s.sheet} onClick={(e) => e.target === e.currentTarget && setSheet(null)}>
-          <div className={s.sheetin} role="dialog" aria-modal="true" aria-label={sheet}>
-            {sheet === "contact" && <ContactBlock className={s.sheetContact} />}
-            {sheet === "experience" && (
-              <>
-                <div className={s.sheethd}>Experience</div>
-                {experience().map((x, i) => <ExpCard key={x.file} x={x} i={i} interactive={false} />)}
-                <ContactBlock className={s.sheetContact} />
-              </>
-            )}
-            {sheet === "projects" && (
-              <>
-                {([["About", projects.filter((q) => q.experience)], ["Technical projects", projects.filter((q) => !q.experience && q.section !== "personal")], ["Personal projects", projects.filter((q) => !q.experience && q.section === "personal")]] as const).map(([title, list]) => (
-                  <Fragment key={title}>
-                <div className={s.sheethd}>{title}</div>
-                {list.map((q) => (
-                  <button
-                    type="button"
-                    key={q.id}
-                    className={s.prow}
-                    aria-current={q === p ? "true" : undefined}
-                    onClick={() => { setSheet(null); const st = useSession.getState(); st.load(q.id); st.setPlaying(true); }}
-                  >
-                    <Icon name="folder" /><span className={s.nm}>{q.name}</span><span />
-                    <span className={s.y}>{q.type}</span>
-                  </button>
-                ))}
-                  </Fragment>
-                ))}
-              </>
-            )}
-            {sheet === "info" && <InfoPane p={p} withFiles className={s.sheetInfo} />}
+      {sheet === "contact" && (
+        <Sheet label="Contact" onClose={close}>
+          <ContactBlock className={s.sheetContact} />
+        </Sheet>
+      )}
+      {sheet === "experience" && (
+        <Sheet label="Experience" title="Experience" tall onClose={close}>
+          <div className={s.cards}>
+            {experience().map((x, i) => <ExpCard key={x.file} x={x} i={i} interactive={false} />)}
           </div>
-        </div>
+          <ContactBlock className={s.sheetContact} />
+        </Sheet>
+      )}
+      {sheet === "projects" && (
+        <Sheet label="Projects" title="Projects" tall snap onClose={close}>
+          {me() && (
+            <button type="button" className={s.prow} aria-current={p === me() ? "true" : undefined} onClick={() => play(me()!.id)}>
+              <Icon name="folder" /><span className={s.nm}>{me()!.name}</span><span className={s.intro}>Intro</span>
+              <span className={s.y}>{me()!.type}</span>
+            </button>
+          )}
+          {groups.map(([title, list]) => list.length > 0 && (
+            <Fragment key={title}>
+              <div className={s.sheethd}>{title}</div>
+              <Gallery projects={list} onPlay={(q) => play(q.id)} />
+            </Fragment>
+          ))}
+        </Sheet>
+      )}
+      {sheet === "info" && (
+        <Sheet label="Info" onClose={close}>
+          <InfoPane p={p} withFiles className={s.sheetInfo} />
+        </Sheet>
       )}
     </div>
   );

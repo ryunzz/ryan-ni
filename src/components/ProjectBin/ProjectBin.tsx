@@ -6,10 +6,8 @@ import { cx, years } from "@/lib/reel/util";
 import { Panel } from "../Panel";
 import { Icon } from "../Icon";
 import { InfoPane } from "../InfoPane";
+import { Award } from "../Award";
 import s from "./ProjectBin.module.css";
-
-/** first place is gold; other placements and finalists are silver */
-export const awardTier = (w: string) => (/^#1\b/.test(w.trim()) ? "gold" : "silver");
 
 /** ABOUT: the Ryan Ni folder (always open) with experience files; PROJECTS: one folder per project with its awards */
 export function ProjectBin() {
@@ -108,9 +106,8 @@ export function ProjectBin() {
                     <span className={s.y}>{q.type}</span>
                   </button>
                   {q.awards.map((w) => (
-                    <button type="button" key={w} tabIndex={-1} className={cx(s.child, s.award, awardTier(w) === "gold" ? s.gold : s.silver, sel && s.on)} title={`${q.name}: ${w}`} onClick={() => play(q.id)}>
-                      <Icon name="award" />
-                      <span className={s.shine}>{w}</span>
+                    <button type="button" key={w} tabIndex={-1} className={cx(s.child, s.award)} title={`${q.name}: ${w}`} onClick={() => play(q.id)}>
+                      <Award w={w} lit={sel} />
                     </button>
                   ))}
                 </div>

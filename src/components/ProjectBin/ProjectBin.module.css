@@ -24,17 +24,9 @@ button.row:hover { color: var(--ink); background: var(--panel-200); }
 .job span:last-child { font-family: var(--font-mono); color: var(--ink-faint); }
 .job[aria-selected="true"] { background: var(--panel-300); color: var(--ink); }
 .job[aria-selected="true"] svg { color: var(--playhead); }
-/* pedigree: first place in gold, other placements in silver, with a slow sheen */
-.award { grid-template-columns: 20px minmax(0, 1fr); font: 500 12px/16px var(--font-ui); }
-.gold { --a: var(--award-gold); --a-hi: var(--award-gold-hi); }
-.silver { --a: var(--award-silver); --a-hi: var(--award-silver-hi); }
-.award svg { width: 13px; height: 13px; color: var(--a); filter: drop-shadow(0 0 3px color-mix(in srgb, var(--a) 55%, transparent)); }
-.shine { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--a); background: linear-gradient(110deg, var(--a) 0 42%, var(--a-hi) 50%, var(--a) 58% 100%) 100% 0 / 260% 100%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: sheen 4.5s ease-in-out infinite; }
-.award:nth-child(odd) .shine { animation-delay: .6s; }
+/* pedigree rows under each folder (colors and sheen in Award.module.css) */
+.award { grid-template-columns: minmax(0, 1fr); padding-left: 44px; }
 .award:hover { background: var(--panel-200); }
-.on .shine { filter: drop-shadow(0 0 6px color-mix(in srgb, var(--a) 45%, transparent)); }
-@keyframes sheen { 0% { background-position: 100% 0; } 55%, 100% { background-position: 0 0; } }
-@media (prefers-reduced-motion: reduce) { .shine { animation: none; } }
 
 /* the info pane: up to 55% of the bin so the blurb under the Ryan Ni icons shows */
 .info { flex: 0 0 auto; min-height: 0; max-height: 55%; overflow: auto; border-top: 1px solid var(--line); background: var(--panel-200); }
