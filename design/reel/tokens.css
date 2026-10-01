@@ -9,7 +9,7 @@
   --ink: #ecebe8;
   --ink-muted: #a3a19c;
   --ink-faint: #8c8a85;
-  --playhead: #c9ced6;
+  --playhead: #00e5ff;
   --on-playhead: #140806;
   --clip-video: #6a9be0;
   --clip-image: #57bcbc;
@@ -23,8 +23,8 @@
   --clip-fx-dim: #53462a;
   --clip-audio-dim: #2a473b;
   --clip-ink-dim: #d6d3cd;
-  --link: #c9ced6;
-  --link-hi: #ffffff;
+  --link: #00e5ff;
+  --link-hi: #d9fbff;
   --award-gold: #e9c25c;
   --award-gold-hi: #fff4cf;
   --screen: #f3ede1;
