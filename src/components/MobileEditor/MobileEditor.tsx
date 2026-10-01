@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import type { Clip as ClipT } from "@/lib/types";
 import { experience, reel, useSession } from "@/store/session";
 import { drawFootage, drawStill, onImageLoad } from "@/lib/reel/render";
@@ -159,8 +159,10 @@ export function MobileEditor({ ref }: { ref?: React.Ref<HTMLDivElement> }) {
             )}
             {sheet === "projects" && (
               <>
-                <div className={s.sheethd}>Projects</div>
-                {projects.map((q) => (
+                {([["About", projects.filter((q) => q.experience)], ["Technical projects", projects.filter((q) => !q.experience && q.section !== "personal")], ["Personal projects", projects.filter((q) => !q.experience && q.section === "personal")]] as const).map(([title, list]) => (
+                  <Fragment key={title}>
+                <div className={s.sheethd}>{title}</div>
+                {list.map((q) => (
                   <button
                     type="button"
                     key={q.id}
@@ -171,6 +173,8 @@ export function MobileEditor({ ref }: { ref?: React.Ref<HTMLDivElement> }) {
                     <Icon name="folder" /><span className={s.nm}>{q.name}</span><span />
                     <span className={s.y}>{q.type}</span>
                   </button>
+                ))}
+                  </Fragment>
                 ))}
               </>
             )}

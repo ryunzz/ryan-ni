@@ -2,7 +2,7 @@
 .row { display: grid; grid-template-columns: 20px minmax(0, 1fr) 44px 44px; align-items: center; gap: var(--space-2); padding: 0 var(--space-3); width: 100%; height: 28px; text-align: left; color: var(--ink-muted); font: var(--type-ui-text); }
 .cols { height: 24px; color: var(--ink-faint); border-bottom: 1px solid var(--line); flex: none; font: var(--type-panel-title); letter-spacing: var(--tracking-panel-title); text-transform: var(--case-panel-title); }
 .cols span:nth-child(n+3), .n, .row .y { text-align: right; }
-.list { flex: 1 1 auto; overflow: auto; padding: var(--space-1) 0; min-height: 150px; }
+.list { flex: 1 1 0; overflow: auto; padding: var(--space-1) 0; min-height: 120px; }
 button.row:hover { color: var(--ink); background: var(--panel-200); }
 .row[aria-selected="true"] { background: var(--panel-300); font: var(--type-ui-strong); color: var(--ink); }
 .row[aria-selected="true"] svg { color: var(--playhead); }
@@ -11,7 +11,8 @@ button.row:hover { color: var(--ink); background: var(--panel-200); }
 .nm { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .n, .row .y { color: var(--ink-muted); font: 400 12px/16px var(--font-mono); }
 
-.sect { width: 100%; display: flex; align-items: center; gap: 8px; height: 30px; padding: 0 var(--space-3); margin-top: var(--space-2); border-top: 1px solid var(--line); color: var(--ink-faint); font: var(--type-panel-title); letter-spacing: var(--tracking-panel-title); text-transform: var(--case-panel-title); }
+/* section headers pop: ink and heavier than the rows */
+.sect { width: 100%; display: flex; align-items: center; gap: 8px; height: 32px; padding: 0 var(--space-3); margin-top: var(--space-2); border-top: 1px solid var(--line); color: var(--ink); font: var(--type-panel-title); font-weight: 700; font-size: 12px; letter-spacing: var(--tracking-panel-title); text-transform: var(--case-panel-title); }
 .sect:first-child { border-top: 0; margin-top: 0; }
 .sect span:first-child { flex: 1; }
 .sect .y { font: 400 11px/16px var(--font-mono); letter-spacing: 0; color: var(--ink-faint); text-transform: none; }
@@ -23,10 +24,17 @@ button.row:hover { color: var(--ink); background: var(--panel-200); }
 .job span:last-child { font-family: var(--font-mono); color: var(--ink-faint); }
 .job[aria-selected="true"] { background: var(--panel-300); color: var(--ink); }
 .job[aria-selected="true"] svg { color: var(--playhead); }
-.award { grid-template-columns: 20px minmax(0, 1fr); font: 400 12px/16px var(--font-ui); color: var(--ink-faint); }
-.award svg { width: 13px; height: 13px; }
-.on { color: var(--ink-muted); }
-.on svg { color: var(--playhead); }
+/* pedigree: first place in gold, other placements in silver, with a slow sheen */
+.award { grid-template-columns: 20px minmax(0, 1fr); font: 500 12px/16px var(--font-ui); }
+.gold { --a: var(--award-gold); --a-hi: var(--award-gold-hi); }
+.silver { --a: var(--award-silver); --a-hi: var(--award-silver-hi); }
+.award svg { width: 13px; height: 13px; color: var(--a); filter: drop-shadow(0 0 3px color-mix(in srgb, var(--a) 55%, transparent)); }
+.shine { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--a); background: linear-gradient(110deg, var(--a) 0 42%, var(--a-hi) 50%, var(--a) 58% 100%) 100% 0 / 260% 100%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: sheen 4.5s ease-in-out infinite; }
+.award:nth-child(odd) .shine { animation-delay: .6s; }
+.award:hover { background: var(--panel-200); }
+.on .shine { filter: drop-shadow(0 0 6px color-mix(in srgb, var(--a) 45%, transparent)); }
+@keyframes sheen { 0% { background-position: 100% 0; } 55%, 100% { background-position: 0 0; } }
+@media (prefers-reduced-motion: reduce) { .shine { animation: none; } }
 
-/* the info pane never takes more than 42% of the bin */
-.info { flex: 0 1 auto; min-height: 0; max-height: 42%; overflow: auto; border-top: 1px solid var(--line); background: var(--panel-200); }
+/* the info pane: up to 55% of the bin so the blurb under the Ryan Ni icons shows */
+.info { flex: 0 0 auto; min-height: 0; max-height: 55%; overflow: auto; border-top: 1px solid var(--line); background: var(--panel-200); }

@@ -42,7 +42,7 @@ const clip = z.object({
   style: z.literal("lyric").optional(),
   cue: z.literal("cursor").optional(),
   photo: z.boolean().optional(),
-  stack: z.array(z.object({ label: z.string(), scene: z.number(), src: z.string().optional() })).optional(),
+  stack: z.array(z.object({ label: z.string(), scene: z.number(), at: z.number().optional(), src: z.string().optional() })).optional(),
 });
 const track = z.object({
   id: z.enum(["V3", "V2", "V1", "A1", "A2"]),
@@ -55,6 +55,8 @@ const project = z.object({
   id: z.string().regex(/^[a-z0-9-]+$/),
   name: z.string(),
   type: z.enum(["PROF", "SW/AI", "HW/EE"]),
+  section: z.enum(["technical", "personal"]).default("technical"),
+  tagline: z.string().optional(),
   awards: z.array(z.string()).default([]),
   year: z.number().int().optional(),
   role: z.string(),

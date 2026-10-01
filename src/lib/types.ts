@@ -9,6 +9,8 @@ export type IconName = "github" | "linkedin" | "x" | "youtube" | "email" | "resu
 export interface StackPhoto {
   label: string;
   scene: number;
+  /** seconds after the clip starts that this photo lands (default k * 0.9) */
+  at?: number;
   src?: string;
 }
 
@@ -75,6 +77,10 @@ export interface Project {
   slug: string;
   name: string;
   type: ProjectType;
+  /** bin section: TECHNICAL PROJECTS or PERSONAL PROJECTS */
+  section: "technical" | "personal";
+  /** shown after the name in the info pane, e.g. "18x Hackathon Winner" */
+  tagline?: string;
   awards: string[];
   year?: number;
   role: string;

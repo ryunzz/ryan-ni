@@ -6,9 +6,9 @@
   "year": 2026,
   "role": "CS + Film, UCSD",
   "kind": "reel",
-  "duration": 15,
+  "duration": 19.3,
   "seed": 3,
-  "description": "**B.S. Computer Science** and **B.A. Media Arts (Film)** at UCSD. I do AI research and building things. I love math, poker, and film!",
+  "description": "**B.S. Computer Science** and **B.A. Media Arts (Film)** at UCSD. I do AI research and building things. I love math, poker, and making videos!",
   "links": [
     {
       "label": "Resume",
@@ -138,21 +138,21 @@
         },
         {
           "start": 4.25,
-          "end": 6.4,
-          "label": "Currently, I do AI research and build things.",
+          "end": 10.6,
+          "label": "Currently, I do AI research and build @ hackathons. (18x hackathon wins)",
           "type": "text",
           "style": "lyric"
         },
         {
-          "start": 6.55,
-          "end": 10.3,
-          "label": "I also enjoy math, playing poker, and making videos.",
+          "start": 10.75,
+          "end": 14.5,
+          "label": "I love math, poker, and making videos.",
           "type": "text",
           "style": "lyric"
         },
         {
-          "start": 10.6,
-          "end": 14.7,
+          "start": 14.8,
+          "end": 18.9,
           "label": "Feel free to check out my other projects here!",
           "type": "text",
           "style": "lyric",
@@ -175,17 +175,74 @@
           "photo": true
         },
         {
-          "start": 4.4,
-          "end": 6.35,
-          "label": "research.jpg",
+          "start": 4.25,
+          "end": 10.6,
+          "label": "research + hackathons",
           "type": "image",
           "scene": 4,
           "seed": 71,
-          "photo": true
+          "photo": true,
+          "stack": [
+            {
+              "label": "research.jpg",
+              "scene": 4,
+              "at": 0.3
+            },
+            {
+              "label": "hackathon_01.jpg",
+              "scene": 1,
+              "at": 0.72
+            },
+            {
+              "label": "hackathon_02.jpg",
+              "scene": 0,
+              "at": 1.14
+            },
+            {
+              "label": "hackathon_03.jpg",
+              "scene": 5,
+              "at": 1.56
+            },
+            {
+              "label": "hackathon_04.jpg",
+              "scene": 4,
+              "at": 1.98
+            },
+            {
+              "label": "hackathon_05.jpg",
+              "scene": 3,
+              "at": 2.4
+            },
+            {
+              "label": "hackathon_06.jpg",
+              "scene": 2,
+              "at": 2.82
+            },
+            {
+              "label": "hackathon_07.jpg",
+              "scene": 1,
+              "at": 3.24
+            },
+            {
+              "label": "hackathon_08.jpg",
+              "scene": 0,
+              "at": 3.66
+            },
+            {
+              "label": "hackathon_09.jpg",
+              "scene": 5,
+              "at": 4.08
+            },
+            {
+              "label": "hackathon_10.jpg",
+              "scene": 4,
+              "at": 4.5
+            }
+          ]
         },
         {
-          "start": 6.65,
-          "end": 10.3,
+          "start": 10.85,
+          "end": 14.5,
           "label": "math + poker + film",
           "type": "image",
           "scene": 0,
@@ -223,23 +280,23 @@
         },
         {
           "start": 4.1,
-          "end": 6.5,
+          "end": 10.7,
           "label": "broll_desk.mov",
           "type": "video",
           "scene": 2,
           "seed": 71
         },
         {
-          "start": 6.5,
-          "end": 10.5,
+          "start": 10.7,
+          "end": 14.7,
           "label": "broll_city.mov",
           "type": "video",
           "scene": 1,
           "seed": 40
         },
         {
-          "start": 10.5,
-          "end": 15,
+          "start": 14.7,
+          "end": 19.3,
           "label": "broll_night.mov",
           "type": "video",
           "scene": 5,
@@ -260,12 +317,13 @@
       "clips": [
         {
           "start": 0,
-          "end": 15,
+          "end": 19.3,
           "label": "score.wav",
           "type": "audio",
           "seed": 12
         }
       ]
     }
-  ]
+  ],
+  "tagline": "18x Hackathon Winner"
 }

@@ -11,7 +11,10 @@ export function InfoPane({ p, className, withFiles }: { p: Project; className?: 
   const apps = p.links.some((l) => l.icon);
   return (
     <div className={`${s.info} ${className ?? ""}`}>
-      <h3 className={s.title}>{p.name}</h3>
+      <h3 className={s.title}>
+        {p.name}
+        {p.tagline && <><span className={s.bar} aria-hidden="true">|</span><span className={s.tag}>{p.tagline}</span></>}
+      </h3>
       {!p.experience && <div className={s.meta}>{`${p.role}${p.year ? `  ·  ${p.year}` : ""}  ·  ${short(p.duration)}`}</div>}
       {apps && <AppRow links={p.links} top />}
       <p className={s.desc}><Rich text={p.description} /></p>

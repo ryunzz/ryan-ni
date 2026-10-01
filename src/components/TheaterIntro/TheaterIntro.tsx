@@ -7,7 +7,7 @@ import { reel, useSession } from "@/store/session";
 import { mediaUrl } from "@/lib/media";
 import { drawScreenLoop } from "@/lib/reel/render";
 import { RawImg } from "../RawImg";
-import { TitleCard } from "../TitleCard/TitleCard";
+import { TitleCard, titleStyles as ts } from "../TitleCard/TitleCard";
 import { ROWS, RoomSvg, SeatRow } from "./Room";
 import s from "./TheaterIntro.module.css";
 
@@ -65,6 +65,29 @@ export function TheaterIntro({ ready, mobile, act2Ready, handle, children }: {
     const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
     const st = useSession.getState();
 
+    /* the title types out, then the credit and the name appear; the dolly waits for it (hold) */
+    const chars = Array.from(cr.querySelectorAll<HTMLElement>("[data-ch]"));
+    const [role, name] = Array.from(cr.querySelectorAll<HTMLElement>("[data-credit]"));
+    const typed = { n: 0 };
+    const showChars = () => {
+      const n = Math.floor(typed.n);
+      chars.forEach((c, i) => {
+        c.classList.toggle(ts.typed, i < n);
+        c.classList.toggle(ts.caret, typing && i === n - 1);
+        c.classList.toggle(ts.pre, typing && n === 0 && i === 0);
+      });
+    };
+    let typing = true;
+    const TYPE_AT = 0.25, PER_CHAR = 0.065, typeEnd = TYPE_AT + chars.length * PER_CHAR;
+    const tt = gsap.timeline({ paused: true })
+      .call(() => { typing = true; typed.n = 0; showChars(); }, [], 0)
+      .set([role, name], { opacity: 0, y: 6 }, 0)
+      .to(typed, { n: chars.length, duration: chars.length * PER_CHAR, ease: "none", onUpdate: showChars }, TYPE_AT)
+      .call(() => { typing = false; showChars(); }, [], typeEnd + 0.25)
+      .to(role, { opacity: 0.82, y: 0, duration: 0.35, ease: "power2.out" }, typeEnd + 0.15)
+      .to(name, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, typeEnd + 0.35);
+    const hold = typeEnd + 1.25;
+
     const tl = gsap.timeline({ paused: true, defaults: { ease: "none" } });
     const zoomVars = () => {
       const W = root.clientWidth, H = root.clientHeight, sw = sc.offsetWidth, sh = sc.offsetHeight;
@@ -95,7 +118,6 @@ export function TheaterIntro({ ready, mobile, act2Ready, handle, children }: {
     };
 
     let tween: gsap.core.Tween | null = null, done = false;
-    const minHold = 1.4;
     const ok = Promise.race([ready, new Promise((r) => setTimeout(r, 12000))]);
     const settle = () => {
       loopOn.current = false;
@@ -107,6 +129,7 @@ export function TheaterIntro({ ready, mobile, act2Ready, handle, children }: {
       if (done) return;
       done = true;
       tween?.kill();
+      tt.progress(1);
       if (reduce) {
         /* no dolly: cross-fade from theater to editor in 0.2s, no autoplay */
         tl.progress(1);
@@ -122,8 +145,9 @@ export function TheaterIntro({ ready, mobile, act2Ready, handle, children }: {
       st.seek(0);
       tl.progress(0);
       startLoop();
-      if (reduce) { void ok.then(finish, finish); return; }
-      tween = gsap.to(tl, { progress: 0.72, duration: 2.6, delay: minHold, ease: "power2.inOut", onComplete: () => void ok.then(finish, finish) });
+      if (reduce) { tt.progress(1); void ok.then(finish, finish); return; }
+      tt.restart();
+      tween = gsap.to(tl, { progress: 0.72, duration: 2.6, delay: hold, ease: "power2.inOut", onComplete: () => void ok.then(finish, finish) });
     };
     const replay = () => {
       tween?.kill();
@@ -138,6 +162,7 @@ export function TheaterIntro({ ready, mobile, act2Ready, handle, children }: {
     let seen = false;
     try { seen = !!sessionStorage.getItem(SEEN_KEY); } catch { /* ignore */ }
     if (seen) {
+      tt.progress(1);
       tl.progress(1);
       done = true;
       settle();
@@ -154,6 +179,7 @@ export function TheaterIntro({ ready, mobile, act2Ready, handle, children }: {
       ro.disconnect();
       clearTimeout(rt);
       tween?.kill();
+      tt.kill();
       tl.kill();
       loopOn.current = false;
     };

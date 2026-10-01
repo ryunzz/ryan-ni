@@ -225,18 +225,34 @@ function polaroid(ctx: CanvasRenderingContext2D, H: number, w: number, hh: numbe
 function drawPhoto(ctx: CanvasRenderingContext2D, W: number, H: number, c: Clip, t: number) {
   ctx.textAlign = "left";
   if (c.stack) {
-    const lt0 = t - c.start, fade = clamp((c.end - t) / 0.3, 0, 1);
+    const lt0 = t - c.start, fade = clamp((c.end - t) / 0.3, 0, 1), many = c.stack.length > 3;
     c.stack.forEach((ph, k) => {
-      const lk = lt0 - k * 0.9;
+      const lk = lt0 - (ph.at ?? k * 0.9);
       if (lk < 0) return;
       const a = clamp(lk / 0.25, 0, 1) * fade;
-      const w = W * 0.27, hh = w * 0.75, x = W * 0.6 + k * W * 0.045 + (1 - a) * 24, y = H * 0.12 + k * H * 0.07, rot = [-0.07, 0.04, -0.02][k % 3];
+      let w: number, x: number, y: number, rot: number, z = 1;
+      if (many) {
+        /* a pile: each photo drops onto a seeded spot on the right, clear of the lyric */
+        const r = rng(k * 7919 + 11);
+        w = W * 0.2;
+        x = W * (0.6 + r() * 0.17) + (1 - a) * 18;
+        y = H * (0.08 + r() * 0.5);
+        rot = (r() - 0.5) * 0.26;
+        z = 1 + (1 - a) * 0.08;
+      } else {
+        w = W * 0.27;
+        x = W * 0.6 + k * W * 0.045 + (1 - a) * 24;
+        y = H * 0.12 + k * H * 0.07;
+        rot = [-0.07, 0.04, -0.02][k % 3];
+      }
+      const hh = w * 0.75;
       ctx.save();
       ctx.globalAlpha = a;
       ctx.translate(x + w / 2, y + hh / 2);
       ctx.rotate(rot);
+      ctx.scale(z, z);
       ctx.translate(-w / 2, -hh / 2);
-      polaroid(ctx, H, w, hh, ph.scene, ph.label, ph.src, 0.022);
+      polaroid(ctx, H, w, hh, ph.scene, ph.label, ph.src, many ? 0.018 : 0.022);
       ctx.restore();
     });
     return;

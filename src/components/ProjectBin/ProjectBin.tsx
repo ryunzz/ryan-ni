@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { Fragment, useEffect, useRef } from "react";
 import { me as getMe, useSession } from "@/store/session";
 import { prefetchProject } from "@/lib/reel/prefetch";
 import { cx, years } from "@/lib/reel/util";
@@ -7,6 +7,9 @@ import { Panel } from "../Panel";
 import { Icon } from "../Icon";
 import { InfoPane } from "../InfoPane";
 import s from "./ProjectBin.module.css";
+
+/** first place is gold; other placements and finalists are silver */
+export const awardTier = (w: string) => (/^#1\b/.test(w.trim()) ? "gold" : "silver");
 
 /** ABOUT: the Ryan Ni folder (always open) with experience files; PROJECTS: one folder per project with its awards */
 export function ProjectBin() {
@@ -17,7 +20,10 @@ export function ProjectBin() {
   const anchor = useSession((st) => st.anchor);
   const list = useRef<HTMLDivElement>(null);
   const me = getMe();
-  const work = projects.filter((x) => !x.experience);
+  const sections: [string, typeof projects][] = [
+    ["Technical projects", projects.filter((x) => !x.experience && x.section !== "personal")],
+    ["Personal projects", projects.filter((x) => !x.experience && x.section === "personal")],
+  ];
 
   const play = (id: string) => {
     const st = useSession.getState();
@@ -79,35 +85,39 @@ export function ProjectBin() {
             ))}
           </>
         )}
-        <div className={s.sect}><span>Projects</span><span className={s.y}>{work.length}</span></div>
-        {work.map((q) => {
-          const sel = view === "player" && q === p;
-          return (
-            <div key={q.id} className={s.group}>
-              <button
-                type="button"
-                role="option"
-                className={s.row}
-                data-bin-project={q.id}
-                aria-selected={sel}
-                onClick={() => play(q.id)}
-                onPointerEnter={() => prefetchProject(q)}
-                onFocus={() => prefetchProject(q)}
-              >
-                <Icon name="folder" />
-                <span className={s.nm}>{q.name}</span>
-                <span className={s.n}>{q.awards.length}</span>
-                <span className={s.y}>{q.type}</span>
-              </button>
-              {q.awards.map((w) => (
-                <button type="button" key={w} tabIndex={-1} className={cx(s.child, s.award, sel && s.on)} title={`${q.name}: ${w}`} onClick={() => play(q.id)}>
-                  <Icon name="award" />
-                  <span>{w}</span>
-                </button>
-              ))}
-            </div>
-          );
-        })}
+        {sections.map(([title, work]) => (
+          <Fragment key={title}>
+            <div className={s.sect}><span>{title}</span><span className={s.y}>{work.length}</span></div>
+            {work.map((q) => {
+              const sel = view === "player" && q === p;
+              return (
+                <div key={q.id} className={s.group}>
+                  <button
+                    type="button"
+                    role="option"
+                    className={s.row}
+                    data-bin-project={q.id}
+                    aria-selected={sel}
+                    onClick={() => play(q.id)}
+                    onPointerEnter={() => prefetchProject(q)}
+                    onFocus={() => prefetchProject(q)}
+                  >
+                    <Icon name="folder" />
+                    <span className={s.nm}>{q.name}</span>
+                    <span className={s.n}>{q.awards.length}</span>
+                    <span className={s.y}>{q.type}</span>
+                  </button>
+                  {q.awards.map((w) => (
+                    <button type="button" key={w} tabIndex={-1} className={cx(s.child, s.award, awardTier(w) === "gold" ? s.gold : s.silver, sel && s.on)} title={`${q.name}: ${w}`} onClick={() => play(q.id)}>
+                      <Icon name="award" />
+                      <span className={s.shine}>{w}</span>
+                    </button>
+                  ))}
+                </div>
+              );
+            })}
+          </Fragment>
+        ))}
       </div>
       <InfoPane p={info} className={s.info} />
     </Panel>
