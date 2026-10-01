@@ -25,10 +25,5 @@
       "href": "https://devpost.com/software/power-tag"
     }
   ],
-  "media": {
-    "poster": "06-powertag/power-tag.jpg",
-    "stills": [
-      "06-powertag/power-tag.jpg"
-    ]
-  }
+  "media": {}
 }

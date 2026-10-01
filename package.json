@@ -10,7 +10,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "pretypecheck": "npm run index",
+    "prelint": "npm run index"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^7.3.1",
