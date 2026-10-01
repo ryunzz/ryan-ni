@@ -6,10 +6,7 @@
     "director": "Ryan Ni"
   },
   "theater": {
-    "room": null,
-    "seats": null,
-    "screen": null,
-    "loop": null
+    "screen": null
   },
   "contact": {
     "email": "rani@ucsd.edu",
