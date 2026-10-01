@@ -51,7 +51,7 @@
       "place": "San Francisco",
       "summary": "Lightyear funded (HF0 incubated) startup.",
       "bullets": [
-        "Built agent harnesses with integrated wallets that pay users for tasks executed on their own devices; deployed for media distribution, and designed to extend to distributed workloads like market simulations and federated learning."
+        "Built agent harnesses with integrated wallets that pay users for tasks executed on their own devices; deployed for media distribution, and designed to extend to distributed workloads like market simulations, federated learning, etc."
       ],
       "links": [
         {
