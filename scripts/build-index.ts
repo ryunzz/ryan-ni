@@ -278,7 +278,13 @@ function typeCss() {
 
 /* ---------- main ---------- */
 function main() {
-  const manifest = loadManifest();
+  const listed = loadManifest();
+  /* media only resolves when there is somewhere to serve it from: the local folder (/media) or R2.
+   * Otherwise wire nothing, so the stand-ins draw without requesting files that do not exist. */
+  const servable = fs.existsSync(MEDIA) || !!process.env.NEXT_PUBLIC_MEDIA_BASE;
+  if (!servable && Object.values(listed).some((m) => m.files.length))
+    console.log("reel index: no content/media and no NEXT_PUBLIC_MEDIA_BASE; using stand-ins for all media");
+  const manifest: Manifest = servable ? listed : {};
   const aboutRaw = JSON.parse(fs.readFileSync(path.join(CONTENT, "about.json"), "utf8"));
   noEmDash(aboutRaw, "about.json");
   const ab = about.parse(aboutRaw);
