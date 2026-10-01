@@ -1,0 +1,5 @@
+# media lives on R2; old site is kept in git only
+content/media
+public/media
+legacy
+design/reel/reference-demo.html
