@@ -1,0 +1,59 @@
+<!-- @dsCard height=288 -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Reel</title>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400&family=Instrument+Serif&display=swap" rel="stylesheet">
+<style>
+  html, body { margin:0; height:100%; }
+  body { background:var(--panel-100); color:var(--ink); font-family:var(--font-ui); overflow:hidden; }
+  .cover { position:relative; height:288px; overflow:hidden; }
+  .art { position:absolute; top:0; left:480px; width:480px; height:288px; overflow:hidden; }
+  .art svg { display:block; width:480px; height:288px; }
+  .lane { fill:var(--panel-000); }
+  .v { fill:var(--clip-video); } .t { fill:var(--clip-text); } .a { fill:var(--clip-audio); }
+  .c { rx:var(--radius-sm); }
+  .ph { fill:var(--playhead); }
+  .words { position:absolute; left:var(--space-6); bottom:var(--space-6); max-width:440px; }
+  .name { margin:0; font-family:var(--font-display); font-size:120px; line-height:.92; font-weight:400; letter-spacing:-.01em; color:var(--ink); }
+  .tag { margin:var(--space-2) 0 0 4px; font-size:14px; line-height:20px; color:var(--ink-muted); }
+</style>
+</head>
+<body>
+<div class="cover">
+<div class="art" aria-hidden="true">
+<svg viewBox="0 0 480 288" width="480" height="288">
+<!--
+  blocks      clip-text, clip-video, clip-audio as clips on four panel-000 lanes, track-h (36) tall, bleeding off the right edge; about 28% of 960x288
+  arrangement a strip of unequal bands: four lanes stacked like a timeline, clips of unequal length butted together, lanes start space-6 in
+  pattern     tiles cut by radius-sm (the clip) from "dense, modular UI": the timeline itself; one playhead (2px, playhead) crossing every lane
+  scales      lane height track-h 36, lane gap space-2 8, clip inset space-1 4, top inset space-8 32, corners radius-sm 2
+-->
+<rect class="lane" x="24" y="32" width="456" height="36"/>
+<rect class="lane" x="24" y="76" width="456" height="36"/>
+<rect class="lane" x="24" y="120" width="456" height="36"/>
+<rect class="lane" x="24" y="164" width="456" height="36"/>
+<rect class="lane" x="24" y="208" width="456" height="36"/>
+<rect class="t c" x="40" y="36" width="96" height="28" rx="2"/>
+<rect class="t c" x="360" y="36" width="140" height="28" rx="2"/>
+<rect class="v c" x="24" y="80" width="80" height="28" rx="2"/>
+<rect class="v c" x="106" y="80" width="136" height="28" rx="2"/>
+<rect class="v c" x="244" y="80" width="64" height="28" rx="2"/>
+<rect class="v c" x="310" y="80" width="190" height="28" rx="2"/>
+<rect class="a c" x="72" y="124" width="112" height="28" rx="2"/>
+<rect class="a c" x="232" y="124" width="160" height="28" rx="2"/>
+<rect class="a c" x="24" y="168" width="480" height="28" rx="2"/>
+<rect class="v c" x="24" y="212" width="176" height="28" rx="2"/>
+<rect class="t c" x="202" y="212" width="48" height="28" rx="2"/>
+<rect class="ph" x="263" y="24" width="2" height="228"/>
+<path class="ph" d="M258 16h12v8l-6 6-6-6z"/>
+</svg>
+</div>
+<div class="words">
+  <h1 class="name">Reel</h1>
+  <p class="tag">Ryan Ni's portfolio, cut like a film. Scrub it.</p>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,13 @@
+<!-- @dsCard group="Panels" height=280 width=1100 subtitle="Drag to scrub, eye and speaker toggle layers" -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Timeline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+<style>html,body{margin:0;background:var(--panel-000);}</style>
+</head>
+<body>
+<div class="rl-root" id="root" style="height:280px;display:flex;padding:4px"></div>
+<script>var s = new Reel.Session(); var t = Reel.mountTimeline(document.getElementById("root"), s); t.style.flex = "1"; s.seek(9.5);</script>
+</body>
+</html>

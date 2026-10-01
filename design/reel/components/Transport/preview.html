@@ -1,0 +1,17 @@
+<!-- @dsCard group="Parts" height=110 width=520 subtitle="Stopped and playing" -->
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Transport</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>html,body{margin:0;background:var(--panel-000);} .wrap{margin:8px;display:grid;gap:4px} .rl-transportrow{background:var(--panel-100);border-radius:var(--radius-md)}</style>
+</head><body>
+<div class="rl-root wrap" id="w"></div>
+<script>
+  [false, true].forEach(function (on, i) {
+    var s = new Reel.Session(); s.seek(i ? 12.4 : 0);
+    var row = document.createElement('div'); row.className = 'rl-transportrow';
+    row.innerHTML = '<span class="rl-tcnow">' + Reel.tc(s.t) + '</span><span></span><span class="rl-tcdur">' + Reel.tc(s.p.duration) + '</span>';
+    document.getElementById('w').appendChild(row);
+    Reel.mountTransport(row.children[1], s); s.playing = on; s.emit('play');
+  });
+</script>
+</body></html>
