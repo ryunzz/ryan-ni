@@ -34,15 +34,16 @@ export function Timeline() {
 
   /* playhead, meters and live clips follow time imperatively (no React render per frame) */
   useEffect(() => {
-    const clips = Array.from(right.current!.querySelectorAll<HTMLElement>("[data-clip]"));
+    if (hidden || !right.current) return;
+    const clips = Array.from(right.current.querySelectorAll<HTMLElement>("[data-clip]"));
     const meta = clips.map((el) => {
       const [ti, ci] = el.dataset.clip!.split(":").map(Number);
       return { el, tr: p.tracks[ti], c: p.tracks[ti].clips[ci], on: false };
     });
     const pos = () => {
       const st = useSession.getState();
-      if (st.p !== p) return;
-      ph.current!.style.left = `${(st.t / d) * 100}%`;
+      if (st.p !== p || !ph.current) return;
+      ph.current.style.left = `${(st.t / d) * 100}%`;
       const L = meterLevel(st), j = st.playing ? 0.9 + Math.random() * 0.1 : 1;
       const [b0, b1] = bars.current;
       if (b0 && b1) {
@@ -58,7 +59,7 @@ export function Timeline() {
     };
     pos();
     return useSession.subscribe(pos);
-  }, [p, d, off]);
+  }, [p, d, off, hidden]);
 
   const down = useRef(false);
   const scrub = (e: React.PointerEvent) => {

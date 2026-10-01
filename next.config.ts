@@ -5,6 +5,8 @@ const mediaBase = process.env.NEXT_PUBLIC_MEDIA_BASE;
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  devIndicators: false,
+  agentRules: false,
   async redirects() {
     return [
       { source: "/projects", destination: "/", permanent: true },
