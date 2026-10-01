@@ -10,13 +10,13 @@
 .ruler { height: var(--ruler-h); position: relative; background: var(--panel-200); border-bottom: 1px solid var(--line); overflow: hidden; }
 .tickm { position: absolute; bottom: 0; width: 1px; height: 5px; background: var(--line); }
 .tickM { position: absolute; bottom: 0; width: 1px; height: 10px; background: var(--line-strong); }
-.tickl { position: absolute; top: 3px; margin-left: 4px; color: var(--ink-faint); font: var(--type-tick); white-space: nowrap; }
+.tickl { position: absolute; top: 2px; margin-left: 4px; color: var(--ink-faint); font: var(--type-tick); white-space: nowrap; }
 .lane { height: var(--track-h); position: relative; border-bottom: 1px solid var(--line); }
 .off { background: repeating-linear-gradient(135deg, transparent 0 6px, rgba(255,255,255,.025) 6px 12px); }
 .off > * { opacity: .28; }
 .playhead { position: absolute; top: 0; bottom: 0; left: 0; width: 0; pointer-events: none; z-index: 3; }
 .playhead::before { content: ""; position: absolute; top: 0; bottom: 0; left: -1px; width: 2px; background: var(--playhead); }
-.playhead::after { content: ""; position: absolute; top: 0; left: -5px; width: 10px; height: 12px; background: var(--playhead); clip-path: polygon(0 0, 100% 0, 100% 60%, 50% 100%, 0 60%); border-radius: var(--radius-sm); }
+.playhead::after { content: ""; position: absolute; top: 0; left: -5px; width: 10px; height: 11px; background: var(--playhead); clip-path: polygon(0 0, 100% 0, 100% 60%, 50% 100%, 0 60%); border-radius: var(--radius-sm); }
 .meters { background: var(--panel-200); border-left: 1px solid var(--line); display: flex; gap: 3px; justify-content: center; padding: calc(var(--ruler-h) + 4px) 0 4px; }
 .meter { width: 6px; background: var(--panel-000); border-radius: var(--radius-sm); position: relative; overflow: hidden; }
 .meter i { position: absolute; left: 0; right: 0; bottom: 0; height: 0; background: var(--clip-audio); }

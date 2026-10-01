@@ -270,22 +270,26 @@ function drawPhoto(ctx: CanvasRenderingContext2D, W: number, H: number, c: Clip,
 
 function drawLyric(ctx: CanvasRenderingContext2D, W: number, H: number, c: Clip, t: number) {
   const T = tokens();
-  const words = c.label.split(" "), lt = t - c.start, n = Math.min(words.length, Math.floor(lt / 0.08) + 1);
+  /* "\n" in a lyric forces a line break; words still reveal in order, 0.08s apart */
+  const paras = c.label.split("\n").map((l) => l.split(" ").filter(Boolean));
+  const words = paras.flat(), lt = t - c.start, n = Math.min(words.length, Math.floor(lt / 0.08) + 1);
   const out = clamp((c.end - t) / 0.2, 0, 1), size = H * 0.085, maxW = W * 0.56;
   ctx.save();
   ctx.font = `400 ${size}px ${T.display}`;
   ctx.textAlign = "left";
   ctx.textBaseline = "alphabetic";
   const lines: string[][] = [];
-  let line: string[] = [];
-  words.forEach((w) => {
-    const test = line.concat(w).join(" ");
-    if (ctx.measureText(test).width > maxW && line.length) {
-      lines.push(line);
-      line = [w];
-    } else line.push(w);
-  });
-  lines.push(line);
+  for (const para of paras) {
+    let line: string[] = [];
+    para.forEach((w) => {
+      const test = line.concat(w).join(" ");
+      if (ctx.measureText(test).width > maxW && line.length) {
+        lines.push(line);
+        line = [w];
+      } else line.push(w);
+    });
+    lines.push(line);
+  }
   const x0 = W * 0.07, y0 = H * 0.5 - (lines.length - 1) * size * 0.55;
   let k = 0;
   lines.forEach((ln, li) => {

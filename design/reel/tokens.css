@@ -46,11 +46,11 @@
   --menubar-h: 32px;
   --panel-header-h: 28px;
   --footer-h: 28px;
-  --ruler-h: 20px;
-  --track-h: 24px;
+  --ruler-h: 18px;
+  --track-h: 20px;
   --track-header-w: 160px;
   --bin-w: 320px;
-  --timeline-h: 172px;
+  --timeline-h: 150px;
   --font-display: "Instrument Serif", "Times New Roman", serif;
   --font-ui: Geist, "Helvetica Neue", Arial, sans-serif;
   --font-mono: "Geist Mono", ui-monospace, Menlo, monospace;
