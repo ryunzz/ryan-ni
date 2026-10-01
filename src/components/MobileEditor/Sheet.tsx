@@ -2,6 +2,7 @@
 /* A bottom sheet you can drag by its top: pull down to put it away, release to snap back.
  * Opens tall (most of the screen) so there is no dead space above it. */
 import { useCallback, useEffect, useRef, type ReactNode } from "react";
+import shine from "../Shine.module.css";
 import s from "./Sheet.module.css";
 
 /** `tall` sheets (long lists) open to most of the screen; short ones fit their content */
@@ -69,7 +70,7 @@ export function Sheet({ label, title, tall, snap, onClose, children }: { label: 
       <div ref={panel} className={`${s.panel} ${tall ? s.tall : ""}`} role="dialog" aria-modal="true" aria-label={label} tabIndex={-1}>
         <div className={s.grab} onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerCancel={up}>
           <span className={s.handle} />
-          {title && <div className={s.title}>{title}</div>}
+          {title && <div className={s.title}><span className={shine.silver}>{title}</span></div>}
           <button type="button" className={s.close} onClick={close} onPointerDown={(e) => e.stopPropagation()} aria-label={`Close ${label}`}>
             Done
           </button>

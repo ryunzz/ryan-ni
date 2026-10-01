@@ -9,6 +9,7 @@ import { AppRow, EmailButton, LinkChips, linkStyles } from "../Links";
 import { clipStyles } from "../Timeline/Clip";
 import { Ruler, timelineStyles as tl } from "../Timeline/Timeline";
 import { TrackLabel } from "../Timeline/TrackHeader";
+import shine from "../Shine.module.css";
 import s from "./ExperienceView.module.css";
 
 type Hot = { i: number; k: number } | null;
@@ -67,7 +68,7 @@ export function ContactBlock({ className }: { className?: string }) {
   const c = reel.about.contact;
   return (
     <section className={cx(s.contact, className)} id="contact" aria-label="Contact">
-      <div className={s.cap}>Contact</div>
+      <div className={s.cap}><span className={shine.silver}>Contact</span></div>
       <h3>Let&apos;s talk.</h3>
       <p>{c.blurb}</p>
       <AppRow links={[...c.links, { label: "Email", icon: "email" }]} big />

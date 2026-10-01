@@ -8,6 +8,7 @@ import { reel } from "@/store/session";
 import { cx } from "@/lib/reel/util";
 import { Icon } from "./Icon";
 import { copyText, toast } from "./Toast";
+import shine from "./Shine.module.css";
 import s from "./Links.module.css";
 
 const BRAND = { github: faGithub, linkedin: faLinkedin, x: faXTwitter, youtube: faYoutube } as const;
@@ -57,7 +58,7 @@ export function AppRow({ links, big, top }: { links: Link[]; big?: boolean; top?
         ) : (
           <a key={l.label} className={s.resume} href={l.href} target="_blank" rel="noopener" onClick={stop}>
             <Icon name="doc" />
-            <span>{l.label}</span>
+            <span className={shine.silver}>{l.label}</span>
           </a>
         ),
       )}

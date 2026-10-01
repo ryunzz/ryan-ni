@@ -7,6 +7,7 @@ import { Panel } from "../Panel";
 import { Icon } from "../Icon";
 import { InfoPane } from "../InfoPane";
 import { Award } from "../Award";
+import shine from "../Shine.module.css";
 import s from "./ProjectBin.module.css";
 
 /** ABOUT: the Ryan Ni folder (always open) with experience files; PROJECTS: one folder per project with its awards */
@@ -49,7 +50,7 @@ export function ProjectBin() {
       <div ref={list} className={s.list} role="listbox" aria-label="Projects">
         {me && (
           <>
-            <div className={s.sect}><span>About</span><span className={s.y} /></div>
+            <div className={s.sect}><span className={shine.silver}>About</span><span className={s.y} /></div>
             <button
               type="button"
               role="option"
@@ -85,7 +86,7 @@ export function ProjectBin() {
         )}
         {sections.map(([title, work]) => (
           <Fragment key={title}>
-            <div className={s.sect}><span>{title}</span><span className={s.y}>{work.length}</span></div>
+            <div className={s.sect}><span className={shine.silver}>{title}</span><span className={s.y}>{work.length}</span></div>
             {work.map((q) => {
               const sel = view === "player" && q === p;
               return (

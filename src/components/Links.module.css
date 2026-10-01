@@ -16,6 +16,7 @@
 .resume { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px 0 10px; margin-right: var(--space-2); border: 1px solid var(--link); border-radius: var(--radius-md); color: var(--link); text-decoration: none; font: 500 13px/16px var(--font-ui); }
 .resume svg { width: 14px; height: 14px; }
 .resume:hover { background: var(--link); color: var(--panel-000); }
+.resume:hover span { animation: none; background: none; -webkit-text-fill-color: currentColor; }
 
 .tlink { color: var(--ink-muted); text-decoration: none; background: none; border: 0; padding: 0; font: inherit; cursor: pointer; }
 .tlink:hover { color: var(--link); text-decoration: underline; text-underline-offset: 3px; }

@@ -11,6 +11,7 @@ import { clipStyles } from "../Timeline/Clip";
 import { ContactBlock, ExpCard } from "../ExperienceView/ExperienceView";
 import { Sheet } from "./Sheet";
 import { Gallery } from "./Gallery";
+import shine from "../Shine.module.css";
 import s from "./MobileEditor.module.css";
 
 const PX = 44; /* px per second */
@@ -171,7 +172,7 @@ export function MobileEditor({ ref }: { ref?: React.Ref<HTMLDivElement> }) {
           )}
           {groups.map(([title, list]) => list.length > 0 && (
             <Fragment key={title}>
-              <div className={s.sheethd}>{title}</div>
+              <div className={s.sheethd}><span className={shine.silver}>{title}</span></div>
               <Gallery projects={list} onPlay={(q) => play(q.id)} />
             </Fragment>
           ))}
