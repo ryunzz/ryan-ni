@@ -10,6 +10,11 @@
   "duration": 30,
   "seed": 44,
   "description": "Placeholder: one line on what Cortex does.",
-  "links": [],
+  "links": [
+    {
+      "label": "Website",
+      "href": "https://aa-cor.tech"
+    }
+  ],
   "media": {}
 }

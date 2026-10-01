@@ -10,6 +10,11 @@
   "duration": 30,
   "seed": 33,
   "description": "Placeholder: one line on what Fire Orca does.",
-  "links": [],
+  "links": [
+    {
+      "label": "Website",
+      "href": "https://fire-orca.vercel.app"
+    }
+  ],
   "media": {}
 }
