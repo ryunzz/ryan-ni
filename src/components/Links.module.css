@@ -13,8 +13,11 @@
 .big { gap: var(--space-2); margin-top: var(--space-4); }
 .big .app { width: 44px; height: 44px; border: 1px solid var(--line-strong); }
 .big .app svg, .big .app .fa { width: 20px; height: 20px; }
-.resume { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px 0 10px; margin-right: var(--space-2); border: 1px solid var(--link); border-radius: var(--radius-md); color: var(--link); text-decoration: none; font: 500 13px/16px var(--font-ui); }
-.resume svg { width: 14px; height: 14px; }
+/* the Resume button keeps the original link blue (its own tokens); the sheen follows it */
+.resume { --link: var(--resume); --link-hi: var(--resume-hi); display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px 0 10px; margin-right: var(--space-2); border: 1px solid var(--link); border-radius: var(--radius-md); color: var(--link); text-decoration: none; font: 500 13px/16px var(--font-ui); }
+.resume svg { width: 14px; height: 14px; animation: bounce 1s infinite; }
+@keyframes bounce { 0%, 100% { transform: translateY(-25%); animation-timing-function: cubic-bezier(.8, 0, 1, 1); } 50% { transform: none; animation-timing-function: cubic-bezier(0, 0, .2, 1); } }
+@media (prefers-reduced-motion: reduce) { .resume svg { animation: none; } }
 .resume:hover { background: var(--link); color: var(--panel-000); }
 .resume:hover span { animation: none; background: none; -webkit-text-fill-color: currentColor; }
 
