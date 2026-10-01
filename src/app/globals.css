@@ -1,0 +1,14 @@
+/* next/font families override the token stacks (same fallbacks as tokens.css) */
+:root.fonts {
+  --font-display: var(--nf-display), "Instrument Serif", "Times New Roman", serif;
+  --font-ui: var(--nf-ui), Geist, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: var(--nf-mono), "Geist Mono", ui-monospace, Menlo, monospace;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; overflow: hidden; overscroll-behavior: none; }
+body { background: var(--theater-black); color: var(--ink); font: var(--type-ui-text); font-family: var(--font-ui); -webkit-font-smoothing: antialiased; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+a { color: inherit; }
+/* focus ring: 2px solid ink, 1px offset, on every interactive element */
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 1px; }
+::selection { background: var(--playhead); color: var(--on-playhead); }
