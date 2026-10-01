@@ -1,0 +1,8 @@
+.toast { position: fixed; z-index: 1000; bottom: 28px; transform: translate(-50%, 6px); display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 999px; background: var(--ink); color: var(--panel-000); font: 500 12px/16px var(--font-ui); box-shadow: var(--panel-pop); opacity: 0; pointer-events: none; transition: opacity .18s, transform .18s; white-space: nowrap; }
+.above { bottom: auto; transform: translate(-50%, calc(-100% + 6px)); }
+.on { opacity: 1; transform: translate(-50%, 0); animation: in .18s both; }
+.above.on { transform: translate(-50%, -100%); animation-name: inAbove; }
+.ico { width: 14px; height: 14px; color: var(--panel-000); }
+@keyframes in { from { opacity: 0; transform: translate(-50%, 6px); } }
+@keyframes inAbove { from { opacity: 0; transform: translate(-50%, calc(-100% + 6px)); } }
+@media (prefers-reduced-motion: reduce) { .toast { transition: none; } .on { animation: none; } }

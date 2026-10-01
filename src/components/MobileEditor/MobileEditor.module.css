@@ -1,0 +1,48 @@
+.mobile { position: relative; display: flex; flex-direction: column; height: 100%; background: var(--panel-000); outline: none; }
+.top { height: 48px; flex: none; display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); padding: 0 var(--space-4); }
+.wordmark { font: italic 400 20px/1 var(--font-display); letter-spacing: -.01em; color: var(--ink); }
+.proj { font: var(--type-ui-strong); color: var(--ink-muted); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.cta { height: 30px; padding: 0 14px; display: inline-flex; align-items: center; border-radius: 15px; background: var(--ink); color: var(--panel-000); font: 600 13px/1 var(--font-ui); }
+.view { flex: 1 1 auto; min-height: 0; background: var(--theater-black); display: flex; align-items: center; justify-content: center; container-type: size; }
+.bar { height: 44px; flex: none; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 0 var(--space-4); }
+.tc { font: 400 12px/16px var(--font-mono); color: var(--ink-muted); font-variant-numeric: tabular-nums; }
+.tc b { color: var(--ink); font-weight: 500; }
+.play { width: 44px; height: 44px; display: grid; place-items: center; color: var(--ink); }
+.play svg { width: 22px; height: 22px; }
+.full { justify-self: end; color: var(--ink-muted); width: 44px; height: 44px; display: grid; place-items: center; }
+
+.tl { position: relative; flex: none; height: var(--timeline-h); background: var(--panel-100); }
+.scroll { position: absolute; inset: 0; overflow-x: auto; overflow-y: hidden; scrollbar-width: none; padding: 0 50%; outline: none; }
+.scroll::-webkit-scrollbar { display: none; }
+.strip { position: relative; height: 100%; }
+.ruler { position: relative; height: 26px; }
+.ruler span { position: absolute; top: 7px; transform: translateX(-50%); color: var(--ink-faint); font: var(--type-tick); }
+.lane { position: relative; height: 34px; margin-bottom: 6px; }
+.lane.main { height: 56px; }
+.clip { top: 0; bottom: 0; }
+.main .clip { padding: 0; border-radius: var(--radius-md); }
+.main .clip span { position: absolute; left: 6px; bottom: 4px; color: var(--ink); text-shadow: 0 1px 2px rgba(0,0,0,.8); }
+.thumb { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .55; }
+.main .on .thumb { opacity: 1; }
+.off .clip { opacity: .28; }
+.togs { position: absolute; left: 0; top: 26px; width: 36px; z-index: 2; background: var(--panel-100); box-shadow: 4px 0 8px rgba(0,0,0,.4); }
+.tog { width: 36px; height: 34px; margin-bottom: 6px; display: grid; place-items: center; color: var(--ink-muted); }
+.tog.main { height: 56px; }
+.tog[aria-pressed="true"] { color: var(--playhead); }
+.head { position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; margin-left: -1px; background: var(--ink); pointer-events: none; box-shadow: 0 0 0 1px rgba(0,0,0,.4); }
+
+.tools { flex: none; height: 64px; display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); background: var(--panel-000); }
+.tool { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; color: var(--ink-muted); font: 400 11px/14px var(--font-ui); }
+.tool svg { width: 20px; height: 20px; }
+.tool:hover { color: var(--ink); }
+
+.sheet { position: absolute; inset: 0; background: rgba(0,0,0,.5); display: flex; align-items: flex-end; z-index: 30; }
+.sheetin { width: 100%; max-height: 70%; overflow: auto; background: var(--panel-200); border-radius: 12px 12px 0 0; padding: var(--space-2) 0 var(--space-6); box-shadow: var(--panel-pop); }
+.sheethd { padding: var(--space-2) var(--space-4); color: var(--ink-faint); font: var(--type-panel-title); letter-spacing: var(--tracking-panel-title); text-transform: var(--case-panel-title); }
+.sheetContact { margin-top: var(--space-2); border-top: 0; }
+.sheetInfo { border: 0; }
+.prow { display: grid; grid-template-columns: 20px minmax(0, 1fr) 44px 44px; align-items: center; gap: var(--space-2); width: 100%; height: 44px; padding: 0 var(--space-4); text-align: left; color: var(--ink-muted); font: var(--type-ui-text); }
+.prow[aria-current="true"] { background: var(--panel-300); color: var(--ink); font: var(--type-ui-strong); }
+.prow[aria-current="true"] svg { color: var(--playhead); }
+.nm { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.y { text-align: right; font: 400 12px/16px var(--font-mono); color: var(--ink-muted); }
