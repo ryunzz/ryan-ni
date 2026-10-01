@@ -52,12 +52,14 @@ export function EditorShell({ onEject, ref }: { onEject?: () => void; ref?: Reac
             <button type="button" key={label} className={s.tab} aria-current={tab === i ? "page" : undefined} onClick={go}>{label}</button>
           ))}
         </nav>
-        <EmailButton className={s.file} />
-        {onEject && (
-          <button type="button" className={s.eject} onClick={onEject} aria-label="Replay the theater intro">
-            <Icon name="eject" /><span>Theater</span>
-          </button>
-        )}
+        <div className={s.right}>
+          <EmailButton className={s.file} />
+          {onEject && (
+            <button type="button" className={s.eject} onClick={onEject} aria-label="Replay the theater intro">
+              <Icon name="eject" /><span>Theater</span>
+            </button>
+          )}
+        </div>
       </header>
       <ProjectBin />
       <ProgramMonitor />
