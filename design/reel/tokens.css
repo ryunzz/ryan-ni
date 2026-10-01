@@ -26,8 +26,6 @@
   --link: #6ec1f0;
   --award-gold: #e9c25c;
   --award-gold-hi: #fff4cf;
-  --award-silver: #c3c9d2;
-  --award-silver-hi: #ffffff;
   --screen: #f3ede1;
   --velvet: #5b1a20;
   --velvet-deep: #340e13;
@@ -48,11 +46,11 @@
   --menubar-h: 32px;
   --panel-header-h: 28px;
   --footer-h: 28px;
-  --ruler-h: 24px;
-  --track-h: 32px;
+  --ruler-h: 20px;
+  --track-h: 24px;
   --track-header-w: 160px;
   --bin-w: 320px;
-  --timeline-h: 216px;
+  --timeline-h: 172px;
   --font-display: "Instrument Serif", "Times New Roman", serif;
   --font-ui: Geist, "Helvetica Neue", Arial, sans-serif;
   --font-mono: "Geist Mono", ui-monospace, Menlo, monospace;

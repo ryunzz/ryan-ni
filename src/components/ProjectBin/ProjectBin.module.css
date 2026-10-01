@@ -2,7 +2,8 @@
 .row { display: grid; grid-template-columns: 20px minmax(0, 1fr) 44px 44px; align-items: center; gap: var(--space-2); padding: 0 var(--space-3); width: 100%; height: 28px; text-align: left; color: var(--ink-muted); font: var(--type-ui-text); }
 .cols { height: 24px; color: var(--ink-faint); border-bottom: 1px solid var(--line); flex: none; font: var(--type-panel-title); letter-spacing: var(--tracking-panel-title); text-transform: var(--case-panel-title); }
 .cols span:nth-child(n+3), .n, .row .y { text-align: right; }
-.list { flex: 1 1 0; overflow: auto; padding: var(--space-1) 0; min-height: 120px; }
+/* always tall enough for ABOUT, the Ryan Ni files and the first project with its award */
+.list { flex: 1 1 0; overflow: auto; padding: var(--space-1) 0; min-height: 252px; }
 button.row:hover { color: var(--ink); background: var(--panel-200); }
 .row[aria-selected="true"] { background: var(--panel-300); font: var(--type-ui-strong); color: var(--ink); }
 .row[aria-selected="true"] svg { color: var(--playhead); }
@@ -29,4 +30,4 @@ button.row:hover { color: var(--ink); background: var(--panel-200); }
 .award:hover { background: var(--panel-200); }
 
 /* the info pane: up to 55% of the bin so the blurb under the Ryan Ni icons shows */
-.info { flex: 0 0 auto; min-height: 0; max-height: 55%; overflow: auto; border-top: 1px solid var(--line); background: var(--panel-200); }
+.info { flex: 0 1 auto; min-height: 0; max-height: 55%; overflow: auto; border-top: 1px solid var(--line); background: var(--panel-200); }

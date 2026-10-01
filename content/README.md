@@ -3,7 +3,7 @@
 - `about.json`: wordmark, title card, contact (email, blurb, links), theater screen rectangle.
 - `projects/<NN-slug>/project.json`: one folder per project, sorted by folder name. `00-ryan-ni` (the reel) must stay first.
   Fields: `id, name, type (PROF | SW/AI | HW/EE), section (technical | personal, default technical), tagline?, awards, year?, role, kind (reel | video | images | text), duration, seed, description (**bold** allowed), links, experience?, tracks?`.
-  Awards starting with `#1` show in gold; every other placement shows in silver.
+  Every award shows in gold.
   Omit `tracks` and they are generated (V3, V2, V1, A1, A2).
 
 ## Media: drag and drop

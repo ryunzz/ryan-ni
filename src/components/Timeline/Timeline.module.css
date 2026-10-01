@@ -16,8 +16,8 @@
 .off > * { opacity: .28; }
 .playhead { position: absolute; top: 0; bottom: 0; left: 0; width: 0; pointer-events: none; z-index: 3; }
 .playhead::before { content: ""; position: absolute; top: 0; bottom: 0; left: -1px; width: 2px; background: var(--playhead); }
-.playhead::after { content: ""; position: absolute; top: 0; left: -6px; width: 12px; height: 14px; background: var(--playhead); clip-path: polygon(0 0, 100% 0, 100% 60%, 50% 100%, 0 60%); border-radius: var(--radius-sm); }
-.meters { background: var(--panel-200); border-left: 1px solid var(--line); display: flex; gap: 3px; justify-content: center; padding: calc(var(--ruler-h) + 6px) 0 6px; }
+.playhead::after { content: ""; position: absolute; top: 0; left: -5px; width: 10px; height: 12px; background: var(--playhead); clip-path: polygon(0 0, 100% 0, 100% 60%, 50% 100%, 0 60%); border-radius: var(--radius-sm); }
+.meters { background: var(--panel-200); border-left: 1px solid var(--line); display: flex; gap: 3px; justify-content: center; padding: calc(var(--ruler-h) + 4px) 0 4px; }
 .meter { width: 6px; background: var(--panel-000); border-radius: var(--radius-sm); position: relative; overflow: hidden; }
 .meter i { position: absolute; left: 0; right: 0; bottom: 0; height: 0; background: var(--clip-audio); }
 .meter i.hot { background: var(--playhead); }

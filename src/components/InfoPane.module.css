@@ -2,6 +2,7 @@
 .title { margin: 0; display: flex; flex-wrap: wrap; align-items: baseline; column-gap: var(--space-2); font: var(--type-project-title); letter-spacing: -.01em; color: var(--ink); }
 .bar { color: var(--line-strong); font-style: normal; }
 .tag { font: italic 400 20px/24px var(--font-display); color: var(--award-gold); }
+.awards { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; margin-top: var(--space-1); }
 .meta { margin-top: 2px; color: var(--ink-faint); font: 400 12px/16px var(--font-mono); white-space: pre-wrap; }
 .desc { margin: var(--space-2) 0 0; font: var(--type-body); color: var(--ink); max-width: 60ch; }
 .desc strong { font-weight: 600; color: var(--ink); }

@@ -4,6 +4,7 @@ import { Rich } from "@/lib/reel/rich";
 import { short, years } from "@/lib/reel/util";
 import { AppRow, LinkChips } from "./Links";
 import { Icon } from "./Icon";
+import { Award } from "./Award";
 import s from "./InfoPane.module.css";
 
 /** project-title, role and year (Ryan Ni skips it), description, then app icons (Ryan Ni) or link chips */
@@ -15,7 +16,8 @@ export function InfoPane({ p, className, withFiles }: { p: Project; className?: 
         {p.name}
         {p.tagline && <><span className={s.bar} aria-hidden="true">|</span><span className={s.tag}>{p.tagline}</span></>}
       </h3>
-      {!p.experience && <div className={s.meta}>{`${p.role}${p.year ? `  ·  ${p.year}` : ""}  ·  ${short(p.duration)}`}</div>}
+      {!p.experience && p.awards.length > 0 && <div className={s.awards}>{p.awards.map((w) => <Award key={w} w={w} />)}</div>}
+      {!p.experience && <div className={s.meta}>{`${p.awards.length ? "" : `${p.role}  ·  `}${p.year ? `${p.year}  ·  ` : ""}${short(p.duration)}`}</div>}
       {apps && <AppRow links={p.links} top />}
       <p className={s.desc}><Rich text={p.description} /></p>
       {withFiles && p.experience?.map((x) => (

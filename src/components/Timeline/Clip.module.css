@@ -1,4 +1,4 @@
-.clip { position: absolute; top: 3px; bottom: 3px; border-radius: var(--radius-sm); color: var(--clip-ink-dim); transition: background-color .15s, color .15s; overflow: hidden; display: flex; align-items: flex-start; padding: 3px 6px; font: var(--type-clip-label); cursor: pointer; box-shadow: inset -1px 0 0 rgba(0,0,0,.35); }
+.clip { position: absolute; top: 2px; bottom: 2px; border-radius: var(--radius-sm); color: var(--clip-ink-dim); transition: background-color .15s, color .15s; overflow: hidden; display: flex; align-items: center; padding: 0 6px; font: var(--type-clip-label); cursor: pointer; box-shadow: inset -1px 0 0 rgba(0,0,0,.35); }
 .clip span { position: relative; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .video { background: var(--clip-video-dim); }
 .image { background: var(--clip-image-dim); }
