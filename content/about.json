@@ -1,0 +1,40 @@
+{
+  "wordmark": "Ryan Ni",
+  "titleCard": {
+    "title": "Hello, World!",
+    "credit": "Written and Directed by",
+    "director": "Ryan Ni"
+  },
+  "theater": {
+    "room": null,
+    "seats": null,
+    "screen": null,
+    "loop": null
+  },
+  "contact": {
+    "email": "rani@ucsd.edu",
+    "blurb": "Always up for talking about agents, research, film, or a hand of poker. Email is the fastest way to reach me.",
+    "links": [
+      {
+        "label": "GitHub",
+        "href": "https://github.com/ryunzz",
+        "icon": "github"
+      },
+      {
+        "label": "LinkedIn",
+        "href": "https://www.linkedin.com/in/ryan-ni",
+        "icon": "linkedin"
+      },
+      {
+        "label": "X",
+        "href": "https://x.com/ryanxani",
+        "icon": "x"
+      },
+      {
+        "label": "YouTube",
+        "href": "https://www.youtube.com/@ryun-zz",
+        "icon": "youtube"
+      }
+    ]
+  }
+}

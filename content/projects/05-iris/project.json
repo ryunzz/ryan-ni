@@ -1,0 +1,35 @@
+{
+  "id": "iris",
+  "name": "Iris / LinguaLens",
+  "type": "HW/EE",
+  "awards": [
+    "#1 @ UCSD IEEE 2025",
+    "#2 @ UCLA 2025"
+  ],
+  "year": 2025,
+  "role": "#1 @ UCSD IEEE, #2 @ UCLA",
+  "kind": "images",
+  "duration": 12,
+  "seed": 55,
+  "description": "Smart glasses with live transcription, translation and a voice assistant that takes actions.",
+  "links": [
+    {
+      "label": "Demo",
+      "href": "https://www.youtube.com/watch?v=C2Ow8sc2uTg"
+    },
+    {
+      "label": "GitHub",
+      "href": "https://github.com/mayhong1/bruinaihack"
+    },
+    {
+      "label": "Devpost",
+      "href": "https://devpost.com/software/lingualens-54t71u"
+    }
+  ],
+  "media": {
+    "poster": "05-iris/lingualens.png",
+    "stills": [
+      "05-iris/lingualens.png"
+    ]
+  }
+}

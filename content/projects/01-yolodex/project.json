@@ -1,0 +1,24 @@
+{
+  "id": "yolodex",
+  "name": "YOLO dex",
+  "type": "SW/AI",
+  "awards": [
+    "Top 5 Finalist @ OpenAI Hackathon"
+  ],
+  "role": "Top 5 Finalist @ OpenAI Hackathon (Codex)",
+  "kind": "video",
+  "duration": 36,
+  "seed": 7,
+  "description": "YOLO labeling agent: YouTube URLs to annotated datasets, cutting manual video labeling from ~10 hours to ~10 minutes, with an RL fine-tuning pipeline for YOLO classifiers.",
+  "links": [
+    {
+      "label": "Demo",
+      "href": "https://www.youtube.com/watch?v=GqH8ebDWcww"
+    },
+    {
+      "label": "Pitch to Sam Altman",
+      "href": "https://drive.google.com/drive/u/1/folders/1jEKqrIuQiVK7aiADNhObCvhZ2WE30S35"
+    }
+  ],
+  "media": {}
+}

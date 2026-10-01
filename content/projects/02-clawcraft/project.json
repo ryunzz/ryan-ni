@@ -1,0 +1,20 @@
+{
+  "id": "clawcraft",
+  "name": "ClawCraft (Opal)",
+  "type": "SW/AI",
+  "awards": [
+    "#2 Globally @ pump.fun Build in Public"
+  ],
+  "role": "#2 Globally @ pump.fun Build in Public",
+  "kind": "video",
+  "duration": 34,
+  "seed": 21,
+  "description": "AI agent harness that lets OpenClaw nodes play Minecraft and stream on Twitch: an open-world sandbox for multi-agent coordination and emergent behavior.",
+  "links": [
+    {
+      "label": "pump.fun post",
+      "href": "https://x.com/ryanxani/status/2023553292727709948"
+    }
+  ],
+  "media": {}
+}

@@ -1,0 +1,271 @@
+{
+  "id": "ryan",
+  "name": "Ryan Ni",
+  "type": "PROF",
+  "awards": [],
+  "year": 2026,
+  "role": "CS + Film, UCSD",
+  "kind": "reel",
+  "duration": 15,
+  "seed": 3,
+  "description": "**B.S. Computer Science** and **B.A. Media Arts (Film)** at UCSD. I do AI research and building things. I love math, poker, and film!",
+  "links": [
+    {
+      "label": "Resume",
+      "href": "/resume.pdf",
+      "word": true
+    },
+    {
+      "label": "GitHub",
+      "href": "https://github.com/ryunzz",
+      "icon": "github"
+    },
+    {
+      "label": "LinkedIn",
+      "href": "https://www.linkedin.com/in/ryan-ni",
+      "icon": "linkedin"
+    },
+    {
+      "label": "X",
+      "href": "https://x.com/ryanxani",
+      "icon": "x"
+    },
+    {
+      "label": "YouTube",
+      "href": "https://www.youtube.com/@ryun-zz",
+      "icon": "youtube"
+    },
+    {
+      "label": "Email",
+      "icon": "email"
+    }
+  ],
+  "media": {},
+  "experience": [
+    {
+      "label": "Orca",
+      "file": "Orca - VC Backed Founder",
+      "role": "VC Backed Founder",
+      "from": 2026,
+      "to": 2026,
+      "place": "San Francisco",
+      "summary": "Lightyear funded (HF0 incubated) startup.",
+      "bullets": [
+        "Built agent harnesses with integrated wallets that pay users for tasks executed on their own devices; deployed for media distribution, and designed to extend to distributed workloads like market simulations and federated learning."
+      ],
+      "links": [
+        {
+          "label": "Lightyear",
+          "href": "https://x.com/eostudi0/status/2085019791077900397"
+        },
+        {
+          "label": "HF0",
+          "href": "https://www.hf0.com/facts"
+        }
+      ]
+    },
+    {
+      "label": "Apple",
+      "file": "Apple - SWE Intern",
+      "role": "SWE Intern",
+      "from": 2025,
+      "to": 2025,
+      "place": "Cupertino",
+      "summary": "Intelligent System Experience.",
+      "bullets": [
+        "Placed Top 5/1,500+ interns for Best Future Apple Feature at iContest 2025 and pitched the feature to 7 executives; it is being shipped to production on iOS/macOS."
+      ]
+    },
+    {
+      "label": "UCSD",
+      "file": "UCSD - Research",
+      "role": "SWE and Research Assistant",
+      "from": 2024,
+      "to": 2026,
+      "place": "San Diego",
+      "programs": [
+        {
+          "name": "TRELS Candidate",
+          "from": 2025,
+          "to": 2026,
+          "text": "Training models via custom RL gyms and imitation learning to build a long-horizon agent to reach Global Rank #1 in Polytopia (Google DeepMind tried and stopped in 2021)."
+        },
+        {
+          "name": "XR Lab",
+          "from": 2025,
+          "to": 2025,
+          "text": "Research on human cognition in non-Euclidean spaces and VR/AR."
+        },
+        {
+          "name": "LIL Lab",
+          "from": 2024,
+          "to": 2025,
+          "text": "Research on language learning in children."
+        }
+      ]
+    },
+    {
+      "label": "Dream Voyage",
+      "file": "a16z SR - SWE Intern",
+      "role": "SWE Intern",
+      "from": 2024,
+      "to": 2024,
+      "summary": "a16z Speedrun company.",
+      "bullets": [
+        "Worked on consumer AI applications (web and mobile)."
+      ]
+    }
+  ],
+  "tracks": [
+    {
+      "id": "V3",
+      "name": "Words",
+      "kind": "v",
+      "clips": [
+        {
+          "start": 0.15,
+          "end": 1.8,
+          "label": "Hey, I'm Ryan Ni!",
+          "type": "text",
+          "style": "lyric"
+        },
+        {
+          "start": 1.95,
+          "end": 4.1,
+          "label": "I study Computer Science and Film at UCSD.",
+          "type": "text",
+          "style": "lyric"
+        },
+        {
+          "start": 4.25,
+          "end": 6.4,
+          "label": "Currently, I do AI research and build things.",
+          "type": "text",
+          "style": "lyric"
+        },
+        {
+          "start": 6.55,
+          "end": 10.3,
+          "label": "I also enjoy math, playing poker, and making videos.",
+          "type": "text",
+          "style": "lyric"
+        },
+        {
+          "start": 10.6,
+          "end": 14.7,
+          "label": "Feel free to check out my other projects here!",
+          "type": "text",
+          "style": "lyric",
+          "cue": "cursor"
+        }
+      ]
+    },
+    {
+      "id": "V2",
+      "name": "Photos",
+      "kind": "v",
+      "clips": [
+        {
+          "start": 2.2,
+          "end": 4.05,
+          "label": "ucsd.jpg",
+          "type": "image",
+          "scene": 2,
+          "seed": 37,
+          "photo": true
+        },
+        {
+          "start": 4.4,
+          "end": 6.35,
+          "label": "research.jpg",
+          "type": "image",
+          "scene": 4,
+          "seed": 71,
+          "photo": true
+        },
+        {
+          "start": 6.65,
+          "end": 10.3,
+          "label": "math + poker + film",
+          "type": "image",
+          "scene": 0,
+          "seed": 3,
+          "photo": true,
+          "stack": [
+            {
+              "label": "math.jpg",
+              "scene": 0
+            },
+            {
+              "label": "poker.jpg",
+              "scene": 5
+            },
+            {
+              "label": "camera.jpg",
+              "scene": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "V1",
+      "name": "B-roll",
+      "kind": "v",
+      "clips": [
+        {
+          "start": 0,
+          "end": 4.1,
+          "label": "broll_campus.mov",
+          "type": "video",
+          "scene": 0,
+          "seed": 9
+        },
+        {
+          "start": 4.1,
+          "end": 6.5,
+          "label": "broll_desk.mov",
+          "type": "video",
+          "scene": 2,
+          "seed": 71
+        },
+        {
+          "start": 6.5,
+          "end": 10.5,
+          "label": "broll_city.mov",
+          "type": "video",
+          "scene": 1,
+          "seed": 40
+        },
+        {
+          "start": 10.5,
+          "end": 15,
+          "label": "broll_night.mov",
+          "type": "video",
+          "scene": 5,
+          "seed": 164
+        }
+      ]
+    },
+    {
+      "id": "A1",
+      "name": "Voice",
+      "kind": "a",
+      "clips": []
+    },
+    {
+      "id": "A2",
+      "name": "Music",
+      "kind": "a",
+      "clips": [
+        {
+          "start": 0,
+          "end": 15,
+          "label": "score.wav",
+          "type": "audio",
+          "seed": 12
+        }
+      ]
+    }
+  ]
+}
