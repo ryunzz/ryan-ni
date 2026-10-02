@@ -27,6 +27,8 @@ function palette() {
     seat: v("--seat", "#1b1216"),
     seatEdge: v("--seat-edge", "#3b252b"),
     aisle: v("--aisle-light", "#e0b451"),
+    snackRed: v("--snack-red", "#b0252c"),
+    popcorn: v("--popcorn", "#e8c27a"),
   };
 }
 
@@ -443,4 +445,183 @@ export function drawBeam(ctx: CanvasRenderingContext2D, W: number, H: number, sc
     ctx.fill();
   }
   ctx.restore();
+}
+
+/* ---------- your snacks: the foreground of the POV ---------- */
+
+/** a cup or bucket body: a trapezoid wider at the top, running off the bottom of the frame */
+function tub(cx: number, top: number, wTop: number, wBot: number, bottom: number) {
+  const p = new Path2D();
+  p.moveTo(cx - wTop / 2, top);
+  p.lineTo(cx + wTop / 2, top);
+  p.lineTo(cx + wBot / 2, bottom);
+  p.lineTo(cx - wBot / 2, bottom);
+  p.closePath();
+  return p;
+}
+
+/** in near darkness, lit only from ahead (the screen): fronts in shadow, tops and edges catch light */
+function shadeBody(ctx: CanvasRenderingContext2D, P: ReturnType<typeof palette>, cx: number, top: number, w: number, bottom: number) {
+  const hg = ctx.createLinearGradient(cx - w / 2, 0, cx + w / 2, 0);
+  hg.addColorStop(0, rgba(P.black, 0.88));
+  hg.addColorStop(0.3, rgba(P.black, 0.62));
+  hg.addColorStop(0.55, rgba(P.black, 0.56));
+  hg.addColorStop(1, rgba(P.black, 0.9));
+  ctx.fillStyle = hg;
+  ctx.fillRect(cx - w, top, w * 2, bottom - top);
+  const vg = ctx.createLinearGradient(0, top, 0, bottom);
+  vg.addColorStop(0, rgba(P.black, 0));
+  vg.addColorStop(1, rgba(P.black, 0.7));
+  ctx.fillStyle = vg;
+  ctx.fillRect(cx - w, top, w * 2, bottom - top);
+  texture(ctx, cx - w, top, w * 2, bottom - top, 0.08);
+}
+
+export function drawSnacks(ctx: CanvasRenderingContext2D, W: number, H: number) {
+  const P = palette(), r = rng(99);
+  const unit = Math.min(H * 0.26, W * 0.3);
+
+  /* popcorn bucket in your lap, bottom left */
+  {
+    const cx = W * 0.15, top = H - unit * 0.78, wTop = unit, wBot = unit * 0.8, bottom = H + unit * 0.4;
+    const body = tub(cx, top, wTop, wBot, bottom);
+    ctx.save();
+    ctx.clip(body);
+    ctx.fillStyle = rgba(P.screen);
+    ctx.fillRect(cx - wTop, top, wTop * 2, bottom - top);
+    /* red and white stripes following the taper */
+    const n = 7;
+    for (let k = 0; k < n; k += 2) {
+      const a = k / n, b = (k + 1) / n;
+      ctx.beginPath();
+      ctx.moveTo(cx - wTop / 2 + wTop * a, top);
+      ctx.lineTo(cx - wTop / 2 + wTop * b, top);
+      ctx.lineTo(cx - wBot / 2 + wBot * b, bottom);
+      ctx.lineTo(cx - wBot / 2 + wBot * a, bottom);
+      ctx.closePath();
+      ctx.fillStyle = rgba(P.snackRed);
+      ctx.fill();
+    }
+    shadeBody(ctx, P, cx, top, wTop, bottom);
+    ctx.restore();
+    /* rolled paper rim */
+    ctx.fillStyle = rgba(mix(P.screen, P.black, 0.55));
+    ctx.beginPath();
+    ctx.ellipse(cx, top, wTop / 2, unit * 0.05, 0, 0, Math.PI * 2);
+    ctx.fill();
+    /* popcorn heaped above the rim: kernels lit on top by the screen */
+    const kernels: [number, number, number][] = [];
+    for (let i = 0; i < 260; i++) {
+      const u = r() * 2 - 1, mound = Math.sqrt(Math.max(0, 1 - u * u));
+      const kx = cx + u * wTop * 0.5;
+      /* fill the whole dome, not just its outline */
+      const ky = top + unit * 0.02 - mound * unit * 0.26 * Math.sqrt(r());
+      kernels.push([kx, ky, unit * (0.035 + r() * 0.025)]);
+    }
+    kernels.sort((a, b) => a[1] - b[1]);
+    for (const [kx, ky, kr] of kernels) {
+      const lit = clamp(1 - (ky - (top - unit * 0.32)) / (unit * 0.4), 0, 1);
+      for (let p = 0; p < 3; p++) {
+        const ox = (r() - 0.5) * kr * 1.1, oy = (r() - 0.5) * kr * 0.9, pr = kr * (0.6 + r() * 0.45);
+        const g = ctx.createRadialGradient(kx + ox, ky + oy - pr * 0.5, pr * 0.1, kx + ox, ky + oy, pr);
+        g.addColorStop(0, rgba(mix(mix(P.popcorn, P.screen, 0.2), P.black, 0.25 - lit * 0.2)));
+        g.addColorStop(0.6, rgba(mix(P.popcorn, P.black, 0.6 - lit * 0.25)));
+        g.addColorStop(1, rgba(mix(P.popcorn, P.black, 0.88)));
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.arc(kx + ox, ky + oy, pr, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+    /* shadow where the heap meets the rim */
+    const sg = ctx.createLinearGradient(0, top - unit * 0.04, 0, top + unit * 0.05);
+    sg.addColorStop(0, rgba(P.black, 0));
+    sg.addColorStop(1, rgba(P.black, 0.5));
+    ctx.fillStyle = sg;
+    ctx.fillRect(cx - wTop / 2, top - unit * 0.04, wTop, unit * 0.09);
+  }
+
+  /* soda in the armrest cupholder, bottom right */
+  {
+    const cx = W * 0.84, wTop = unit * 0.5, wBot = unit * 0.4, top = H - unit * 0.95, bottom = H + unit * 0.2;
+    /* armrest under the cup */
+    const ay = H - unit * 0.2;
+    const ag = ctx.createLinearGradient(0, ay, 0, H);
+    ag.addColorStop(0, rgba(mix(P.seat, P.screen, 0.06)));
+    ag.addColorStop(0.1, rgba(P.seat));
+    ag.addColorStop(1, rgba(P.black));
+    ctx.fillStyle = ag;
+    ctx.beginPath();
+    ctx.roundRect(cx - unit * 0.42, ay, unit * 0.84, unit * 0.5, unit * 0.08);
+    ctx.fill();
+    ctx.fillStyle = rgba(P.black, 0.9);
+    ctx.beginPath();
+    ctx.ellipse(cx, ay + unit * 0.06, wBot * 0.62, unit * 0.05, 0, 0, Math.PI * 2);
+    ctx.fill();
+    /* the cup */
+    const body = tub(cx, top, wTop, wBot, bottom);
+    ctx.save();
+    ctx.clip(body);
+    ctx.fillStyle = rgba(P.snackRed);
+    ctx.fillRect(cx - wTop, top, wTop * 2, bottom - top);
+    /* a white wave band across the cup */
+    ctx.fillStyle = rgba(P.screen, 0.9);
+    ctx.beginPath();
+    ctx.moveTo(cx - wTop, top + unit * 0.3);
+    ctx.bezierCurveTo(cx - wTop * 0.2, top + unit * 0.18, cx + wTop * 0.2, top + unit * 0.42, cx + wTop, top + unit * 0.26);
+    ctx.lineTo(cx + wTop, top + unit * 0.36);
+    ctx.bezierCurveTo(cx + wTop * 0.2, top + unit * 0.52, cx - wTop * 0.2, top + unit * 0.28, cx - wTop, top + unit * 0.4);
+    ctx.closePath();
+    ctx.fill();
+    shadeBody(ctx, P, cx, top, wTop, bottom);
+    /* condensation glints */
+    for (let i = 0; i < 14; i++) {
+      ctx.fillStyle = rgba(P.screen, 0.12 + r() * 0.2);
+      ctx.beginPath();
+      ctx.arc(cx + (r() - 0.5) * wTop * 0.8, top + unit * (0.1 + r() * 0.5), unit * (0.004 + r() * 0.006), 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+    /* lid, domed, with its rim catching the screen */
+    const lidY = top, lw = wTop * 1.04;
+    ctx.fillStyle = rgba(mix(P.screen, P.black, 0.5));
+    ctx.beginPath();
+    ctx.ellipse(cx, lidY, lw / 2, unit * 0.045, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = rgba(mix(P.screen, P.black, 0.62));
+    ctx.beginPath();
+    ctx.ellipse(cx, lidY - unit * 0.025, lw * 0.42, unit * 0.04, 0, Math.PI, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = rgba(P.screen, 0.45);
+    ctx.lineWidth = Math.max(1, unit * 0.008);
+    ctx.beginPath();
+    ctx.ellipse(cx, lidY, lw / 2, unit * 0.045, 0, Math.PI * 1.05, Math.PI * 1.95);
+    ctx.stroke();
+    /* straw, angled back toward the screen */
+    const sx0 = cx + wTop * 0.08, sy0 = lidY - unit * 0.04, sx1 = cx + wTop * 0.28, sy1 = lidY - unit * 0.5, sw = unit * 0.045;
+    ctx.save();
+    ctx.lineCap = "round";
+    ctx.strokeStyle = rgba(mix(P.screen, P.black, 0.35));
+    ctx.lineWidth = sw;
+    ctx.beginPath();
+    ctx.moveTo(sx0, sy0);
+    ctx.lineTo(sx1, sy1);
+    ctx.stroke();
+    /* red stripe spiralling up the straw */
+    ctx.strokeStyle = rgba(mix(P.snackRed, P.black, 0.3));
+    ctx.lineWidth = sw * 0.35;
+    ctx.setLineDash([sw * 0.6, sw * 0.9]);
+    ctx.beginPath();
+    ctx.moveTo(sx0, sy0);
+    ctx.lineTo(sx1, sy1);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.strokeStyle = rgba(P.screen, 0.35);
+    ctx.lineWidth = Math.max(1, sw * 0.18);
+    ctx.beginPath();
+    ctx.moveTo(sx0 - sw * 0.3, sy0);
+    ctx.lineTo(sx1 - sw * 0.3, sy1);
+    ctx.stroke();
+    ctx.restore();
+  }
 }

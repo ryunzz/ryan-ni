@@ -8,7 +8,7 @@ import { mediaUrl } from "@/lib/media";
 import { drawScreenLoop } from "@/lib/reel/render";
 import { RawImg } from "../RawImg";
 import { TitleCard, titleStyles as ts } from "../TitleCard/TitleCard";
-import { MOBILE_SHIFT, ROWS, Room, SeatRow, rowBox } from "./Room";
+import { MOBILE_SHIFT, ROWS, Room, SeatRow, Snacks, rowBox } from "./Room";
 import s from "./TheaterIntro.module.css";
 
 export const SEEN_KEY = "reel-seen";
@@ -218,6 +218,8 @@ export function TheaterIntro({ ready, mobile, act2Ready, handle, children }: {
             );
           })
         )}
+        {/* the frontmost layer: your popcorn and soda (it moves first and fastest in the dolly) */}
+        <div className={s.snacks}><Snacks className={s.rowCanvas} /></div>
       </div>
       <div ref={hint} className={s.hint} data-theater><i /><span>Now showing</span></div>
       <button ref={skip} type="button" className={s.skip} data-theater onClick={() => api.current?.finish()}>Skip intro</button>

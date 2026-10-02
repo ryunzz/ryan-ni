@@ -8,6 +8,7 @@
 .media { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 .rows { position: absolute; inset: 0; pointer-events: none; }
 .row { position: absolute; left: -10%; right: -10%; will-change: transform; }
+.snacks { position: absolute; inset: 0; will-change: transform; }
 .rowCanvas { display: block; width: 100%; height: 100%; }
 .beam { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; mix-blend-mode: screen; }
 .seatphoto { left: 0; right: 0; bottom: 0; top: auto; height: auto; }
@@ -15,7 +16,7 @@
 .hint { position: absolute; left: 50%; bottom: 20px; transform: translateX(-50%); display: flex; align-items: center; gap: 10px; color: var(--ink-muted); font: 500 11px/16px var(--font-mono); letter-spacing: .2em; text-transform: uppercase; white-space: nowrap; }
 .hint i { width: 6px; height: 6px; border-radius: 50%; background: var(--playhead); animation: blink 1.2s steps(2, start) infinite; }
 @keyframes blink { to { visibility: hidden; } }
-.skip { position: absolute; right: 20px; bottom: 16px; color: var(--ink-muted); font: 500 11px/16px var(--font-mono); letter-spacing: .16em; text-transform: uppercase; padding: 6px 10px; border: 1px solid var(--line-strong); border-radius: var(--radius-md); z-index: 2; }
+.skip { position: absolute; right: 20px; bottom: 16px; color: var(--ink-muted); font: 500 11px/16px var(--font-mono); letter-spacing: .16em; text-transform: uppercase; padding: 6px 10px; border: 1px solid var(--line-strong); border-radius: var(--radius-md); z-index: 2; background: color-mix(in srgb, var(--theater-black) 65%, transparent); }
 .skip:hover { color: var(--ink); }
 .flash { position: absolute; inset: 0; background: var(--theater-black); opacity: 0; pointer-events: none; }
 .act2 { position: absolute; inset: 0; opacity: 0; visibility: hidden; }

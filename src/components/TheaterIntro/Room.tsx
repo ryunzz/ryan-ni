@@ -1,8 +1,8 @@
 "use client";
 /* The drawn theater: fallback until the photo layers (room, seats) are dropped in.
  * Painted on canvas (lib/reel/theater.ts); redrawn only when the size changes. */
-import { useEffect, useRef, type RefObject } from "react";
-import { drawBeam, drawRoom, drawRow, type Rect } from "@/lib/reel/theater";
+import { useEffect, useRef, useState, type RefObject } from "react";
+import { drawBeam, drawRoom, drawRow, drawSnacks, type Rect } from "@/lib/reel/theater";
 
 /** [seat-top line, seat-back height, head probability] as fractions of the viewport height, back row first */
 export const ROWS: [number, number, number][] = [
@@ -99,4 +99,103 @@ export function SeatRow({ i, shift = 0, className }: { i: number; shift?: number
     return () => { ro.disconnect(); clearTimeout(t); };
   }, [i, shift]);
   return <canvas ref={cv} className={className} aria-hidden="true" />;
+}
+
+function snackColors() {
+  const cs = getComputedStyle(document.documentElement), v = (n: string, fb: string) => cs.getPropertyValue(n).trim() || fb;
+  return {
+    red: v("--snack-red", "#b0252c"), white: v("--screen", "#f3ede1"), popcorn: v("--popcorn", "#e8c27a"),
+    screen: v("--screen", "#f3ede1"), velvet: v("--velvet-deep", "#340e13"), aisle: v("--aisle-light", "#e0b451"),
+  };
+}
+
+/** paint a rendered frame onto the layer with a little depth-of-field blur */
+function paint(el: HTMLCanvasElement, src: CanvasImageSource, r: number) {
+  const ctx = el.getContext("2d")!;
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.clearRect(0, 0, el.width, el.height);
+  ctx.filter = `blur(${1.6 * r}px)`;
+  ctx.drawImage(src, 0, 0, el.width, el.height);
+  ctx.filter = "none";
+}
+
+/** render in a worker (never blocks the intro); resolves null if the browser can't */
+function renderInWorker(w: number, h: number, ratio: number): Promise<ImageBitmap | "software" | null> {
+  if (typeof Worker === "undefined" || typeof OffscreenCanvas === "undefined") return Promise.resolve(null);
+  return new Promise((resolve) => {
+    let worker: Worker;
+    try {
+      worker = new Worker(new URL("../../lib/reel/snacks.worker.ts", import.meta.url), { type: "module" });
+    } catch {
+      return resolve(null);
+    }
+    const done = (v: ImageBitmap | "software" | null) => { worker.terminate(); resolve(v); };
+    worker.onmessage = (e: MessageEvent<{ bmp?: ImageBitmap; ms?: number; software?: boolean; error?: string }>) => {
+      if (process.env.NODE_ENV !== "production" && e.data.ms) console.debug(`[reel] snacks rendered in a worker in ${Math.round(e.data.ms)}ms`);
+      done(e.data.software ? "software" : e.data.bmp ?? null);
+    };
+    worker.onerror = () => done(null);
+    worker.postMessage({ w, h, ratio, colors: snackColors() });
+  });
+}
+
+/** your popcorn and soda in the foreground: real 3D (three.js, loaded lazily), slightly out of focus.
+ * Rendered in a worker when possible, else on the main thread, else drawn flat in 2D. */
+export function Snacks({ className }: { className?: string }) {
+  const cv = useRef<HTMLCanvasElement>(null);
+  const [shown, setShown] = useState(false);
+  const shownRef = useRef(false);
+  useEffect(() => {
+    let alive = true;
+    const flat = () => {
+      const el = cv.current;
+      if (!el) return;
+      const { ctx, w, h, r } = fit(el, 1.5);
+      const off = document.createElement("canvas");
+      off.width = el.width;
+      off.height = el.height;
+      const octx = off.getContext("2d")!;
+      octx.setTransform(r, 0, 0, r, 0, 0);
+      drawSnacks(octx, w, h);
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.filter = `blur(${2 * r}px)`;
+      ctx.drawImage(off, 0, 0);
+      ctx.filter = "none";
+    };
+    const draw = async () => {
+      const el = cv.current;
+      if (!el) return;
+      const w = el.clientWidth, h = el.clientHeight, r = ratio(1.5);
+      const bmp = await renderInWorker(w, h, r);
+      if (!alive || !cv.current) return;
+      el.width = Math.round(w * r);
+      el.height = Math.round(h * r);
+      if (bmp === "software") flat();
+      else if (bmp) {
+        paint(el, bmp, r);
+        bmp.close();
+      } else {
+        try {
+          const { renderSnacks, softwareGL } = await import("@/lib/reel/snacks3d");
+          if (!alive) return;
+          if (softwareGL()) throw new Error("software WebGL");
+          paint(el, renderSnacks(document.createElement("canvas"), w, h, r, snackColors()) as HTMLCanvasElement, r);
+        } catch {
+          flat();
+        }
+      }
+      if (alive) { shownRef.current = true; setShown(true); }
+    };
+    /* start after hydration settles; the worker keeps the heavy part off the main thread */
+    const start = setTimeout(() => void draw(), 300);
+    let t: ReturnType<typeof setTimeout>;
+    const ro = new ResizeObserver(() => {
+      if (!shownRef.current) return;
+      clearTimeout(t);
+      t = setTimeout(() => void draw(), 150);
+    });
+    ro.observe(cv.current!);
+    return () => { alive = false; ro.disconnect(); clearTimeout(t); clearTimeout(start); };
+  }, []);
+  return <canvas ref={cv} className={className} style={{ opacity: shown ? 1 : 0, transition: "opacity .4s" }} aria-hidden="true" />;
 }
