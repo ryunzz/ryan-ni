@@ -78,15 +78,17 @@ export function TheaterIntro({ ready, mobile, act2Ready, handle, children }: {
       });
     };
     let typing = true;
-    const TYPE_AT = 0.25, PER_CHAR = 0.065, typeEnd = TYPE_AT + chars.length * PER_CHAR;
+    /* act one runs 3s from opening the page to the editor: type (~0.6s), credits, a short hold, dolly 1.5s, cut 0.42s */
+    const TYPE_AT = 0.15, PER_CHAR = 0.045, typeEnd = TYPE_AT + chars.length * PER_CHAR;
+    const DOLLY = 1.5, CUT = 0.42;
     const tt = gsap.timeline({ paused: true })
       .call(() => { typing = true; typed.n = 0; showChars(); }, [], 0)
       .set([role, name], { opacity: 0, y: 6 }, 0)
       .to(typed, { n: chars.length, duration: chars.length * PER_CHAR, ease: "none", onUpdate: showChars }, TYPE_AT)
-      .call(() => { typing = false; showChars(); }, [], typeEnd + 0.25)
-      .to(role, { opacity: 0.82, y: 0, duration: 0.35, ease: "power2.out" }, typeEnd + 0.15)
-      .to(name, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, typeEnd + 0.35);
-    const hold = typeEnd + 1.25;
+      .call(() => { typing = false; showChars(); }, [], typeEnd + 0.15)
+      .to(role, { opacity: 0.82, y: 0, duration: 0.25, ease: "power2.out" }, typeEnd + 0.02)
+      .to(name, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, typeEnd + 0.1);
+    const hold = typeEnd + 0.3;
 
     const tl = gsap.timeline({ paused: true, defaults: { ease: "none" } });
     const zoomVars = () => {
@@ -137,7 +139,7 @@ export function TheaterIntro({ ready, mobile, act2Ready, handle, children }: {
         settle();
         return;
       }
-      tween = gsap.to(tl, { progress: 1, duration: 0.55, ease: "power1.out", onComplete: () => { settle(); useSession.getState().setPlaying(true); } });
+      tween = gsap.to(tl, { progress: 1, duration: CUT, ease: "power1.out", onComplete: () => { settle(); useSession.getState().setPlaying(true); } });
     };
     const run = () => {
       done = false;
@@ -147,7 +149,7 @@ export function TheaterIntro({ ready, mobile, act2Ready, handle, children }: {
       startLoop();
       if (reduce) { tt.progress(1); void ok.then(finish, finish); return; }
       tt.restart();
-      tween = gsap.to(tl, { progress: 0.72, duration: 2.6, delay: hold, ease: "power2.inOut", onComplete: () => void ok.then(finish, finish) });
+      tween = gsap.to(tl, { progress: 0.72, duration: DOLLY, delay: hold, ease: "power2.inOut", onComplete: () => void ok.then(finish, finish) });
     };
     const replay = () => {
       tween?.kill();
