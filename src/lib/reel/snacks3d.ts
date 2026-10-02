@@ -4,6 +4,9 @@
  * then the WebGL context is released: nothing renders per frame while the dolly moves the layer.
  * Never imported statically, so three.js stays out of the main bundle. No DOM access in here. */
 import * as THREE from "three";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
+import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import { rng } from "./util";
 
 /** token colors, read on the main thread and passed in */
@@ -31,78 +34,136 @@ function paperGrain(ctx: Ctx2D, w: number, h: number, a: number) {
   }
 }
 
-/* ---------- popcorn: lumpy, irregular kernels ---------- */
-function kernelGeometry(seed: number) {
-  const g = new THREE.IcosahedronGeometry(1, 3);
-  const r = rng(seed), pos = g.attributes.position as THREE.BufferAttribute, v = new THREE.Vector3();
-  const bumps = Array.from({ length: 6 }, () => ({
-    dir: new THREE.Vector3(r() * 2 - 1, r() * 2 - 1, r() * 2 - 1).normalize(),
-    amp: 0.25 + r() * 0.45,
-    sharp: 3 + r() * 5,
-  }));
+/* ---------- popcorn: each popped kernel is a cluster of lumpy lobes, some with a brown hull ---------- */
+function lumpy(g: THREE.BufferGeometry, r: () => number, amount: number) {
+  const pos = g.attributes.position as THREE.BufferAttribute, v = new THREE.Vector3();
+  const f = [1 + r() * 3, 1 + r() * 3, 1 + r() * 3], ph = [r() * 6, r() * 6, r() * 6];
   for (let i = 0; i < pos.count; i++) {
-    v.fromBufferAttribute(pos, i).normalize();
-    let k = 0.62;
-    for (const b of bumps) k += b.amp * Math.exp(-(1 - v.dot(b.dir)) * b.sharp);
-    k += (r() - 0.5) * 0.04;
-    v.multiplyScalar(k);
-    pos.setXYZ(i, v.x, v.y * 0.85, v.z);
+    v.fromBufferAttribute(pos, i);
+    const n = Math.sin(v.x * f[0] * 3 + ph[0]) * Math.sin(v.y * f[1] * 3 + ph[1]) * Math.sin(v.z * f[2] * 3 + ph[2]);
+    v.multiplyScalar(1 + n * amount);
+    pos.setXYZ(i, v.x, v.y, v.z);
   }
   g.computeVertexNormals();
   return g;
 }
+function paintVertices(g: THREE.BufferGeometry, c: THREE.Color) {
+  const n = g.attributes.position.count, col = new Float32Array(n * 3);
+  for (let i = 0; i < n; i++) { col[i * 3] = c.r; col[i * 3 + 1] = c.g; col[i * 3 + 2] = c.b; }
+  g.setAttribute("color", new THREE.BufferAttribute(col, 3));
+  return g;
+}
+function kernelGeometry(seed: number, popcorn: string) {
+  const r = rng(seed), parts: THREE.BufferGeometry[] = [];
+  const cream = new THREE.Color("#fff1d2"), butter = new THREE.Color(popcorn), hull = new THREE.Color("#6e4120");
+  const lobes = 3 + Math.floor(r() * 4);
+  for (let i = 0; i < lobes; i++) {
+    const g = lumpy(new THREE.IcosahedronGeometry(0.42 + r() * 0.34, 2), r, 0.1);
+    const dir = new THREE.Vector3(r() * 2 - 1, (r() * 2 - 1) * 0.7, r() * 2 - 1).normalize().multiplyScalar(0.32 + r() * 0.3);
+    g.scale(1, 0.85 + r() * 0.25, 1);
+    g.translate(dir.x, dir.y, dir.z);
+    parts.push(paintVertices(g, cream.clone().lerp(butter, 0.15 + r() * 0.6)));
+  }
+  if (r() < 0.55) {
+    /* the hull: a small dark flake tucked between the lobes */
+    const h = new THREE.IcosahedronGeometry(0.22, 1);
+    h.scale(1, 0.35, 0.8);
+    h.rotateZ(r() * 3);
+    const d = new THREE.Vector3(r() * 2 - 1, r() * 2 - 1, r() * 2 - 1).normalize().multiplyScalar(0.45);
+    h.translate(d.x, d.y, d.z);
+    h.computeVertexNormals();
+    parts.push(paintVertices(h, hull.clone().lerp(butter, r() * 0.3)));
+  }
+  const merged = mergeGeometries(parts);
+  parts.forEach((p) => p.dispose());
+  if (!merged) throw new Error("kernel merge failed");
+  return merged;
+}
 
-/** bucket in "rim diameter = 1" units: rim at y = 0, body running down */
+/** flared paper tub in "rim diameter = 1" units: rim at y = 0, body running down out of frame.
+ * 16 red stripes stand proud of the white board; a printed label faces you. */
 function popcornBucket(red: string, white: string, popcorn: string) {
   const root = new THREE.Group();
-  const stripes = canvasTexture(1024, 32, (ctx) => {
-    const n = 14;
-    for (let i = 0; i < n; i++) {
-      ctx.fillStyle = i % 2 ? red : white;
-      ctx.fillRect((i / n) * 1024, 0, 1024 / n + 1, 32);
+  const STRIPES = 32, SEGS = STRIPES * 6, H = 1.7;
+  /* board print: stripes aligned with the raised geometry, plus a label on the front */
+  const print = canvasTexture(2048, 1024, (ctx) => {
+    for (let k = 0; k < STRIPES; k++) {
+      ctx.fillStyle = k % 2 ? red : white;
+      ctx.fillRect((k / STRIPES) * 2048, 0, 2048 / STRIPES + 1, 1024);
     }
-    paperGrain(ctx, 1024, 32, 0.08);
+    /* label: a white roundel near the top of the front (u = 0.5) */
+    const cx = 1024, cy = 175, rw = 190, rh = 95;
+    ctx.fillStyle = white;
+    ctx.beginPath();
+    ctx.ellipse(cx, cy, rw, rh, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = red;
+    ctx.lineWidth = 10;
+    ctx.beginPath();
+    ctx.ellipse(cx, cy, rw - 18, rh - 16, 0, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.fillStyle = red;
+    ctx.font = "italic 700 70px Georgia, serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText("Popcorn", cx, cy + 4);
+    paperGrain(ctx, 2048, 1024, 0.06);
   });
-  const paper = new THREE.MeshStandardMaterial({ map: stripes, roughness: 0.82, metalness: 0 });
-  const outer = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.4, 1.3, 96, 1, true), paper);
-  outer.position.y = -0.65;
-  outer.rotation.y = 0.12;
+  /* raised stripes: red bands sit a little proud of the white board */
+  const geo = new THREE.CylinderGeometry(0.5, 0.33, H, SEGS, 8, true, Math.PI, Math.PI * 2);
+  const pos = geo.attributes.position as THREE.BufferAttribute;
+  for (let i = 0; i < pos.count; i++) {
+    const x = pos.getX(i), z = pos.getZ(i);
+    const u = (((Math.atan2(x, z) - Math.PI) / (Math.PI * 2)) % 1 + 1) % 1;
+    const k = Math.floor(u * STRIPES + 1e-6) % STRIPES;
+    const y = pos.getY(i), labelled = Math.abs(u - 0.5) < 0.1 && y > H / 2 - 0.42;
+    if (k % 2 && !labelled) pos.setXYZ(i, x * 1.018, y, z * 1.018);
+  }
+  geo.computeVertexNormals();
+  const board = new THREE.MeshStandardMaterial({ map: print, roughness: 0.62, metalness: 0 });
+  const outer = new THREE.Mesh(geo, board);
+  outer.position.y = -H / 2;
   const inner = new THREE.Mesh(
-    new THREE.CylinderGeometry(0.49, 0.39, 1.28, 64, 1, true),
-    new THREE.MeshStandardMaterial({ color: "#3a2c24", roughness: 0.9, side: THREE.BackSide }),
+    new THREE.CylinderGeometry(0.49, 0.32, H, 96, 1, true),
+    new THREE.MeshStandardMaterial({ color: "#efe6d6", roughness: 0.85, side: THREE.BackSide }),
   );
-  inner.position.y = -0.65;
-  const rim = new THREE.Mesh(new THREE.TorusGeometry(0.5, 0.018, 12, 96), new THREE.MeshStandardMaterial({ color: white, roughness: 0.7 }));
+  inner.position.y = -H / 2;
+  /* rolled rim */
+  const rim = new THREE.Mesh(new THREE.TorusGeometry(0.505, 0.022, 16, 160), new THREE.MeshStandardMaterial({ color: white, roughness: 0.55 }));
   rim.rotation.x = Math.PI / 2;
   for (const m of [outer, inner, rim]) { m.castShadow = true; m.receiveShadow = true; }
   root.add(outer, inner, rim);
 
-  /* the heap: a few hundred kernels filling a dome above the rim, a few spilling over the edge */
-  const r = rng(41), N = 360, variants = 4;
-  const corn = new THREE.Color(popcorn), hull = new THREE.Color("#8a5a2b"), cream = new THREE.Color("#fff3d6");
-  const mat = new THREE.MeshStandardMaterial({ roughness: 0.88, metalness: 0 });
+  /* the heap: kernels piled high over the rim, a few spilling over the front edge */
+  const r = rng(41), N = 300, variants = 6;
+  const mat = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.58, metalness: 0 });
   const meshes = Array.from({ length: variants }, (_, k) => {
-    const m = new THREE.InstancedMesh(kernelGeometry(100 + k * 17), mat, Math.ceil(N / variants));
+    const m = new THREE.InstancedMesh(kernelGeometry(200 + k * 31, popcorn), mat, Math.ceil(N / variants) + 4);
     m.castShadow = true;
     m.receiveShadow = true;
     return m;
   });
   const counts = new Array(variants).fill(0);
-  const o = new THREE.Object3D(), c = new THREE.Color();
-  for (let i = 0; i < N; i++) {
-    const rad = 0.53 * Math.sqrt(r()), ang = r() * Math.PI * 2;
-    const surface = 0.22 * (1 - Math.pow(rad / 0.55, 2));
-    const y = Math.max(-0.02, surface - Math.pow(r(), 2.2) * 0.14);
-    o.position.set(Math.cos(ang) * rad, y, Math.sin(ang) * rad);
+  const o = new THREE.Object3D(), tint = new THREE.Color();
+  const put = (x: number, y: number, z: number, s: number) => {
+    o.position.set(x, y, z);
     o.rotation.set(r() * 6.3, r() * 6.3, r() * 6.3);
-    o.scale.setScalar(0.05 + r() * 0.03);
+    o.scale.setScalar(s);
     o.updateMatrix();
-    const k = i % variants, m = meshes[k];
+    const k = Math.floor(r() * variants), m = meshes[k];
+    if (counts[k] >= m.instanceMatrix.count) return;
     m.setMatrixAt(counts[k], o.matrix);
-    c.copy(corn).lerp(cream, r() * 0.45);
-    if (r() < 0.12) c.lerp(hull, 0.5 + r() * 0.3);
-    m.setColorAt(counts[k], c);
+    m.setColorAt(counts[k], tint.setScalar(0.85 + r() * 0.15));
     counts[k]++;
+  };
+  for (let i = 0; i < N; i++) {
+    const rad = 0.52 * Math.sqrt(r()), ang = r() * Math.PI * 2;
+    const surface = 0.36 * (1 - Math.pow(rad / 0.56, 2));
+    put(Math.cos(ang) * rad, Math.max(-0.01, surface - Math.pow(r(), 2) * 0.16), Math.sin(ang) * rad, 0.075 + r() * 0.035);
+  }
+  for (let i = 0; i < 4; i++) {
+    const ang = Math.PI / 2 + (r() - 0.5) * 1.6;
+    put(Math.cos(ang) * (0.5 + r() * 0.05), -0.02 - r() * 0.05, Math.sin(ang) * (0.5 + r() * 0.05), 0.08 + r() * 0.02);
   }
   meshes.forEach((m, k) => { m.count = counts[k]; root.add(m); });
   return root;
@@ -166,16 +227,43 @@ export function softwareGL() {
 }
 
 /**
+ * A drop-in popcorn model (public/models/popcorn.glb), normalised to the procedural bucket's frame:
+ * centred, 1 unit wide, with the top of the heap at y = 0.22 and the bucket running down out of frame.
+ * Resolves null when the file is missing or fails to load (the procedural bucket is used).
+ */
+async function loadPopcorn(url?: string): Promise<THREE.Object3D | null> {
+  if (!url) return null;
+  try {
+    const gltf = await new GLTFLoader().loadAsync(url);
+    const model = gltf.scene;
+    const box = new THREE.Box3().setFromObject(model), size = box.getSize(new THREE.Vector3()), centre = box.getCenter(new THREE.Vector3());
+    const s = 1 / Math.max(size.x, size.z, 1e-6);
+    model.position.set(-centre.x * s, (0.22 - box.max.y * s), -centre.z * s);
+    model.scale.setScalar(s);
+    const root = new THREE.Group();
+    root.add(model);
+    model.traverse((o) => {
+      const m = o as THREE.Mesh;
+      if (m.isMesh) { m.castShadow = true; m.receiveShadow = true; }
+    });
+    return root;
+  } catch {
+    return null;
+  }
+}
+
+/**
  * Renders the snacks for a w x h (CSS px) layer at `ratio` device pixels into `canvas` and returns it.
  * Throws if WebGL is unavailable.
  */
-export function renderSnacks(canvas: AnyCanvas, w: number, h: number, ratio: number, col: SnackColors) {
+export async function renderSnacks(canvas: AnyCanvas, w: number, h: number, ratio: number, col: SnackColors, popcornUrl?: string) {
+  const model = await loadPopcorn(popcornUrl);
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, preserveDrawingBuffer: true, powerPreference: "low-power" });
   renderer.setPixelRatio(ratio);
   renderer.setSize(w, h, false);
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.05;
+  renderer.toneMappingExposure = 0.9;
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFShadowMap;
 
@@ -191,7 +279,7 @@ export function renderSnacks(canvas: AnyCanvas, w: number, h: number, ratio: num
     obj.rotation.x = tilt;
     scene.add(obj);
   };
-  place(popcornBucket(col.red, col.white, col.popcorn), 2 * 0.16 - 1, h - unit * h * 0.95, unit, 0.32);
+  place(model ?? popcornBucket(col.red, col.white, col.popcorn), 2 * 0.16 - 1, h - unit * h * 0.95, unit, 0.32);
   place(sodaCup(col.red, col.white), 2 * 0.84 - 1, h - unit * h * 1.0, unit * 0.5, 0.28);
 
   /* the screen ahead is the key light; everything else is near-dark */
@@ -213,7 +301,15 @@ export function renderSnacks(canvas: AnyCanvas, w: number, h: number, ratio: num
     scene.add(rimL);
   }
 
+  /* a soft studio environment for believable sheen on the paper, kernels and plastic, kept dim */
+  const pmrem = new THREE.PMREMGenerator(renderer);
+  const env = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+  scene.environment = env;
+  scene.environmentIntensity = 0.07;
+
   renderer.render(scene, camera);
+  env.dispose();
+  pmrem.dispose();
   /* in a worker, copy the frame into a 2D canvas first: a WebGL OffscreenCanvas can hand back an empty bitmap */
   let out: HTMLCanvasElement | ImageBitmap = canvas as HTMLCanvasElement;
   if (typeof OffscreenCanvas !== "undefined" && canvas instanceof OffscreenCanvas) {

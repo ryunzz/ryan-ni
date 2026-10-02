@@ -101,6 +101,9 @@ export function SeatRow({ i, shift = 0, className }: { i: number; shift?: number
   return <canvas ref={cv} className={className} aria-hidden="true" />;
 }
 
+/** the popcorn model (threejsassets.com "Popcorn", free commercial license); procedural popcorn if absent */
+const POPCORN_URL = () => new URL("/models/popcorn.glb", location.origin).href;
+
 function snackColors() {
   const cs = getComputedStyle(document.documentElement), v = (n: string, fb: string) => cs.getPropertyValue(n).trim() || fb;
   return {
@@ -135,7 +138,7 @@ function renderInWorker(w: number, h: number, ratio: number): Promise<ImageBitma
       done(e.data.software ? "software" : e.data.bmp ?? null);
     };
     worker.onerror = () => done(null);
-    worker.postMessage({ w, h, ratio, colors: snackColors() });
+    worker.postMessage({ w, h, ratio, colors: snackColors(), popcornUrl: POPCORN_URL() });
   });
 }
 
@@ -179,7 +182,7 @@ export function Snacks({ className }: { className?: string }) {
           const { renderSnacks, softwareGL } = await import("@/lib/reel/snacks3d");
           if (!alive) return;
           if (softwareGL()) throw new Error("software WebGL");
-          paint(el, renderSnacks(document.createElement("canvas"), w, h, r, snackColors()) as HTMLCanvasElement, r);
+          paint(el, (await renderSnacks(document.createElement("canvas"), w, h, r, snackColors(), POPCORN_URL())) as HTMLCanvasElement, r);
         } catch {
           flat();
         }
