@@ -78,10 +78,10 @@ export function TheaterIntro({ ready, mobile, act2Ready, handle, children }: {
       });
     };
     let typing = true;
-    /* act one runs ~3.3s from opening the page to the editor: type (~0.6s), credits, a short hold, then one
+    /* act one runs ~3.1s locally (~3.4s on the live site) from opening the page to the editor: type (~0.6s), credits, a short hold, then one
      * continuous move (dolly into the screen and the cut) over TRAVEL with a single ease, so it never stops and restarts */
     const TYPE_AT = 0.15, PER_CHAR = 0.045, typeEnd = TYPE_AT + chars.length * PER_CHAR;
-    const TRAVEL = 2.25, SKIP = 0.42, GATE = 0.68;
+    const TRAVEL = 2.05, SKIP = 0.42, GATE = 0.68;
     const tt = gsap.timeline({ paused: true })
       .call(() => { typing = true; typed.n = 0; showChars(); }, [], 0)
       .set([role, name], { opacity: 0, y: 6 }, 0)
