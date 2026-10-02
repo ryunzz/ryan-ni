@@ -105,7 +105,7 @@ export function MobileEditor({ ref }: { ref?: React.Ref<HTMLDivElement> }) {
         </button>
         <button type="button" className={s.full} aria-label="Info" onClick={() => setSheet("info")}><Icon name="info" /></button>
       </div>
-      <div className={s.tl} data-panel>
+      <div className={s.tl} data-panel style={{ height: 26 + tracks.reduce((h, tr) => h + (tr.id === "V1" ? 56 : 34) + 6, 0) + 8 }}>
         <div ref={sc} className={s.scroll} onScroll={onScroll} aria-label="Timeline: scroll to scrub" tabIndex={0}>
           <div ref={strip} className={s.strip} style={{ width: p.duration * PX }}>
             <div className={s.ruler} aria-hidden="true">

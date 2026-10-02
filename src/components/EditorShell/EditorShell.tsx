@@ -16,7 +16,6 @@ import s from "./EditorShell.module.css";
 export function EditorShell({ onEject, ref }: { onEject?: () => void; ref?: React.Ref<HTMLDivElement> }) {
   const view = useSession((st) => st.view);
   const anchor = useSession((st) => st.anchor);
-  const seqHidden = useSession((st) => st.seqHidden);
   const root = useRef<HTMLDivElement | null>(null);
   const tab = view === "experience" ? (anchor === "contact" ? 2 : 1) : 0;
 
@@ -40,7 +39,7 @@ export function EditorShell({ onEject, ref }: { onEject?: () => void; ref?: Reac
   return (
     <div
       ref={(el) => { root.current = el; if (typeof ref === "function") ref(el); else if (ref) ref.current = el; }}
-      className={cx(s.editor, seqHidden && s.seqHidden, view === "experience" && s.viewExp)}
+      className={cx(s.editor, view === "experience" && s.viewExp)}
       tabIndex={0}
       aria-label="Portfolio editor. Space plays, arrows step frames."
       onKeyDown={onKey}

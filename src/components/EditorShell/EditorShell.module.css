@@ -1,8 +1,8 @@
 .editor { position: relative; display: grid; width: 100%; height: 100%; min-height: 560px; background: var(--panel-000); padding: var(--space-1); gap: var(--space-1);
-  grid-template-columns: var(--bin-w) minmax(0, 1fr); grid-template-rows: var(--menubar-h) minmax(0, 1fr) var(--timeline-h) var(--footer-h);
+  grid-template-columns: var(--bin-w) minmax(0, 1fr); grid-template-rows: var(--menubar-h) minmax(0, 1fr) auto var(--footer-h);
   grid-template-areas: "menu menu" "bin mon" "tl tl" "foot foot"; outline: none; }
 .editor:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; }
-.seqHidden { grid-template-rows: var(--menubar-h) minmax(0, 1fr) var(--panel-header-h) var(--footer-h); }
+/* the timeline row sizes to the panel, which animates its own height (Hide sequence slides down) */
 .viewExp { grid-template-rows: var(--menubar-h) minmax(0, 1fr) var(--footer-h); grid-template-areas: "menu menu" "bin exp" "foot foot"; }
 .editor > [data-area="exp"] { display: none; }
 .viewExp > [data-area="exp"] { display: flex; }

@@ -1,4 +1,7 @@
-.timeline { grid-area: tl; }
+/* Hide sequence slides the panel down to its header bar; the monitor grows into the space */
+.timeline { grid-area: tl; height: var(--timeline-h); transition: height .36s cubic-bezier(.2, .8, .2, 1); }
+.collapsed { height: var(--panel-header-h); }
+@media (prefers-reduced-motion: reduce) { .timeline { transition: none; } }
 .tc { color: var(--playhead); font: var(--type-timecode); letter-spacing: var(--tracking-timecode); font-variant-numeric: tabular-nums; }
 /* Hide sequence: filled playhead, like the pause button, so it reads as a control */
 .seqbtn { display: inline-flex; align-items: center; gap: 4px; margin-left: var(--space-3); height: 22px; padding: 0 10px 0 6px; border-radius: var(--radius-md); background: var(--playhead); color: var(--on-playhead); font: 500 11px/16px var(--font-ui); }

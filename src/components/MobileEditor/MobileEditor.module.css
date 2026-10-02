@@ -11,7 +11,8 @@
 .play svg { width: 22px; height: 22px; }
 .full { justify-self: end; color: var(--ink-muted); width: 44px; height: 44px; display: grid; place-items: center; }
 
-.tl { position: relative; flex: none; height: var(--timeline-h); background: var(--panel-100); }
+/* sized to its lanes (inline style) so the tool bar never covers a track */
+.tl { position: relative; flex: none; background: var(--panel-100); }
 .scroll { position: absolute; inset: 0; overflow-x: auto; overflow-y: hidden; scrollbar-width: none; padding: 0 50%; outline: none; }
 .scroll::-webkit-scrollbar { display: none; }
 .strip { position: relative; height: 100%; }

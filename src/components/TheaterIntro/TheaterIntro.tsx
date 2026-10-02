@@ -8,7 +8,7 @@ import { mediaUrl } from "@/lib/media";
 import { drawScreenLoop } from "@/lib/reel/render";
 import { RawImg } from "../RawImg";
 import { TitleCard, titleStyles as ts } from "../TitleCard/TitleCard";
-import { ROWS, RoomSvg, SeatRow } from "./Room";
+import { MOBILE_SHIFT, ROWS, Room, SeatRow, rowBox } from "./Room";
 import s from "./TheaterIntro.module.css";
 
 export const SEEN_KEY = "reel-seen";
@@ -188,7 +188,7 @@ export function TheaterIntro({ ready, mobile, act2Ready, handle, children }: {
   return (
     <div ref={el} className={`${s.theater} ${mobile ? s.mobile : ""}`}>
       <div ref={world} className={s.world} data-theater>
-        {photo ? <RawImg className={s.photo} src={mediaUrl(th.room!)} alt="" /> : <RoomSvg className={s.room} />}
+        {photo ? <RawImg className={s.photo} src={mediaUrl(th.room!)} alt="" /> : <Room className={s.room} beamClass={s.beam} screen={screen} />}
         <div
           ref={screen}
           className={`${s.screen} ${th.screen ? s.placed : ""}`}
@@ -209,11 +209,14 @@ export function TheaterIntro({ ready, mobile, act2Ready, handle, children }: {
         {th.seats ? (
           <div className={`${s.row} ${s.seatphoto}`}><RawImg src={mediaUrl(th.seats)} alt="" /></div>
         ) : (
-          ROWS.map(([n, top, h, heads], i) => (
-            <div key={i} className={s.row} style={{ top: `${top * 100}%`, height: `${h}%` }}>
-              <SeatRow n={n} seed={11 + i * 7} heads={heads} />
-            </div>
-          ))
+          ROWS.map((_, i) => {
+            const shift = mobile ? MOBILE_SHIFT : 0, b = rowBox(i, shift);
+            return (
+              <div key={i} className={s.row} style={{ top: `${b.top * 100}%`, height: `${b.height * 100}%` }}>
+                <SeatRow i={i} shift={shift} className={s.rowCanvas} />
+              </div>
+            );
+          })
         )}
       </div>
       <div ref={hint} className={s.hint} data-theater><i /><span>Now showing</span></div>

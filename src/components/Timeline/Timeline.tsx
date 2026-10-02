@@ -34,7 +34,7 @@ export function Timeline() {
 
   /* playhead, meters and live clips follow time imperatively (no React render per frame) */
   useEffect(() => {
-    if (hidden || !right.current) return;
+    if (!right.current) return;
     const clips = Array.from(right.current.querySelectorAll<HTMLElement>("[data-clip]"));
     const meta = clips.map((el) => {
       const [ti, ci] = el.dataset.clip!.split(":").map(Number);
@@ -59,7 +59,7 @@ export function Timeline() {
     };
     pos();
     return useSession.subscribe(pos);
-  }, [p, d, off, hidden]);
+  }, [p, d, off]);
 
   const down = useRef(false);
   const scrub = (e: React.PointerEvent) => {
@@ -72,7 +72,7 @@ export function Timeline() {
       title="Sequence"
       sub={p.name}
       area="tl"
-      className={s.timeline}
+      className={cx(s.timeline, hidden && s.collapsed)}
       actions={
         <>
           <Timecode className={s.tc} />
@@ -83,43 +83,42 @@ export function Timeline() {
         </>
       }
     >
-      {!hidden && (
-        <div className={s.body}>
-          <div className={s.left}>
-            <div className={s.corner}>{FPS} fps</div>
-            {p.tracks.map((tr) => (
-              <TrackHeader key={tr.id} tr={tr} off={!!off[tr.id]} onToggle={() => useSession.getState().toggleTrack(tr.id)} />
-            ))}
-          </div>
-          <div
-            ref={right}
-            className={s.right}
-            onPointerDown={(e) => {
-              down.current = true;
-              e.currentTarget.setPointerCapture(e.pointerId);
-              useSession.getState().setPlaying(false);
-              scrub(e);
-            }}
-            onPointerMove={(e) => down.current && scrub(e)}
-            onPointerUp={() => (down.current = false)}
-            onPointerCancel={() => (down.current = false)}
-          >
-            <Ruler span={d} every={5} label={short} />
-            {p.tracks.map((tr, ti) => (
-              <div key={tr.id} className={cx(s.lane, off[tr.id] && s.off)}>
-                {tr.clips.map((c, ci) => (
-                  <Clip key={ci} c={c} d={d} selected={sel === c} onSelect={() => useSession.getState().select(c)} data={{ clip: `${ti}:${ci}` }} />
-                ))}
-              </div>
-            ))}
-            <div ref={ph} className={s.playhead} />
-          </div>
-          <div className={s.meters} aria-hidden="true">
-            <div className={s.meter}><i ref={(el) => { bars.current[0] = el; }} /></div>
-            <div className={s.meter}><i ref={(el) => { bars.current[1] = el; }} /></div>
-          </div>
+      {/* stays mounted while hidden so the panel can slide down; inert takes it out of the tab order */}
+      <div className={s.body} inert={hidden}>
+        <div className={s.left}>
+          <div className={s.corner}>{FPS} fps</div>
+          {p.tracks.map((tr) => (
+            <TrackHeader key={tr.id} tr={tr} off={!!off[tr.id]} onToggle={() => useSession.getState().toggleTrack(tr.id)} />
+          ))}
         </div>
-      )}
+        <div
+          ref={right}
+          className={s.right}
+          onPointerDown={(e) => {
+            down.current = true;
+            e.currentTarget.setPointerCapture(e.pointerId);
+            useSession.getState().setPlaying(false);
+            scrub(e);
+          }}
+          onPointerMove={(e) => down.current && scrub(e)}
+          onPointerUp={() => (down.current = false)}
+          onPointerCancel={() => (down.current = false)}
+        >
+          <Ruler span={d} every={5} label={short} />
+          {p.tracks.map((tr, ti) => (
+            <div key={tr.id} className={cx(s.lane, off[tr.id] && s.off)}>
+              {tr.clips.map((c, ci) => (
+                <Clip key={ci} c={c} d={d} selected={sel === c} onSelect={() => useSession.getState().select(c)} data={{ clip: `${ti}:${ci}` }} />
+              ))}
+            </div>
+          ))}
+          <div ref={ph} className={s.playhead} />
+        </div>
+        <div className={s.meters} aria-hidden="true">
+          <div className={s.meter}><i ref={(el) => { bars.current[0] = el; }} /></div>
+          <div className={s.meter}><i ref={(el) => { bars.current[1] = el; }} /></div>
+        </div>
+      </div>
     </Panel>
   );
 }
