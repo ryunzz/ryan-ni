@@ -105,6 +105,8 @@ export interface TheaterPhoto {
   seats?: string;
   screen?: { left: number; top: number; width: number };
   loop?: string;
+  /** public/models/popcorn.glb when present (set by the build step) */
+  popcornModel?: string;
 }
 
 export interface About {

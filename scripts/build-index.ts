@@ -344,7 +344,9 @@ function main() {
   if (!projects.length || projects[0].kind !== "reel") throw new Error("The first project must be the Ryan Ni reel (00-ryan-ni).");
 
   fs.mkdirSync(OUT, { recursive: true });
-  fs.writeFileSync(path.join(OUT, "index.json"), JSON.stringify({ about: { ...ab, theater }, projects }));
+  /* optional 3D popcorn model (see Room.tsx); only requested when the file exists */
+  const popcornModel = fs.existsSync(path.join(ROOT, "public", "models", "popcorn.glb")) ? "/models/popcorn.glb" : undefined;
+  fs.writeFileSync(path.join(OUT, "index.json"), JSON.stringify({ about: { ...ab, theater: { ...theater, popcornModel } }, projects }));
   fs.writeFileSync(path.join(OUT, "type.css"), typeCss());
   const wired = projects.map((p) => `${p.slug}${p.media.video ? " [video]" : ""}${p.media.poster ? " [poster]" : ""}`).join(", ");
   console.log(`reel index: ${projects.length} projects (${wired})`);

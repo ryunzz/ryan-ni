@@ -3,6 +3,7 @@
  * Painted on canvas (lib/reel/theater.ts); redrawn only when the size changes. */
 import { useEffect, useRef, useState, type RefObject } from "react";
 import { drawBeam, drawRoom, drawRow, drawSnacks, type Rect } from "@/lib/reel/theater";
+import { reel } from "@/store/session";
 
 /** [seat-top line, seat-back height, head probability] as fractions of the viewport height, back row first */
 export const ROWS: [number, number, number][] = [
@@ -102,7 +103,7 @@ export function SeatRow({ i, shift = 0, className }: { i: number; shift?: number
 }
 
 /** the popcorn model (threejsassets.com "Popcorn", free commercial license); procedural popcorn if absent */
-const POPCORN_URL = () => new URL("/models/popcorn.glb", location.origin).href;
+const POPCORN_URL = () => (reel.about.theater.popcornModel ? new URL(reel.about.theater.popcornModel, location.origin).href : undefined);
 
 function snackColors() {
   const cs = getComputedStyle(document.documentElement), v = (n: string, fb: string) => cs.getPropertyValue(n).trim() || fb;
