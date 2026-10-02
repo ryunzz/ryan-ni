@@ -78,9 +78,10 @@ export function TheaterIntro({ ready, mobile, act2Ready, handle, children }: {
       });
     };
     let typing = true;
-    /* act one runs 3s from opening the page to the editor: type (~0.6s), credits, a short hold, dolly 1.5s, cut 0.42s */
+    /* act one runs ~3.3s from opening the page to the editor: type (~0.6s), credits, a short hold, then one
+     * continuous move (dolly into the screen and the cut) over TRAVEL with a single ease, so it never stops and restarts */
     const TYPE_AT = 0.15, PER_CHAR = 0.045, typeEnd = TYPE_AT + chars.length * PER_CHAR;
-    const DOLLY = 1.5, CUT = 0.42;
+    const TRAVEL = 2.25, SKIP = 0.42, GATE = 0.68;
     const tt = gsap.timeline({ paused: true })
       .call(() => { typing = true; typed.n = 0; showChars(); }, [], 0)
       .set([role, name], { opacity: 0, y: 6 }, 0)
@@ -112,7 +113,8 @@ export function TheaterIntro({ ready, mobile, act2Ready, handle, children }: {
       });
       tl.to(cr, { opacity: 0, scale: 1.15, duration: 0.25 }, 0.42)
         .to(flash.current, { opacity: 1, duration: 0.1, ease: "power1.in" }, 0.7)
-        .set(act2.current, { autoAlpha: 1 }, 0.8)
+        .set(act2.current, { opacity: 1, pointerEvents: "auto" }, 0.8)
+        .call(() => { if (act2.current) act2.current.inert = false; }, [], 0.8)
         .set(w, { autoAlpha: 0 }, 0.82)
         .to(flash.current, { opacity: 0, duration: 0.2, ease: "power1.out" }, 0.83);
       if (ed) tl.fromTo(ed, { scale: 1.06 }, { scale: 1, duration: 0.2, ease: "power3.out" }, 0.8);
@@ -135,11 +137,13 @@ export function TheaterIntro({ ready, mobile, act2Ready, handle, children }: {
       if (reduce) {
         /* no dolly: cross-fade from theater to editor in 0.2s, no autoplay */
         tl.progress(1);
-        gsap.fromTo(act2.current, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.2 });
+        gsap.fromTo(act2.current, { opacity: 0 }, { opacity: 1, pointerEvents: "auto", duration: 0.2 });
+        if (act2.current) act2.current.inert = false;
         settle();
         return;
       }
-      tween = gsap.to(tl, { progress: 1, duration: CUT, ease: "power1.out", onComplete: () => { settle(); useSession.getState().setPlaying(true); } });
+      /* Skip intro: finish from wherever the move is */
+      tween = gsap.to(tl, { progress: 1, duration: SKIP, ease: "power1.out", onComplete: () => { settle(); useSession.getState().setPlaying(true); } });
     };
     const run = () => {
       done = false;
@@ -149,17 +153,41 @@ export function TheaterIntro({ ready, mobile, act2Ready, handle, children }: {
       startLoop();
       if (reduce) { tt.progress(1); void ok.then(finish, finish); return; }
       tt.restart();
-      tween = gsap.to(tl, { progress: 0.72, duration: DOLLY, delay: hold, ease: "power2.inOut", onComplete: () => void ok.then(finish, finish) });
+      let ready = false;
+      void ok.then(() => { ready = true; }, () => { ready = true; });
+      const move = gsap.to(tl, {
+        progress: 1,
+        duration: TRAVEL,
+        delay: hold,
+        ease: "sine.inOut",
+        /* only if the first project still isn't loaded: hold just before the cut, then carry on */
+        onUpdate: () => {
+          if (!ready && tl.progress() >= GATE && !move.paused()) {
+            move.pause();
+            void ok.then(() => move.resume(), () => move.resume());
+          }
+        },
+        onComplete: () => {
+          done = true;
+          tt.progress(1);
+          settle();
+          useSession.getState().setPlaying(true);
+        },
+      });
+      tween = move;
     };
     const replay = () => {
       tween?.kill();
+      if (act2.current) act2.current.inert = true;
       useSession.getState().setPlaying(false);
       startLoop();
       tween = gsap.to(tl, { progress: 0, duration: reduce ? 0.2 : 0.8, ease: "power2.inOut", onComplete: run });
     };
     api.current = { finish, replay };
 
-    gsap.set(act2.current, { autoAlpha: 0 });
+    /* act two stays laid out and painted behind the theater (transparent, inert), so revealing it is only a fade */
+    gsap.set(act2.current, { opacity: 0, pointerEvents: "none" });
+    act2.current!.inert = true;
     build();
     let seen = false;
     try { seen = !!sessionStorage.getItem(SEEN_KEY); } catch { /* ignore */ }
@@ -190,7 +218,7 @@ export function TheaterIntro({ ready, mobile, act2Ready, handle, children }: {
   return (
     <div ref={el} className={`${s.theater} ${mobile ? s.mobile : ""}`}>
       <div ref={world} className={s.world} data-theater>
-        {photo ? <RawImg className={s.photo} src={mediaUrl(th.room!)} alt="" /> : <Room className={s.room} beamClass={s.beam} screen={screen} />}
+        {photo ? <RawImg className={s.photo} src={mediaUrl(th.room!)} alt="" /> : <Room className={s.room} beamClass={s.beam} drawnClass={s.drawn} screen={screen} />}
         <div
           ref={screen}
           className={`${s.screen} ${th.screen ? s.placed : ""}`}
@@ -215,7 +243,7 @@ export function TheaterIntro({ ready, mobile, act2Ready, handle, children }: {
             const shift = mobile ? MOBILE_SHIFT : 0, b = rowBox(i, shift);
             return (
               <div key={i} className={s.row} style={{ top: `${b.top * 100}%`, height: `${b.height * 100}%` }}>
-                <SeatRow i={i} shift={shift} className={s.rowCanvas} />
+                <SeatRow i={i} shift={shift} className={s.rowCanvas} drawnClass={s.drawn} />
               </div>
             );
           })

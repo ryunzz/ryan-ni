@@ -24,7 +24,7 @@ export function rowBox(i: number, shift = 0) {
 export const MOBILE_SHIFT = -0.13;
 
 /* extra resolution so the layers stay sharp while the dolly scales them up */
-const ratio = (k: number) => Math.min(3, (window.devicePixelRatio || 1) * k);
+const ratio = (k: number) => Math.min(2, (window.devicePixelRatio || 1) * k);
 
 function fit(cv: HTMLCanvasElement, k: number) {
   const r = ratio(k), w = cv.clientWidth, h = cv.clientHeight;
@@ -42,7 +42,7 @@ function screenRect(scr: HTMLElement): Rect {
   return { x: centred ? scr.offsetLeft - w / 2 : scr.offsetLeft, y: scr.offsetTop, w, h };
 }
 
-export function Room({ className, beamClass, screen }: { className?: string; beamClass?: string; screen: RefObject<HTMLDivElement | null> }) {
+export function Room({ className, beamClass, drawnClass, screen }: { className?: string; beamClass?: string; drawnClass?: string; screen: RefObject<HTMLDivElement | null> }) {
   const room = useRef<HTMLCanvasElement>(null);
   const beam = useRef<HTMLCanvasElement>(null);
   useEffect(() => {
@@ -53,13 +53,14 @@ export function Room({ className, beamClass, screen }: { className?: string; bea
       drawRoom(a.ctx, a.w, a.h, scr);
       const b = fit(beam.current, 1);
       drawBeam(b.ctx, b.w, b.h, scr);
+      if (drawnClass) { room.current.classList.add(drawnClass); beam.current.classList.add(drawnClass); }
     };
     draw();
     let t: ReturnType<typeof setTimeout>;
     const ro = new ResizeObserver(() => { clearTimeout(t); t = setTimeout(draw, 100); });
     ro.observe(room.current!);
     return () => { ro.disconnect(); clearTimeout(t); };
-  }, [screen]);
+  }, [screen, drawnClass]);
   return (
     <>
       <canvas ref={room} className={className} aria-hidden="true" />
@@ -69,7 +70,7 @@ export function Room({ className, beamClass, screen }: { className?: string; bea
 }
 
 /** one row of seats; the nearest rows are slightly out of focus (we are looking at the screen) */
-export function SeatRow({ i, shift = 0, className }: { i: number; shift?: number; className?: string }) {
+export function SeatRow({ i, shift = 0, className, drawnClass }: { i: number; shift?: number; className?: string; drawnClass?: string }) {
   const cv = useRef<HTMLCanvasElement>(null);
   useEffect(() => {
     const draw = () => {
@@ -81,6 +82,7 @@ export function SeatRow({ i, shift = 0, className }: { i: number; shift?: number
       /* the row spans 120% of the width (left: -10%), so the screen centre is at its middle */
       const spec = { depth, unit: unit * vh, top: (top + shift - box.top) * vh, cx: w / 2, heads, seed: 11 + i * 7, stagger: i % 2 === 1 };
       const blur = depth > 0.9 ? 1.6 : depth > 0.7 ? 0.6 : 0;
+      if (drawnClass) el.classList.add(drawnClass);
       if (!blur) return drawRow(ctx, w, h, spec);
       const off = document.createElement("canvas");
       off.width = el.width;
@@ -98,7 +100,7 @@ export function SeatRow({ i, shift = 0, className }: { i: number; shift?: number
     const ro = new ResizeObserver(() => { clearTimeout(t); t = setTimeout(draw, 100); });
     ro.observe(cv.current!);
     return () => { ro.disconnect(); clearTimeout(t); };
-  }, [i, shift]);
+  }, [i, shift, drawnClass]);
   return <canvas ref={cv} className={className} aria-hidden="true" />;
 }
 
@@ -113,12 +115,13 @@ function snackColors() {
   };
 }
 
-/** paint a rendered frame onto the layer with a little depth-of-field blur */
-function paint(el: HTMLCanvasElement, src: CanvasImageSource, r: number) {
+const SNACK_BLUR = 1.6;
+/** place a rendered frame on the layer; `blur` only when the worker hasn't already applied it */
+function paint(el: HTMLCanvasElement, src: CanvasImageSource, r: number, blur: boolean) {
   const ctx = el.getContext("2d")!;
   ctx.setTransform(1, 0, 0, 1, 0, 0);
   ctx.clearRect(0, 0, el.width, el.height);
-  ctx.filter = `blur(${1.6 * r}px)`;
+  if (blur) ctx.filter = `blur(${SNACK_BLUR * r}px)`;
   ctx.drawImage(src, 0, 0, el.width, el.height);
   ctx.filter = "none";
 }
@@ -139,7 +142,7 @@ function renderInWorker(w: number, h: number, ratio: number): Promise<ImageBitma
       done(e.data.software ? "software" : e.data.bmp ?? null);
     };
     worker.onerror = () => done(null);
-    worker.postMessage({ w, h, ratio, colors: snackColors(), popcornUrl: POPCORN_URL() });
+    worker.postMessage({ w, h, ratio, colors: snackColors(), popcornUrl: POPCORN_URL(), blur: SNACK_BLUR });
   });
 }
 
@@ -169,21 +172,22 @@ export function Snacks({ className }: { className?: string }) {
     const draw = async () => {
       const el = cv.current;
       if (!el) return;
-      const w = el.clientWidth, h = el.clientHeight, r = ratio(1.5);
+      /* the snacks are blurred and fly out of frame, so a modest resolution is plenty (and cheap to composite) */
+      const w = el.clientWidth, h = el.clientHeight, r = Math.min(2, window.devicePixelRatio || 1) * 0.6;
       const bmp = await renderInWorker(w, h, r);
       if (!alive || !cv.current) return;
       el.width = Math.round(w * r);
       el.height = Math.round(h * r);
       if (bmp === "software") flat();
       else if (bmp) {
-        paint(el, bmp, r);
+        paint(el, bmp, r, false);
         bmp.close();
       } else {
         try {
           const { renderSnacks, softwareGL } = await import("@/lib/reel/snacks3d");
           if (!alive) return;
           if (softwareGL()) throw new Error("software WebGL");
-          paint(el, (await renderSnacks(document.createElement("canvas"), w, h, r, snackColors(), POPCORN_URL())) as HTMLCanvasElement, r);
+          paint(el, (await renderSnacks(document.createElement("canvas"), w, h, r, snackColors(), POPCORN_URL())) as HTMLCanvasElement, r, true);
         } catch {
           flat();
         }

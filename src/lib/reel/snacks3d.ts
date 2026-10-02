@@ -5,7 +5,6 @@
  * Never imported statically, so three.js stays out of the main bundle. No DOM access in here. */
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
-import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import { rng } from "./util";
 
@@ -256,7 +255,7 @@ async function loadPopcorn(url?: string): Promise<THREE.Object3D | null> {
  * Renders the snacks for a w x h (CSS px) layer at `ratio` device pixels into `canvas` and returns it.
  * Throws if WebGL is unavailable.
  */
-export async function renderSnacks(canvas: AnyCanvas, w: number, h: number, ratio: number, col: SnackColors, popcornUrl?: string) {
+export async function renderSnacks(canvas: AnyCanvas, w: number, h: number, ratio: number, col: SnackColors, popcornUrl?: string, blur = 0) {
   const model = await loadPopcorn(popcornUrl);
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, preserveDrawingBuffer: true, powerPreference: "low-power" });
   renderer.setPixelRatio(ratio);
@@ -287,7 +286,7 @@ export async function renderSnacks(canvas: AnyCanvas, w: number, h: number, rati
   key.position.set(0, 1.4, -4);
   key.target.position.set(0, -0.2, -d);
   key.castShadow = true;
-  key.shadow.mapSize.set(1536, 1536);
+  key.shadow.mapSize.set(1024, 1024);
   Object.assign(key.shadow.camera, { left: -1.2, right: 1.2, top: 1.2, bottom: -1.2, near: 0.5, far: 8 });
   key.shadow.bias = -0.0006;
   key.shadow.radius = 4;
@@ -301,20 +300,14 @@ export async function renderSnacks(canvas: AnyCanvas, w: number, h: number, rati
     scene.add(rimL);
   }
 
-  /* a soft studio environment for believable sheen on the paper, kernels and plastic, kept dim */
-  const pmrem = new THREE.PMREMGenerator(renderer);
-  const env = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
-  scene.environment = env;
-  scene.environmentIntensity = 0.07;
-
   renderer.render(scene, camera);
-  env.dispose();
-  pmrem.dispose();
   /* in a worker, copy the frame into a 2D canvas first: a WebGL OffscreenCanvas can hand back an empty bitmap */
   let out: HTMLCanvasElement | ImageBitmap = canvas as HTMLCanvasElement;
   if (typeof OffscreenCanvas !== "undefined" && canvas instanceof OffscreenCanvas) {
-    const copy = new OffscreenCanvas(canvas.width, canvas.height);
-    copy.getContext("2d")!.drawImage(canvas, 0, 0);
+    /* the depth-of-field blur happens here too, so the page only has to place a finished image */
+    const copy = new OffscreenCanvas(canvas.width, canvas.height), c2 = copy.getContext("2d")!;
+    if (blur && "filter" in c2) c2.filter = `blur(${blur * ratio}px)`;
+    c2.drawImage(canvas, 0, 0);
     out = copy.transferToImageBitmap();
   }
 
