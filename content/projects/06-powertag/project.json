@@ -1,0 +1,29 @@
+{
+  "id": "powertag",
+  "name": "PowerTag",
+  "type": "HW/EE",
+  "awards": [
+    "#1 @ UCSD IEEE 2024"
+  ],
+  "year": 2024,
+  "role": "#1 @ UCSD IEEE",
+  "kind": "images",
+  "duration": 12,
+  "seed": 66,
+  "description": "Portable battery with built-in GPS, tracked on a map in its Kotlin mobile app.",
+  "links": [
+    {
+      "label": "Demo",
+      "href": "https://www.youtube.com/watch?v=GnLkKyTUCf0"
+    },
+    {
+      "label": "GitHub",
+      "href": "https://github.com/ryunzz/IEEE-QP"
+    },
+    {
+      "label": "Devpost",
+      "href": "https://devpost.com/software/power-tag"
+    }
+  ],
+  "media": {}
+}

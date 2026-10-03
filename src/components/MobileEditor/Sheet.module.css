@@ -1,0 +1,15 @@
+.sheet { position: absolute; inset: 0; z-index: 30; display: flex; align-items: flex-end; }
+.back { position: absolute; inset: 0; background: rgba(0,0,0,.55); transition: opacity .24s ease-out; }
+/* opens tall: the top 6% stays visible so it still reads as a sheet over the editor */
+.panel { position: relative; width: 100%; max-height: 94%; display: flex; flex-direction: column; background: var(--panel-200); border-radius: 14px 14px 0 0; box-shadow: var(--panel-pop); transition: transform .24s cubic-bezier(.2, .8, .2, 1); will-change: transform; outline: none; }
+.tall { height: 94%; }
+.grab { flex: none; position: relative; display: flex; align-items: center; justify-content: center; min-height: 44px; padding: 18px var(--space-4) var(--space-2); touch-action: none; cursor: grab; user-select: none; -webkit-user-select: none; }
+.grab:active { cursor: grabbing; }
+.handle { position: absolute; top: 8px; left: 50%; width: 40px; height: 5px; margin-left: -20px; border-radius: 3px; background: var(--line-strong); }
+.title { flex: 1; color: var(--ink); font: var(--type-panel-title); font-weight: 700; font-size: 12px; letter-spacing: var(--tracking-panel-title); text-transform: var(--case-panel-title); }
+.close { margin-left: auto; height: 30px; padding: 0 12px; border-radius: 15px; color: var(--link); font: 500 13px/1 var(--font-ui); }
+.close:hover { background: var(--panel-300); }
+.body { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 0 0 calc(var(--space-6) + env(safe-area-inset-bottom)); }
+/* swipe through cards: each settles at the top */
+.snap { scroll-snap-type: y proximity; scroll-padding-top: var(--space-2); }
+@media (prefers-reduced-motion: reduce) { .panel, .back { transition: none; } }

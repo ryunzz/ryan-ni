@@ -1,0 +1,14 @@
+<!-- @dsCard group="Act one" height=700 width=1200 subtitle="Loading screen: holds, dollies in, cuts to the editor once media is ready" -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>TheaterIntro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/fontawesome.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/brands.min.js"></script>
+<style>html,body{margin:0;background:var(--panel-000);}</style>
+</head>
+<body>
+<div id="root" style="height:700px"></div>
+<script>var th = Reel.mountTheater(document.getElementById("root"), { title: "Hello, World!", credit: "Written and Directed by", director: "Ryan Ni", ready: new Promise(function (r) { setTimeout(r, 4500); }) });</script>
+</body>
+</html>

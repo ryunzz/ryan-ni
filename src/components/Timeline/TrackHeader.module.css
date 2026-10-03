@@ -1,0 +1,7 @@
+.th { height: var(--track-h); display: flex; align-items: center; gap: 6px; padding: 0 6px 0 var(--space-2); border-bottom: 1px solid var(--line); }
+.tid { width: 22px; height: 14px; flex: none; display: grid; place-items: center; border-radius: var(--radius-sm); background: var(--panel-300); font: 500 10px/12px var(--font-mono); }
+.tname { flex: 1; font: var(--type-ui-text); font-size: 11px; color: var(--ink-muted); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.tog { width: 18px; height: 18px; flex: none; display: grid; place-items: center; border-radius: var(--radius-md); color: var(--ink-muted); }
+.tog svg { width: 13px; height: 13px; }
+.tog:hover { color: var(--ink); background: var(--panel-300); }
+.tog[aria-pressed="true"] { color: var(--playhead); }

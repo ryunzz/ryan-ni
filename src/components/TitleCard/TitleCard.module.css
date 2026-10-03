@@ -1,0 +1,17 @@
+/* sizes scale with the screen (the parent sets container-type: inline-size) */
+.credits { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: var(--screen); pointer-events: none; }
+.t { margin: 0; font: var(--type-film-title); font-size: clamp(28px, 6.2cqw, 88px); letter-spacing: var(--tracking-film-title); white-space: pre; }
+.r { margin-top: 1.6em; font: var(--type-credit-label); font-size: clamp(8px, 1cqw, 12px); letter-spacing: var(--tracking-credit-label); text-transform: var(--case-credit-label); opacity: 0; }
+.n { margin-top: 2px; font: var(--type-credit-name); font-size: clamp(18px, 3cqw, 44px); opacity: 0; }
+/* characters wait to be typed; the caret sits after the last typed one */
+.ch { position: relative; visibility: hidden; }
+.typed { visibility: visible; }
+.caret::after, .pre::before { content: ""; position: absolute; top: .12em; bottom: .08em; width: .05em; background: currentColor; visibility: visible; animation: caret 1s steps(2, start) infinite; }
+.caret::after { right: -.06em; }
+.pre::before { left: -.06em; }
+@keyframes caret { to { visibility: hidden; } }
+@media (prefers-reduced-motion: reduce) { .caret::after, .pre::before { animation: none; } }
+/* repeat visits and no-JS show the finished card */
+:global(html[data-seen]) .ch { visibility: visible; }
+:global(html[data-seen]) .r { opacity: .82; }
+:global(html[data-seen]) .n { opacity: 1; }

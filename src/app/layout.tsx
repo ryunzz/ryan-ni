@@ -1,51 +1,36 @@
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
-import Providers from "@/components/Providers";
-import { cn } from "@/lib/utils";
-import type { Metadata } from "next";
-import { ADLaM_Display, Inter } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
+import { config } from "@fortawesome/fontawesome-svg-core";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+import "../../design/reel/tokens.css";
+import "../generated/type.css";
 import "./globals.css";
 
+config.autoAddCss = false;
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
-
-const adlam = ADLaM_Display({ 
-    subsets: ['latin'], 
-    variable: '--font-adlam',
-    weight: ['400'], 
-  });
+const display = Instrument_Serif({ subsets: ["latin"], weight: "400", style: ["normal", "italic"], variable: "--nf-display", display: "swap" });
+const ui = Geist({ subsets: ["latin"], variable: "--nf-ui", display: "swap" });
+const mono = Geist_Mono({ subsets: ["latin"], variable: "--nf-mono", display: "swap" });
 
 export const metadata: Metadata = {
-  openGraph: {
-    title: "Ryan Ni Portfolio",
-    description: "Hi, I'm Ryan Ni, this is my portoflio of my software engineering experience/projects",
-    images: ["/image/ryan.jpg"],
-  },
-  icons:{ 
-    icon: "/favicon.ico",
-  }
+  metadataBase: new URL("https://ryunzz.tech"),
+  title: "Ryan Ni",
+  description: "Ryan Ni studies Computer Science and Film at UCSD, does AI research and builds things. A portfolio presented as a film.",
+  openGraph: { title: "Ryan Ni", description: "Written and Directed by Ryan Ni.", url: "https://ryunzz.tech", siteName: "Ryan Ni", type: "website" },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export const viewport: Viewport = { themeColor: "#070708", colorScheme: "dark", width: "device-width", initialScale: 1 };
+
+/* repeat visits in the same tab skip act one; set before first paint so the theater never flashes */
+const seen = `try{if(sessionStorage.getItem("reel-seen"))document.documentElement.setAttribute("data-seen","")}catch(e){}`;
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body
-        className={cn(
-          "mx-auto flex min-h-screen max-w-3xl flex-col px-8 font-sans antialiased",
-          inter.variable,
-          adlam.variable,
-        )}
-      >
-        <Providers>
-          <Header />
-          <main className="grow">{children}</main>
-          <Footer />
-        </Providers>
-      </body>
+    <html lang="en" className={`${display.variable} ${ui.variable} ${mono.variable} fonts`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: seen }} />
+      </head>
+      <body>{children}</body>
     </html>
   );
 }

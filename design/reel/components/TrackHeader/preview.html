@@ -1,0 +1,16 @@
+<!-- @dsCard group="Parts" height=160 width=320 subtitle="Visible, hidden, muted, locked" -->
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>TrackHeader</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>html,body{margin:0;background:var(--panel-000);} .wrap{margin:8px;width:var(--track-header-w);background:var(--panel-200);border-radius:var(--radius-md);overflow:hidden}</style>
+</head><body>
+<div class="rl-root wrap" id="w"></div>
+<script>
+  var I = Reel.icons, rows = [['V2','Adjust',I.eye,false,false],['V1','Footage',I.eyeoff,true,false],['A1','Voice',I.spkoff,true,false],['A2','Music',I.spk,false,true]];
+  rows.forEach(function (r) {
+    var d = document.createElement('div'); d.className = 'rl-th';
+    d.innerHTML = '<span class="rl-tid">' + r[0] + '</span><span class="rl-tname">' + r[1] + '</span><button class="rl-tog" aria-pressed="' + r[3] + '">' + r[2] + '</button><button class="rl-tog" aria-pressed="' + r[4] + '">' + I.lock + '</button>';
+    document.getElementById('w').appendChild(d);
+  });
+</script>
+</body></html>

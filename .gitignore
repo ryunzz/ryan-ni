@@ -34,3 +34,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# reel: media lives on R2, never in git
+/content/media/
+/public/media
+/src/generated/

@@ -1,0 +1,24 @@
+{
+  "id": "cortex",
+  "name": "Cortex",
+  "type": "SW/AI",
+  "awards": [
+    "#1 @ Texas A&M"
+  ],
+  "role": "#1 @ Texas A&M",
+  "kind": "video",
+  "duration": 30,
+  "seed": 44,
+  "description": "Placeholder: one line on what Cortex does.",
+  "links": [
+    {
+      "label": "Website",
+      "href": "https://aa-cor.tech"
+    },
+    {
+      "label": "GitHub",
+      "href": "https://github.com/ryunzz/cortex"
+    }
+  ],
+  "media": {}
+}

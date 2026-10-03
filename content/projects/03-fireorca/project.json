@@ -1,0 +1,20 @@
+{
+  "id": "fireorca",
+  "name": "Fire Orca",
+  "type": "SW/AI",
+  "awards": [
+    "#1 @ UIUC (Advanced Track)"
+  ],
+  "role": "#1 @ UIUC (Advanced Track)",
+  "kind": "video",
+  "duration": 30,
+  "seed": 33,
+  "description": "Placeholder: one line on what Fire Orca does.",
+  "links": [
+    {
+      "label": "Website",
+      "href": "https://fire-orca.vercel.app"
+    }
+  ],
+  "media": {}
+}

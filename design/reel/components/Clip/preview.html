@@ -1,0 +1,18 @@
+<!-- @dsCard group="Parts" height=184 width=760 subtitle="Dim at rest, full strength when live" -->
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Clip</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>html,body{margin:0;background:var(--panel-000);} .wrap{padding:12px;display:grid;gap:4px;background:var(--panel-100)} .rl-lane{position:relative} .k{position:absolute;right:8px;top:10px;color:var(--ink-faint);font:400 10px/12px var(--font-mono)}</style>
+</head><body>
+<div class="rl-root wrap" id="w">
+  <div class="rl-lane"><div class="rl-clip text" style="left:0;width:22%"><span>Orca</span></div><div class="rl-clip text live" style="left:70%;width:20%" aria-selected="true"><span>Directed by Ryan Ni</span></div></div>
+  <div class="rl-lane"><div class="rl-clip fx" style="left:0;width:48%"><span>Grade</span></div><div class="rl-clip fx live" style="left:48%;width:42%"><span>Grain</span></div></div>
+  <div class="rl-lane"><div class="rl-clip video" style="left:0;width:18%"><span>shot_01.mov</span></div><div class="rl-clip video live" style="left:18%;width:26%"><span>shot_02.mov</span></div><div class="rl-clip image" style="left:44%;width:15%"><span>still_01.jpg</span></div><div class="rl-clip image" style="left:59%;width:15%"><span>still_02.jpg</span></div></div>
+  <div class="rl-lane" id="a"></div>
+</div>
+<script>
+  var a = document.getElementById('a'); var c = document.createElement('div'); c.className = 'rl-clip audio live'; c.style.left = '0'; c.style.width = '90%';
+  var d = ''; for (var i = 0; i < 120; i++) { var v = .2 + .6 * Math.abs(Math.sin(i * .45) * Math.sin(i * .07 + 1)); d += 'M' + i + ' ' + (10 - v * 10) + 'v' + (v * 20) + 'h.6v-' + (v * 20) + 'z'; }
+  c.innerHTML = '<svg class="rl-wave" viewBox="0 0 120 20" preserveAspectRatio="none"><path d="' + d + '"/></svg><span>score.wav</span>'; a.appendChild(c);
+</script>
+</body></html>

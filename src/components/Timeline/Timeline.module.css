@@ -1,0 +1,26 @@
+/* Hide sequence slides the panel down to its header bar; the monitor grows into the space */
+.timeline { grid-area: tl; height: var(--timeline-h); transition: height .36s cubic-bezier(.2, .8, .2, 1); }
+.collapsed { height: var(--panel-header-h); }
+@media (prefers-reduced-motion: reduce) { .timeline { transition: none; } }
+.tc { color: var(--playhead); font: var(--type-timecode); letter-spacing: var(--tracking-timecode); font-variant-numeric: tabular-nums; }
+/* Hide sequence: filled playhead, like the pause button, so it reads as a control */
+.seqbtn { display: inline-flex; align-items: center; gap: 4px; margin-left: var(--space-3); height: 22px; padding: 0 10px 0 6px; border-radius: var(--radius-md); background: var(--playhead); color: var(--on-playhead); font: 500 11px/16px var(--font-ui); }
+.seqbtn:hover { filter: brightness(1.12); }
+.body { flex: 1; min-height: 0; display: grid; grid-template-columns: var(--track-header-w) minmax(0, 1fr) 28px; overflow: auto; }
+.left { background: var(--panel-200); border-right: 1px solid var(--line); }
+.corner { height: var(--ruler-h); border-bottom: 1px solid var(--line); display: flex; align-items: center; padding: 0 var(--space-2); color: var(--ink-faint); font: var(--type-tick); }
+.right { position: relative; cursor: text; touch-action: none; user-select: none; -webkit-user-select: none; }
+.ruler { height: var(--ruler-h); position: relative; background: var(--panel-200); border-bottom: 1px solid var(--line); overflow: hidden; }
+.tickm { position: absolute; bottom: 0; width: 1px; height: 5px; background: var(--line); }
+.tickM { position: absolute; bottom: 0; width: 1px; height: 10px; background: var(--line-strong); }
+.tickl { position: absolute; top: 2px; margin-left: 4px; color: var(--ink-faint); font: var(--type-tick); white-space: nowrap; }
+.lane { height: var(--track-h); position: relative; border-bottom: 1px solid var(--line); }
+.off { background: repeating-linear-gradient(135deg, transparent 0 6px, rgba(255,255,255,.025) 6px 12px); }
+.off > * { opacity: .28; }
+.playhead { position: absolute; top: 0; bottom: 0; left: 0; width: 0; pointer-events: none; z-index: 3; }
+.playhead::before { content: ""; position: absolute; top: 0; bottom: 0; left: -1px; width: 2px; background: var(--playhead); }
+.playhead::after { content: ""; position: absolute; top: 0; left: -5px; width: 10px; height: 11px; background: var(--playhead); clip-path: polygon(0 0, 100% 0, 100% 60%, 50% 100%, 0 60%); border-radius: var(--radius-sm); }
+.meters { background: var(--panel-200); border-left: 1px solid var(--line); display: flex; gap: 3px; justify-content: center; padding: calc(var(--ruler-h) + 4px) 0 4px; }
+.meter { width: 6px; background: var(--panel-000); border-radius: var(--radius-sm); position: relative; overflow: hidden; }
+.meter i { position: absolute; left: 0; right: 0; bottom: 0; height: 0; background: var(--clip-audio); }
+.meter i.hot { background: var(--playhead); }

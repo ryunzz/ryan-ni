@@ -1,0 +1,5 @@
+.transport { display: flex; align-items: center; gap: var(--space-1); }
+.btn { width: 32px; height: 28px; display: grid; place-items: center; border-radius: var(--radius-md); color: var(--ink); }
+.btn:hover { background: var(--panel-300); }
+.play { width: 40px; }
+.play[aria-pressed="true"] { background: var(--playhead); color: var(--on-playhead); }

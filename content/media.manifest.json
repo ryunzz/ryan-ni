@@ -1,0 +1,22 @@
+{
+  "00-ryan-ni": {
+    "files": [],
+    "durations": {}
+  },
+  "05-iris": {
+    "files": [
+      "stills/lingualens.png"
+    ],
+    "durations": {}
+  },
+  "06-powertag": {
+    "files": [
+      "stills/power-tag.jpg"
+    ],
+    "durations": {}
+  },
+  "theater": {
+    "files": [],
+    "durations": {}
+  }
+}

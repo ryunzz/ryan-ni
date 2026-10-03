@@ -1,0 +1,8 @@
+/* pedigree: every win in gold with a slow sheen */
+.award { --a: var(--award-gold); --a-hi: var(--award-gold-hi); display: inline-flex; align-items: center; gap: var(--space-2); min-width: 0; font: 500 12px/16px var(--font-ui); }
+.icon { width: 13px; height: 13px; flex: none; color: var(--a); filter: drop-shadow(0 0 3px color-mix(in srgb, var(--a) 55%, transparent)); }
+.shine { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--a); background: linear-gradient(110deg, var(--a) 0 42%, var(--a-hi) 50%, var(--a) 58% 100%) 100% 0 / 260% 100%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: sheen 4.5s ease-in-out infinite; }
+.on .shine { filter: drop-shadow(0 0 6px color-mix(in srgb, var(--a) 45%, transparent)); }
+.chip { gap: 6px; height: 26px; padding: 0 10px 0 8px; border: 1px solid color-mix(in srgb, var(--a) 55%, transparent); border-radius: 13px; background: color-mix(in srgb, var(--a) 10%, transparent); }
+@keyframes sheen { 0% { background-position: 100% 0; } 55%, 100% { background-position: 0 0; } }
+@media (prefers-reduced-motion: reduce) { .shine { animation: none; } }
