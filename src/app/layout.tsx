@@ -5,6 +5,7 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 import "../../design/reel/tokens.css";
 import "../generated/type.css";
 import "./globals.css";
+import index from "@/generated/index.json";
 
 config.autoAddCss = false;
 
@@ -22,6 +23,18 @@ export const metadata: Metadata = {
 export const viewport: Viewport = { themeColor: "#070708", colorScheme: "dark", width: "device-width", initialScale: 1 };
 
 /* repeat visits in the same tab skip act one; set before first paint so the theater never flashes */
+/* tells search engines who the site is about; profile links come from content/about.json */
+const person = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Ryan Ni",
+  url: "https://ryunzz.tech",
+  email: `mailto:${index.about.contact.email}`,
+  description: metadata.description,
+  alumniOf: { "@type": "CollegeOrUniversity", name: "University of California San Diego" },
+  sameAs: index.about.contact.links.map((l) => l.href),
+};
+
 const seen = `try{if(sessionStorage.getItem("reel-seen"))document.documentElement.setAttribute("data-seen","")}catch(e){}`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -29,6 +42,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${display.variable} ${ui.variable} ${mono.variable} fonts`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: seen }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(person) }} />
       </head>
       <body>{children}</body>
     </html>
