@@ -13,6 +13,10 @@ const nextConfig: NextConfig = {
       { source: "/blog", destination: "/", permanent: true },
     ];
   },
+  /* /resume serves the PDF inline; /resume.pdf still works for old links */
+  async rewrites() {
+    return [{ source: "/resume", destination: "/resume.pdf" }];
+  },
   images: mediaBase ? { remotePatterns: [new URL(`${mediaBase.replace(/\/$/, "")}/**`)] } : undefined,
 };
 
