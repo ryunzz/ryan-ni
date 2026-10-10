@@ -63,7 +63,22 @@ export function ExpCard({ x, i, interactive = true, hot, setHot }: { x: Job; i: 
   );
 }
 
-/** CONTACT label, "Let's talk.", blurb, icon buttons (Email copies), and the address as a copyable link */
+/** the booking card: calendar glyph, label, and the bare host so the destination is visible */
+function MeetingCard({ href, label }: { href: string; label: string }) {
+  const host = href.replace(/^https?:\/\//, "").replace(/\/$/, "");
+  return (
+    <a className={s.meet} href={href} target="_blank" rel="noopener">
+      <span className={s.meetIcon}><Icon name="cal" /></span>
+      <span className={s.meetText}>
+        <span className={s.meetLabel}>{label}</span>
+        <span className={s.meetHost}>{host}</span>
+      </span>
+      <span className={s.meetGo}><Icon name="link" /></span>
+    </a>
+  );
+}
+
+/** CONTACT label, "Let's talk.", blurb, booking card, icon buttons (Email copies), and the address as a copyable link */
 export function ContactBlock({ className }: { className?: string }) {
   const c = reel.about.contact;
   return (
@@ -71,6 +86,7 @@ export function ContactBlock({ className }: { className?: string }) {
       <div className={s.cap}><span className={shine.silver}>Contact</span></div>
       <h3>Let&apos;s talk.</h3>
       <p>{c.blurb}</p>
+      {c.meeting?.href && <MeetingCard href={c.meeting.href} label={c.meeting.label} />}
       <AppRow links={[...c.links, { label: "Email", icon: "email" }]} big />
       <div className={s.cemail}><EmailButton className={cx(linkStyles.tlink, s.addr)} /></div>
     </section>

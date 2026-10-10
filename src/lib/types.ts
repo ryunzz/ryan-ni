@@ -97,6 +97,8 @@ export interface Project {
 export interface Contact {
   email: string;
   blurb: string;
+  /** booking page, shown as a card under the blurb */
+  meeting?: Link | null;
   links: Link[];
 }
 

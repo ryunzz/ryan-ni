@@ -11,6 +11,10 @@
   "contact": {
     "email": "rani@ucsd.edu",
     "blurb": "Always up for talking about agents, research, film, or a hand of poker. Email is the fastest way to reach me.",
+    "meeting": {
+      "label": "Book a meeting",
+      "href": "https://meet.ryunzz.tech"
+    },
     "links": [
       {
         "label": "GitHub",

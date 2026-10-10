@@ -96,7 +96,7 @@ const about = z.object({
       screen: z.object({ left: z.number(), top: z.number(), width: z.number() }).nullish(),
     })
     .default({}),
-  contact: z.object({ email: z.string().email(), blurb: z.string(), links: z.array(link) }),
+  contact: z.object({ email: z.string().email(), blurb: z.string(), meeting: link.nullish(), links: z.array(link) }),
 });
 
 /* ---------- media manifest ---------- */
