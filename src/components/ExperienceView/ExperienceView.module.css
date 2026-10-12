@@ -32,6 +32,8 @@
 .book { display: inline-flex; align-items: center; gap: var(--space-2); height: 40px; margin-top: var(--space-4); padding: 0 16px 0 14px; border-radius: var(--radius-md); background: var(--link); color: var(--panel-000); text-decoration: none; font: 600 14px/16px var(--font-ui); }
 .book svg { width: 16px; height: 16px; }
 .book:hover { background: var(--link-hi); }
+.cemailRow { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); }
+.bookInline { height: 36px; margin-top: 0; padding: 0 12px 0 10px; font-size: 13px; white-space: nowrap; }
 .cemail { margin-top: var(--space-3); }
 .addr { font: 400 13px/18px var(--font-mono); color: var(--link); }
 @media (prefers-reduced-motion: reduce) { .prog { transition: none; } }

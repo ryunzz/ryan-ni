@@ -63,22 +63,27 @@ export function ExpCard({ x, i, interactive = true, hot, setHot }: { x: Job; i: 
   );
 }
 
-/** CONTACT label, "Let's talk.", blurb, the booking button, icon buttons (Email copies), and the address as a copyable link */
-export function ContactBlock({ className }: { className?: string }) {
+/** CONTACT label, "Let's talk.", blurb, the booking button, icon buttons (Email copies), and the address as a copyable link.
+ * `inline` (phones) moves the booking button onto the address line, into the space right of it. */
+export function ContactBlock({ className, inline }: { className?: string; inline?: boolean }) {
   const c = reel.about.contact;
+  const book = c.booking && (
+    <a className={cx(s.book, inline && s.bookInline)} href={c.booking.href} target="_blank" rel="noopener">
+      <Icon name="cal" />
+      <span>{c.booking.label}</span>
+    </a>
+  );
   return (
     <section className={cx(s.contact, className)} id="contact" aria-label="Contact">
       <div className={s.cap}><span className={shine.silver}>Contact</span></div>
       <h3>Let&apos;s talk.</h3>
       <p>{c.blurb}</p>
-      {c.booking && (
-        <a className={s.book} href={c.booking.href} target="_blank" rel="noopener">
-          <Icon name="cal" />
-          <span>{c.booking.label}</span>
-        </a>
-      )}
+      {!inline && book}
       <AppRow links={[...c.links, { label: "Email", icon: "email" }]} big />
-      <div className={s.cemail}><EmailButton className={cx(linkStyles.tlink, s.addr)} /></div>
+      <div className={cx(s.cemail, inline && s.cemailRow)}>
+        <EmailButton className={cx(linkStyles.tlink, s.addr)} />
+        {inline && book}
+      </div>
     </section>
   );
 }

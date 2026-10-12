@@ -19,6 +19,14 @@ export function applyPath(path: string) {
   }
 }
 
+/** the main page: the player on the Ryan Ni introduction (the wordmark and the Projects tab) */
+export function goHome() {
+  const st = useSession.getState(), m = me();
+  st.setView("player");
+  if (m) st.load(m.id);
+  st.setPlaying(true);
+}
+
 /** call once on mount: applies the current URL, then keeps URL and session in step */
 export function syncRoutes() {
   applyPath(location.pathname);

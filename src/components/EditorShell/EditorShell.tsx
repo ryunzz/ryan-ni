@@ -1,6 +1,7 @@
 "use client";
+import Link from "next/link";
 import { useRef } from "react";
-import { me, reel, useSession } from "@/store/session";
+import { reel, useSession } from "@/store/session";
 import { FPS, cx } from "@/lib/reel/util";
 import { EmailButton } from "../Links";
 import { Icon } from "../Icon";
@@ -9,6 +10,7 @@ import { ProgramMonitor } from "../ProgramMonitor/ProgramMonitor";
 import { Timeline } from "../Timeline/Timeline";
 import { ExperienceView } from "../ExperienceView/ExperienceView";
 import { Footer } from "../Footer/Footer";
+import { goHome } from "@/lib/routes";
 import { CursorCue } from "./CursorCue";
 import s from "./EditorShell.module.css";
 
@@ -20,7 +22,7 @@ export function EditorShell({ onEject, ref }: { onEject?: () => void; ref?: Reac
   const tab = view === "experience" ? (anchor === "contact" ? 2 : 1) : 0;
 
   const tabs: [string, () => void][] = [
-    ["Projects", () => { const st = useSession.getState(), m = me(); st.setView("player"); if (m) st.load(m.id); st.setPlaying(true); }],
+    ["Projects", goHome],
     ["Experience", () => useSession.getState().setView("experience")],
     ["Contact", () => useSession.getState().setView("experience", null, "contact")],
   ];
@@ -45,7 +47,7 @@ export function EditorShell({ onEject, ref }: { onEject?: () => void; ref?: Reac
       onKeyDown={onKey}
     >
       <header className={s.menubar} data-panel>
-        <span className={s.wordmark}>{reel.about.wordmark}</span>
+        <Link className={s.wordmark} href="/" onClick={(e) => { e.preventDefault(); goHome(); }}>{reel.about.wordmark}</Link>
         <nav className={s.tabs} aria-label="Sections">
           {tabs.map(([label, go], i) => (
             <button type="button" key={label} className={s.tab} aria-current={tab === i ? "page" : undefined} onClick={go}>{label}</button>

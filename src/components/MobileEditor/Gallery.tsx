@@ -30,8 +30,9 @@ export function Gallery({ projects, onPlay }: { projects: Project[]; onPlay: (p:
   return (
     <div className={s.gallery}>
       {projects.map((p) => (
-        <article key={p.id} className={s.card} aria-current={p === current ? "true" : undefined}>
-          <button type="button" className={s.pic} onClick={() => onPlay(p)} aria-label={`Play ${p.name}`}>
+        /* the whole card plays the project; the picture stays the labelled button, and link chips stop the click */
+        <article key={p.id} className={s.card} aria-current={p === current ? "true" : undefined} onClick={() => onPlay(p)}>
+          <button type="button" className={s.pic} onClick={(e) => { e.stopPropagation(); onPlay(p); }} aria-label={`Play ${p.name}`}>
             <Poster p={p} />
             <span className={s.play}><Icon name="play" /></span>
             <span className={s.dur}>{short(p.duration)}</span>

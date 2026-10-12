@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Clip as ClipT } from "@/lib/types";
 import { experience, me, reel, useSession } from "@/store/session";
@@ -9,6 +10,7 @@ import { Picture } from "../Picture";
 import { InfoPane } from "../InfoPane";
 import { clipStyles } from "../Timeline/Clip";
 import { ContactBlock, ExpCard } from "../ExperienceView/ExperienceView";
+import { goHome } from "@/lib/routes";
 import { Sheet } from "./Sheet";
 import { Gallery } from "./Gallery";
 import s from "./MobileEditor.module.css";
@@ -100,7 +102,7 @@ export function MobileEditor({ ref }: { ref?: React.Ref<HTMLDivElement> }) {
   return (
     <div ref={ref} className={s.mobile} tabIndex={-1} aria-label="Portfolio editor">
       <header className={s.top} data-panel>
-        <span className={s.wordmark}>{reel.about.wordmark}</span>
+        <Link className={s.wordmark} href="/" onClick={(e) => { e.preventDefault(); setSheet(null); goHome(); }}>{reel.about.wordmark}</Link>
         <span className={s.proj}>{p.name}</span>
         <button type="button" className={s.cta} onClick={() => setSheet("contact")}>Contact</button>
       </header>
@@ -159,7 +161,7 @@ export function MobileEditor({ ref }: { ref?: React.Ref<HTMLDivElement> }) {
       </nav>
       {sheet === "contact" && (
         <Sheet label="Contact" onClose={close}>
-          <ContactBlock className={s.sheetContact} />
+          <ContactBlock className={s.sheetContact} inline />
         </Sheet>
       )}
       {sheet === "experience" && (
@@ -167,7 +169,7 @@ export function MobileEditor({ ref }: { ref?: React.Ref<HTMLDivElement> }) {
           <div className={s.cards}>
             {experience().map((x, i) => <ExpCard key={x.file} x={x} i={i} interactive={false} />)}
           </div>
-          <ContactBlock className={s.sheetContact} />
+          <ContactBlock className={s.sheetContact} inline />
         </Sheet>
       )}
       {sheet === "projects" && (

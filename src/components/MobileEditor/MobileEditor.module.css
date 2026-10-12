@@ -1,6 +1,6 @@
 .mobile { position: relative; display: flex; flex-direction: column; height: 100%; background: var(--panel-000); outline: none; }
 .top { height: 48px; flex: none; display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); padding: 0 var(--space-4); }
-.wordmark { font: italic 400 20px/1 var(--font-display); letter-spacing: -.01em; color: var(--ink); }
+.wordmark { font: italic 400 20px/1 var(--font-display); letter-spacing: -.01em; color: var(--ink); text-decoration: none; }
 .proj { font: var(--type-ui-strong); color: var(--ink-muted); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
 .cta { height: 30px; padding: 0 14px; display: inline-flex; align-items: center; border-radius: 15px; background: var(--ink); color: var(--panel-000); font: 600 13px/1 var(--font-ui); }
 .view { flex: 1 1 auto; min-height: 0; background: var(--theater-black); display: flex; align-items: center; justify-content: center; container-type: size; }
