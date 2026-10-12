@@ -4,11 +4,11 @@
   "type": "PROF",
   "awards": [],
   "year": 2026,
-  "role": "Computer Science, UCSD",
+  "role": "CS + Film, UCSD",
   "kind": "reel",
   "duration": 19.3,
   "seed": 3,
-  "description": "**B.S. Computer Science** at UCSD, with a minor in Film. I do AI research and build things. I love math, poker, and making videos!",
+  "description": "**B.S. Computer Science** and **B.A. Media Arts (Film)** at UCSD. I do AI research and build things. I love math, poker, and making videos!",
   "links": [
     {
       "label": "Resume",
@@ -132,7 +132,7 @@
         {
           "start": 1.95,
           "end": 4.1,
-          "label": "I study Computer Science at UCSD, minoring in film.",
+          "label": "I study Computer Science and Film at UCSD.",
           "type": "text",
           "style": "lyric"
         },
