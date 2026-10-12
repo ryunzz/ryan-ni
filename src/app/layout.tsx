@@ -16,8 +16,8 @@ const mono = Geist_Mono({ subsets: ["latin"], variable: "--nf-mono", display: "s
 export const metadata: Metadata = {
   metadataBase: new URL("https://ryunzz.tech"),
   title: "Ryan Ni",
-  description: "Ryan Ni studies Computer Science and Film at UCSD, does AI research and builds things. A portfolio presented as a film.",
-  openGraph: { title: "Ryan Ni", description: "Written and Directed by Ryan Ni.", url: "https://ryunzz.tech", siteName: "Ryan Ni", type: "website" },
+  description: "Ryan Ni studies Computer Science at UCSD (minor in Film), does AI research and builds things. 18x hackathon winner.",
+  openGraph: { title: "Ryan Ni", description: "B.S. Computer Science at UCSD · AI research · 18x hackathon winner", url: "https://ryunzz.tech", siteName: "Ryan Ni", type: "website" },
 };
 
 export const viewport: Viewport = { themeColor: "#070708", colorScheme: "dark", width: "device-width", initialScale: 1 };
