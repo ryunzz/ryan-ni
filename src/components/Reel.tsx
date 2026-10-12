@@ -4,6 +4,7 @@ import { reel, startClock } from "@/store/session";
 import { startMixer } from "@/lib/reel/mixer";
 import { mediaUrl } from "@/lib/media";
 import { preloadPosters, preloadUrl } from "@/lib/reel/prefetch";
+import { syncRoutes } from "@/lib/routes";
 import { TheaterIntro, type TheaterHandle } from "./TheaterIntro/TheaterIntro";
 import { EditorShell } from "./EditorShell/EditorShell";
 import { MobileEditor } from "./MobileEditor/MobileEditor";
@@ -17,6 +18,7 @@ export function Reel() {
   const theater = useRef<TheaterHandle>(null);
 
   useEffect(() => {
+    const unsync = syncRoutes();
     const mq = matchMedia(MOBILE);
     const on = () => setMobile(mq.matches);
     on();
@@ -25,7 +27,7 @@ export function Reel() {
     startMixer();
     const idle = window.requestIdleCallback ?? ((f: () => void) => setTimeout(f, 300));
     idle(() => preloadPosters(reel.projects.slice(1)));
-    return () => mq.removeEventListener("change", on);
+    return () => { unsync(); mq.removeEventListener("change", on); };
   }, []);
 
   /* the loading screen waits only for the first project's poster + preview (or first footage) and the fonts */

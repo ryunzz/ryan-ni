@@ -15,6 +15,7 @@ const LINE: Record<string, ReactNode> = {
   spk: <><path d="M2 6v4h3l4 3V3L5 6z" /><path d="M11.5 5.5a3.5 3.5 0 0 1 0 5" /></>,
   spkoff: <><path d="M2 6v4h3l4 3V3L5 6z" /><path d="M11 6l3.5 4M14.5 6L11 10" /></>,
   lock: <><rect x="3.5" y="7" width="9" height="6.5" rx="1" /><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2" /></>,
+  cal: <><rect x="2" y="3" width="12" height="11" rx="1" /><path d="M2 6.5h12M5 1.5v3M11 1.5v3M5 9h1.5M9.5 9H11M5 11.5h1.5" /></>,
   mail: <><rect x="1.5" y="3.5" width="13" height="9" rx="1" /><path d="M2 4l6 5 6-5" /></>,
   user: <><circle cx="8" cy="5.5" r="2.5" /><path d="M3 14c.6-2.8 2.6-4.2 5-4.2s4.4 1.4 5 4.2" /></>,
   info: <><circle cx="8" cy="8" r="6.5" /><path d="M8 7.2v4M8 4.8v.1" /></>,

@@ -96,7 +96,13 @@ const about = z.object({
       screen: z.object({ left: z.number(), top: z.number(), width: z.number() }).nullish(),
     })
     .default({}),
-  contact: z.object({ email: z.string().email(), blurb: z.string(), links: z.array(link) }),
+  contact: z.object({
+    email: z.string().email(),
+    blurb: z.string(),
+    /** booking page, shown as the first button in Contact */
+    booking: z.object({ label: z.string(), href: z.string().url() }).optional(),
+    links: z.array(link),
+  }),
 });
 
 /* ---------- media manifest ---------- */

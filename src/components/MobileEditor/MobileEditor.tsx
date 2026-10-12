@@ -37,7 +37,16 @@ export function MobileEditor({ ref }: { ref?: React.Ref<HTMLDivElement> }) {
   const off = useSession((st) => st.off);
   const playing = useSession((st) => st.playing);
   const projects = useSession((st) => st.projects);
-  const [sheet, setSheet] = useState<SheetKind>(null);
+  /* Experience and Contact sheets follow the session view, so /experience and /contact (and back/forward) open them */
+  const view = useSession((st) => st.view);
+  const anchor = useSession((st) => st.anchor);
+  const [local, setLocal] = useState<"projects" | "info" | null>(null);
+  const sheet: SheetKind = local ?? (view === "experience" ? (anchor === "contact" ? "contact" : "experience") : null);
+  const setSheet = useCallback((k: SheetKind) => {
+    const routed = k === "experience" || k === "contact";
+    useSession.setState({ view: routed ? "experience" : "player", anchor: k === "contact" ? "contact" : null });
+    setLocal(routed ? null : k);
+  }, []);
   const sc = useRef<HTMLDivElement>(null);
   const strip = useRef<HTMLDivElement>(null);
   const tcRef = useRef<HTMLElement>(null);
@@ -79,7 +88,7 @@ export function MobileEditor({ ref }: { ref?: React.Ref<HTMLDivElement> }) {
     sy.timer = setTimeout(() => (sy.scrubbing = false), 120);
   };
 
-  const close = useCallback(() => setSheet(null), []);
+  const close = useCallback(() => setSheet(null), [setSheet]);
   const play = (id: string) => { setSheet(null); const st = useSession.getState(); st.load(id); st.setPlaying(true); };
   const groups = [
     ["Technical projects", projects.filter((q) => !q.experience && q.section !== "personal")],

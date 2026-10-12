@@ -15,6 +15,9 @@ export const SEEN_KEY = "reel-seen";
 
 export interface TheaterHandle { replay(): void }
 
+/** act one ends by rolling the loaded project, unless a route opened on Experience or Contact */
+const roll = () => { const st = useSession.getState(); if (st.view === "player") st.setPlaying(true); };
+
 export function TheaterIntro({ ready, mobile, act2Ready, handle, children }: {
   /** resolves when the first project's poster + preview and the fonts are loaded */
   ready: Promise<unknown>;
@@ -143,7 +146,7 @@ export function TheaterIntro({ ready, mobile, act2Ready, handle, children }: {
         return;
       }
       /* Skip intro: finish from wherever the move is */
-      tween = gsap.to(tl, { progress: 1, duration: SKIP, ease: "power1.out", onComplete: () => { settle(); useSession.getState().setPlaying(true); } });
+      tween = gsap.to(tl, { progress: 1, duration: SKIP, ease: "power1.out", onComplete: () => { settle(); roll(); } });
     };
     const run = () => {
       done = false;
@@ -171,7 +174,7 @@ export function TheaterIntro({ ready, mobile, act2Ready, handle, children }: {
           done = true;
           tt.progress(1);
           settle();
-          useSession.getState().setPlaying(true);
+          roll();
         },
       });
       tween = move;
@@ -189,14 +192,15 @@ export function TheaterIntro({ ready, mobile, act2Ready, handle, children }: {
     gsap.set(act2.current, { opacity: 0, pointerEvents: "none" });
     act2.current!.inert = true;
     build();
-    let seen = false;
-    try { seen = !!sessionStorage.getItem(SEEN_KEY); } catch { /* ignore */ }
+    /* only / plays act one; a deep link (a project, Experience, Contact) opens straight on the editor */
+    let seen = location.pathname !== "/";
+    try { seen ||= !!sessionStorage.getItem(SEEN_KEY); } catch { /* ignore */ }
     if (seen) {
       tt.progress(1);
       tl.progress(1);
       done = true;
       settle();
-      if (!reduce) st.setPlaying(true);
+      if (!reduce) roll();
     } else run();
 
     let rt: ReturnType<typeof setTimeout>;

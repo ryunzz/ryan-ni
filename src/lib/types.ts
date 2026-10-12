@@ -97,6 +97,7 @@ export interface Project {
 export interface Contact {
   email: string;
   blurb: string;
+  booking?: { label: string; href: string };
   links: Link[];
 }
 

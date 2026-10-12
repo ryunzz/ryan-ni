@@ -63,7 +63,7 @@ export function ExpCard({ x, i, interactive = true, hot, setHot }: { x: Job; i: 
   );
 }
 
-/** CONTACT label, "Let's talk.", blurb, icon buttons (Email copies), and the address as a copyable link */
+/** CONTACT label, "Let's talk.", blurb, the booking button, icon buttons (Email copies), and the address as a copyable link */
 export function ContactBlock({ className }: { className?: string }) {
   const c = reel.about.contact;
   return (
@@ -71,6 +71,12 @@ export function ContactBlock({ className }: { className?: string }) {
       <div className={s.cap}><span className={shine.silver}>Contact</span></div>
       <h3>Let&apos;s talk.</h3>
       <p>{c.blurb}</p>
+      {c.booking && (
+        <a className={s.book} href={c.booking.href} target="_blank" rel="noopener">
+          <Icon name="cal" />
+          <span>{c.booking.label}</span>
+        </a>
+      )}
       <AppRow links={[...c.links, { label: "Email", icon: "email" }]} big />
       <div className={s.cemail}><EmailButton className={cx(linkStyles.tlink, s.addr)} /></div>
     </section>

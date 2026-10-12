@@ -15,14 +15,13 @@ const mono = Geist_Mono({ subsets: ["latin"], variable: "--nf-mono", display: "s
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://ryunzz.tech"),
-  title: "Ryan Ni",
+  title: { default: "Ryan Ni", template: "%s · Ryan Ni" },
   description: "Ryan Ni: AI research, prev SWE @ Apple, Founder @ Lightyear (S26), 18x hackathon winner, CS @ UCSD.",
   openGraph: { title: "Ryan Ni", description: "AI research · prev SWE @ Apple · Founder @ Lightyear (S26) · 18x hackathon winner · CS @ UCSD", url: "https://ryunzz.tech", siteName: "Ryan Ni", type: "website" },
 };
 
 export const viewport: Viewport = { themeColor: "#070708", colorScheme: "dark", width: "device-width", initialScale: 1 };
 
-/* repeat visits in the same tab skip act one; set before first paint so the theater never flashes */
 /* tells search engines who the site is about; profile links come from content/about.json */
 const person = {
   "@context": "https://schema.org",
@@ -35,7 +34,8 @@ const person = {
   sameAs: index.about.contact.links.map((l) => l.href),
 };
 
-const seen = `try{if(sessionStorage.getItem("reel-seen"))document.documentElement.setAttribute("data-seen","")}catch(e){}`;
+/* repeat visits in the same tab, and every route but /, skip act one; set before first paint so the theater never flashes */
+const seen = `try{if(sessionStorage.getItem("reel-seen")||location.pathname!=="/")document.documentElement.setAttribute("data-seen","")}catch(e){}`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

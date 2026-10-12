@@ -12,3 +12,5 @@ a { color: inherit; }
 /* focus ring: 2px solid ink, 1px offset, on every interactive element */
 :focus-visible { outline: 2px solid var(--ink); outline-offset: 1px; }
 ::selection { background: var(--playhead); color: var(--on-playhead); }
+/* each route's plain text (components/Crawl): read by crawlers and screen readers, not drawn */
+.crawl { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
