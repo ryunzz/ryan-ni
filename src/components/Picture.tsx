@@ -44,7 +44,8 @@ export function Picture({ className, preview }: { className?: string; preview?: 
           if (Math.abs(v.currentTime - want) > 1 / FPS && !v.seeking) v.currentTime = want;
         }
       } else if (v && !v.paused) v.pause();
-      renderFrame(ctx, W, H, st, !!(v && c && v.readyState >= 2));
+      /* the <video> shows its poster until frames arrive, so the canvas stays clear over it */
+      renderFrame(ctx, W, H, st, !!(v && c && (v.readyState >= 2 || v.poster)));
     };
     draw();
     const unsub = useSession.subscribe(draw);

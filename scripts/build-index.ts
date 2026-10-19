@@ -215,14 +215,17 @@ function buildTracks(p: z.infer<typeof project>, stills: string[], video?: strin
       i++;
     }
   }
-  v3.push({ start: 0.4, end: 4.2, label: p.name, type: "text" });
-  if (p.kind !== "text") v3.push({ start: d - 5, end: d - 0.4, label: p.caption || "Directed by Ryan Ni", type: "text" });
-  if (p.kind === "video") {
+  /* a real video is the finished cut: no generated titles, grade, grain or voice takes over it */
+  if (!video) {
+    v3.push({ start: 0.4, end: 4.2, label: p.name, type: "text" });
+    if (p.kind !== "text") v3.push({ start: d - 5, end: d - 0.4, label: p.caption || "Directed by Ryan Ni", type: "text" });
+  }
+  if (p.kind === "video" && !video) {
     v2.push({ start: 0, end: d * 0.55, label: "Grade", type: "fx", fx: "grade" });
     v2.push({ start: d * 0.55, end: d, label: "Grain", type: "fx", fx: "grain" });
   }
   if (p.kind === "images") v2.push({ start: 0, end: d, label: "Grain", type: "fx", fx: "grain" });
-  if (p.kind === "video") {
+  if (p.kind === "video" && !video) {
     let t = 2;
     while (t < d - 4) {
       const l = 3 + r() * 6;
@@ -327,10 +330,19 @@ function main() {
     };
     const local = video?.startsWith(`${slug}/`) ? video.slice(slug.length + 1) : undefined;
     const probed = local ? m.durations[local] : undefined;
-    if (!p.tracks && probed) p.duration = Math.round(probed * 24) / 24;
+    if ((!p.tracks || p.kind === "reel") && probed) p.duration = Math.round(probed * 24) / 24;
     let kind = p.kind;
     if (kind !== "reel" && kind !== "text") kind = video ? "video" : stills.length ? "images" : kind;
     const tracks = (p.tracks as Track[] | undefined) ?? buildTracks({ ...p, kind }, stills, video);
+    /* the reel's film burns in its own lyrics and photos: it becomes the one V1 clip and V2 empties.
+     * V3 stays, matching the burned-in lines, and its cursor cue still drives CursorCue. */
+    if (kind === "reel" && video)
+      for (const t of tracks) {
+        if (t.id === "V1") t.name = "Film";
+        if (t.id === "V1") t.clips = [{ start: 0, end: p.duration, label: path.basename(video), type: "video", src: video, in: 0, scene: 0, seed: p.seed }];
+        if (t.id === "V2") t.clips = [];
+        if (t.id === "A2") for (const c of t.clips) c.end = p.duration;
+      }
     /* any clip (or stacked photo) whose file name matches a dropped file uses it */
     for (const t of tracks)
       for (const c of t.clips) {
@@ -348,6 +360,13 @@ function main() {
     projects.push({ ...rest, kind, slug, media, tracks } as Project);
   }
   if (!projects.length || projects[0].kind !== "reel") throw new Error("The first project must be the Ryan Ni reel (00-ryan-ni).");
+
+  /* on Vercel, public/media (a symlink locally) becomes a real copy so the static output carries the files */
+  if (process.env.VERCEL && fs.existsSync(MEDIA)) {
+    const pub = path.join(ROOT, "public", "media");
+    fs.rmSync(pub, { recursive: true, force: true });
+    fs.cpSync(MEDIA, pub, { recursive: true });
+  }
 
   fs.mkdirSync(OUT, { recursive: true });
   /* optional 3D popcorn model (see Room.tsx); only requested when the file exists */

@@ -9,8 +9,12 @@
 ## Media: drag and drop
 
 Put files in `content/media/<NN-slug>/` (same folder name as the project), then run `npm run dev` or `npm run index`.
-The index rescans the folder and rewrites `content/media.manifest.json` (commit that file). Then run
-`scripts/upload-media.sh` to push the files to R2. Anything missing keeps its procedural stand-in.
+The index rescans the folder and rewrites `content/media.manifest.json`. Commit the media and the manifest;
+the deploy serves them at `/media`. Anything missing keeps its procedural stand-in.
+
+A real `video.mp4` is the finished cut: the site draws no titles, grade or grain over it, and generates no title or voice clips.
+In `00-ryan-ni/` it replaces the B-roll and photo tracks (the film burns them in); the Words track stays and still drives the cursor cue.
+Pull its audio out as `score.m4a`. Non-16:9 video (e.g. vertical) is letterboxed.
 
 | Drop this | It becomes |
 |---|---|

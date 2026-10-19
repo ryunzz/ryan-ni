@@ -337,6 +337,8 @@ export function renderFrame(ctx: CanvasRenderingContext2D, W: number, H: number,
       drawStill(ctx, W, H, v1, lt, tr.clips.indexOf(v1), tr.clips.length);
     } else drawCard(ctx, W, H, p);
   }
+  /* real footage is the finished cut; draw nothing over it */
+  if (useVideo) return;
   if (p.kind === "reel") {
     if (v1) {
       ctx.fillStyle = "rgba(0,0,0,.35)";

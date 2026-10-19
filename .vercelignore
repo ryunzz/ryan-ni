@@ -1,5 +1,3 @@
-# media lives on R2; old site is kept in git only
-content/media
-public/media
+# media ships with the deploy (served from /media); the old site is kept in git only
 legacy
 design/reel/reference-demo.html

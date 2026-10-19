@@ -35,7 +35,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# reel: media lives on R2, never in git
-/content/media/
-/public/media
+# reel: media is committed and served from Vercel at /media (public/media links to content/media)
 /src/generated/

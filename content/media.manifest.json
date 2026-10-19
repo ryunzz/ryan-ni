@@ -1,7 +1,51 @@
 {
   "00-ryan-ni": {
-    "files": [],
-    "durations": {}
+    "files": [
+      "poster.jpg",
+      "preview.mp4",
+      "score.m4a",
+      "video.mp4"
+    ],
+    "durations": {
+      "preview.mp4": 20,
+      "video.mp4": 20
+    }
+  },
+  "01-yolodex": {
+    "files": [
+      "poster.jpg",
+      "preview.mp4",
+      "score.m4a",
+      "video.mp4"
+    ],
+    "durations": {
+      "preview.mp4": 59.2,
+      "video.mp4": 59.2
+    }
+  },
+  "02-clawcraft": {
+    "files": [
+      "poster.jpg",
+      "preview.mp4",
+      "score.m4a",
+      "video.mp4"
+    ],
+    "durations": {
+      "preview.mp4": 90.2,
+      "video.mp4": 90.2
+    }
+  },
+  "03-fireorca": {
+    "files": [
+      "poster.jpg",
+      "preview.mp4",
+      "score.m4a",
+      "video.mp4"
+    ],
+    "durations": {
+      "preview.mp4": 99.467,
+      "video.mp4": 99.467
+    }
   },
   "05-iris": {
     "files": [
@@ -11,9 +55,16 @@
   },
   "06-powertag": {
     "files": [
-      "stills/power-tag.jpg"
+      "poster.jpg",
+      "preview.mp4",
+      "score.m4a",
+      "stills/power-tag.jpg",
+      "video.mp4"
     ],
-    "durations": {}
+    "durations": {
+      "preview.mp4": 38,
+      "video.mp4": 38
+    }
   },
   "theater": {
     "files": [],
