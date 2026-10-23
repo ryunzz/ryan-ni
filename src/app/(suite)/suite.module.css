@@ -1,0 +1,14 @@
+/* plain reading pages for the ryunzz.tech apps (privacy, terms, the app list): scroll normally, unlike the reel */
+.page { position: fixed; inset: 0; overflow-y: auto; background: var(--theater-black); color: var(--ink); }
+.main { max-width: 680px; margin: 0 auto; padding: 56px 20px 96px; font-family: var(--font-ui); font-size: 16px; line-height: 1.65; }
+.nav { display: flex; gap: 20px; font-size: 14px; opacity: .7; }
+.nav a { text-decoration: none; }
+.nav a:hover { text-decoration: underline; }
+.main h1 { font-family: var(--font-display); font-weight: 400; font-size: 44px; line-height: 1.1; margin: 32px 0 6px; }
+.main h2 { font-size: 18px; margin: 36px 0 8px; }
+.main ul { padding-left: 20px; }
+.main a { text-underline-offset: 3px; }
+.date { opacity: .6; font-size: 14px; margin: 0 0 32px; }
+.apps { list-style: none; padding: 0; display: grid; gap: 12px; }
+.apps li { border: 1px solid color-mix(in srgb, var(--ink) 16%, transparent); border-radius: 10px; padding: 16px 18px; }
+.apps strong { display: block; font-size: 17px; }
