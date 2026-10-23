@@ -10,7 +10,7 @@ export default function Apps() {
       <h1>ryunzz.tech apps</h1>
       <p className={s.date}>Small tools by Ryan Ni. One Google sign-in works across all of them.</p>
       <ul className={s.apps}>
-        <li><strong><a href="https://optimal.ryunzz.tech">Optimal</a></strong>A weekly planner that reads your Google Calendar (read-only) and plans the open time around your events. It never changes your calendar.</li>
+        <li><strong><a href="https://optimal.ryunzz.tech">Optimal</a></strong>A weekly planner that reads your Google Calendar (read-only) and plans the open time around your events. If you choose, it can copy a week into a separate &quot;Optimal&quot; calendar; it never changes your other calendars.</li>
         <li><strong><a href="https://food.ryunzz.tech">Food</a></strong>Upcoming UCSD events with free food, with calendar links, a subscribable feed, and events you can save.</li>
         <li><strong><a href="https://meet.ryunzz.tech">Meet</a></strong>A booking page for scheduling a meeting with Ryan. Guests don&apos;t sign in.</li>
       </ul>
