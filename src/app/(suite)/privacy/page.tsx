@@ -16,7 +16,8 @@ export default function Privacy() {
       <p>When you sign in, the apps receive your Google account&apos;s name, email address and profile picture, and use them only to identify your account. Your session is a cookie on ryunzz.tech, so one sign-in works across the apps.</p>
 
       <h2>Google Calendar (Optimal)</h2>
-      <p>If you connect your calendar in Optimal, it asks for read-only access (<code>calendar.readonly</code>) and reads the titles, times and locations of events on the calendars you have turned on, for the week you are viewing. It uses them only to show you your own plan for the week. Optimal never creates, edits or deletes anything in your calendar, and events are not stored after your plan is built.</p>
+      <p>If you connect your calendar in Optimal, it asks for read-only access (<code>calendar.readonly</code>) and reads the titles, times and locations of events on the calendars you have turned on, for the week you are viewing. It uses them only to show you your own plan for the week. Events are not stored after your plan is built.</p>
+      <p>Optimal writes to Google Calendar only if you click <strong>Add to Google Calendar</strong>. It then asks for permission to create and manage calendars it creates (<code>calendar.app.created</code>), makes one separate calendar named &quot;Optimal&quot;, and copies that week&apos;s planned blocks into it as free time, replacing its own earlier copy of the same week. It cannot see, change or delete events in your other calendars, and you can hide or delete the Optimal calendar at any time.</p>
       <p>Optimal stores an encrypted refresh token so it can read your calendar without asking you to sign in every time, your planner settings, and, for event titles it can&apos;t place on its own, the lowercased title and the category it was sorted into.</p>
 
       <h2>Food and Meet</h2>
