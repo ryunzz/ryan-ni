@@ -3,6 +3,8 @@
 .t { margin: 0; font: var(--type-film-title); font-size: clamp(28px, 6.2cqw, 88px); letter-spacing: var(--tracking-film-title); white-space: pre; }
 .r { margin-top: 1.6em; font: var(--type-credit-label); font-size: clamp(8px, 1cqw, 12px); letter-spacing: var(--tracking-credit-label); text-transform: var(--case-credit-label); opacity: 0; }
 .n { margin-top: 2px; font: var(--type-credit-name); font-size: clamp(18px, 3cqw, 44px); opacity: 0; }
+.g { margin-top: .9em; padding: 0 6%; font: 500 clamp(10px, 1.35cqw, 16px)/1.35 var(--font-ui); letter-spacing: .02em; opacity: 0; text-wrap: balance; }
+.g span { display: inline-block; white-space: pre; }
 /* characters wait to be typed; the caret sits after the last typed one */
 .ch { position: relative; visibility: hidden; }
 .typed { visibility: visible; }
@@ -15,3 +17,4 @@
 :global(html[data-seen]) .ch { visibility: visible; }
 :global(html[data-seen]) .r { opacity: .82; }
 :global(html[data-seen]) .n { opacity: 1; }
+:global(html[data-seen]) .g { opacity: .78; }

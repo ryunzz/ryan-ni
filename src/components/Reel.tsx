@@ -30,14 +30,16 @@ export function Reel() {
     return () => { unsync(); mq.removeEventListener("change", on); };
   }, []);
 
-  /* the loading screen waits only for the first project's poster + preview (or first footage) and the fonts */
+  /* the loading screen waits only for the first project's poster + preview (or first footage), the pitch shot and the fonts */
   const ready = useMemo(() => {
     if (typeof window === "undefined") return Promise.resolve();
     const first = reel.projects[0];
     const v1 = first.tracks.find((t) => t.id === "V1")?.clips.find((c) => c.src);
     const isVid = (u?: string) => !!u && /\.(mp4|webm|mov|m4v)$/i.test(u);
+    const pitch = reel.about.theater.pitch;
     return Promise.all([
       document.fonts.ready,
+      preloadUrl(mediaUrl(pitch), isVid(pitch) ? "video" : "image"),
       preloadUrl(mediaUrl(first.media.poster), "image"),
       preloadUrl(mediaUrl(first.media.preview ?? (isVid(v1?.src) ? v1?.src : undefined)), "video"),
     ]);

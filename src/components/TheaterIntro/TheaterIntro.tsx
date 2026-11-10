@@ -1,6 +1,6 @@
 "use client";
-/* Act one, the loading screen: the back row of a theater dollies into the screen while the first
- * project loads, then cuts to act two. Deterministic (GSAP timeline), never scroll-driven. */
+/* Act one, the loading screen: the credits play on the screen, it cuts to the pitch shot, then the back row of
+ * the theater dollies into the screen while the first project loads, and it cuts to act two. Deterministic (GSAP timeline), never scroll-driven. */
 import { useCallback, useEffect, useImperativeHandle, useRef, type ReactNode, type Ref } from "react";
 import gsap from "gsap";
 import { reel, useSession } from "@/store/session";
@@ -33,6 +33,7 @@ export function TheaterIntro({ ready, mobile, act2Ready, handle, children }: {
   const world = useRef<HTMLDivElement>(null);
   const screen = useRef<HTMLDivElement>(null);
   const credits = useRef<HTMLDivElement>(null);
+  const pitch = useRef<HTMLDivElement>(null);
   const rows = useRef<HTMLDivElement>(null);
   const hint = useRef<HTMLDivElement>(null);
   const skip = useRef<HTMLButtonElement>(null);
@@ -68,9 +69,12 @@ export function TheaterIntro({ ready, mobile, act2Ready, handle, children }: {
     const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
     const st = useSession.getState();
 
-    /* the title types out, then the credit and the name appear; the dolly waits for it (hold) */
+    /* the title types out, then the credit, the name and the tagline appear; then the screen cuts to the pitch
+     * shot (when there is one) and the dolly waits for all of it (hold) */
     const chars = Array.from(cr.querySelectorAll<HTMLElement>("[data-ch]"));
-    const [role, name] = Array.from(cr.querySelectorAll<HTMLElement>("[data-credit]"));
+    const title = cr.querySelector("h1");
+    const [role, name, tag] = Array.from(cr.querySelectorAll<HTMLElement>("[data-credit]"));
+    const shot = pitch.current;
     const typed = { n: 0 };
     const showChars = () => {
       const n = Math.floor(typed.n);
@@ -81,18 +85,29 @@ export function TheaterIntro({ ready, mobile, act2Ready, handle, children }: {
       });
     };
     let typing = true;
-    /* act one runs ~3.1s locally (~3.4s on the live site) from opening the page to the editor: type (~0.6s), credits, a short hold, then one
-     * continuous move (dolly into the screen and the cut) over TRAVEL with a single ease, so it never stops and restarts */
+    /* act one runs ~5s from opening the page to the editor: type (~0.6s), credits and tagline (read for READ), the pitch shot (SHOT),
+     * then one continuous move (dolly into the screen and the cut) over TRAVEL with a single ease, so it never stops and restarts */
     const TYPE_AT = 0.15, PER_CHAR = 0.045, typeEnd = TYPE_AT + chars.length * PER_CHAR;
-    const TRAVEL = 2.05, SKIP = 0.42, GATE = 0.68;
+    const TRAVEL = 2.05, SKIP = 0.42, GATE = 0.68, READ = tag ? 1.25 : 0.3, SHOT = 1;
+    const credited = [title, role, name, tag].filter(Boolean) as HTMLElement[];
     const tt = gsap.timeline({ paused: true })
       .call(() => { typing = true; typed.n = 0; showChars(); }, [], 0)
-      .set([role, name], { opacity: 0, y: 6 }, 0)
+      .set([role, name, tag].filter(Boolean), { opacity: 0, y: 6 }, 0)
+      .set(title, { opacity: 1 }, 0)
       .to(typed, { n: chars.length, duration: chars.length * PER_CHAR, ease: "none", onUpdate: showChars }, TYPE_AT)
       .call(() => { typing = false; showChars(); }, [], typeEnd + 0.15)
       .to(role, { opacity: 0.82, y: 0, duration: 0.25, ease: "power2.out" }, typeEnd + 0.02)
       .to(name, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, typeEnd + 0.1);
-    const hold = typeEnd + 0.3;
+    if (tag) tt.to(tag, { opacity: 0.78, y: 0, duration: 0.3, ease: "power2.out" }, typeEnd + 0.3);
+    const cut = typeEnd + 0.2 + READ;
+    if (shot) {
+      /* the credits fade off and the pitch shot fades up with a slow push-in that runs on into the dolly */
+      tt.set(shot, { opacity: 0, scale: 1.08 }, 0)
+        .to(credited, { opacity: 0, duration: 0.35, ease: "power1.in" }, cut)
+        .to(shot, { opacity: 1, duration: 0.45, ease: "power1.out" }, cut + 0.15)
+        .to(shot, { scale: 1, duration: SHOT + TRAVEL, ease: "none" }, cut + 0.15);
+    }
+    const hold = shot ? cut + 0.15 + SHOT : cut;
 
     const tl = gsap.timeline({ paused: true, defaults: { ease: "none" } });
     const zoomVars = () => {
@@ -125,7 +140,8 @@ export function TheaterIntro({ ready, mobile, act2Ready, handle, children }: {
     };
 
     let tween: gsap.core.Tween | null = null, done = false;
-    const ok = Promise.race([ready, new Promise((r) => setTimeout(r, 12000))]);
+    /* never hold the cut long: phones go to the editor after 5s whatever is loaded (it shows the poster until the video arrives) */
+    const ok = Promise.race([ready, new Promise((r) => setTimeout(r, mobile ? 5000 : 12000))]);
     const settle = () => {
       loopOn.current = false;
       ed?.focus({ preventScroll: true });
@@ -217,7 +233,7 @@ export function TheaterIntro({ ready, mobile, act2Ready, handle, children }: {
       tl.kill();
       loopOn.current = false;
     };
-  }, [act2Ready, ready, startLoop, th.screen]);
+  }, [act2Ready, ready, mobile, startLoop, th.screen]);
 
   return (
     <div ref={el} className={`${s.theater} ${mobile ? s.mobile : ""}`}>
@@ -235,6 +251,14 @@ export function TheaterIntro({ ready, mobile, act2Ready, handle, children }: {
               : <RawImg className={s.media} src={mediaUrl(th.loop)} alt="" />
           ) : (
             <canvas ref={loop} className={s.media} width={956} height={400} />
+          )}
+          {th.pitch && (
+            <div ref={pitch} className={s.pitch}>
+              {/\.(mp4|webm|mov|m4v)$/i.test(th.pitch)
+                ? <video className={s.media} src={mediaUrl(th.pitch)} autoPlay muted loop playsInline />
+                : <RawImg className={s.media} src={mediaUrl(th.pitch)} alt="" />}
+              {th.caption && <span className={s.caption}>{th.caption}</span>}
+            </div>
           )}
           <TitleCard ref={credits} />
         </div>

@@ -49,9 +49,9 @@
       "from": 2026,
       "to": 2026,
       "place": "San Francisco",
-      "summary": "Lightyear funded (HF0 incubated) startup.",
+      "summary": "Lightyear funded startup (HF0 incubated residency).",
       "bullets": [
-        "Built agent harnesses with integrated wallets that pay users for tasks executed on their own devices; deployed for media distribution, and designed to extend to distributed workloads like market simulations, federated learning, etc."
+        "Built agent harnesses with built-in wallets that let partners pay users for tasks run on their devices; shipped for media distribution and built to extend to distributed workloads like market simulations and federated learning."
       ],
       "links": [
         {

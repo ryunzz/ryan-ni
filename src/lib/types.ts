@@ -105,6 +105,9 @@ export interface TheaterPhoto {
   room?: string;
   seats?: string;
   screen?: { left: number; top: number; width: number };
+  /** the still (or clip) the screen cuts to after the credits, with its caption */
+  pitch?: string;
+  caption?: string;
   loop?: string;
   /** public/models/popcorn.glb when present (set by the build step) */
   popcornModel?: string;
@@ -112,7 +115,7 @@ export interface TheaterPhoto {
 
 export interface About {
   wordmark: string;
-  titleCard: { title: string; credit: string; director: string };
+  titleCard: { title: string; credit: string; director: string; tagline?: string };
   theater: TheaterPhoto;
   contact: Contact;
 }

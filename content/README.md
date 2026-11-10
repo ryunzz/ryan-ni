@@ -25,6 +25,7 @@ Pull its audio out as `score.m4a`. Non-16:9 video (e.g. vertical) is letterboxed
 | any file named like a clip label | that clip, e.g. `broll_campus.mp4`, `ucsd.jpg`, `score.m4a` in `00-ryan-ni/` |
 | `00-ryan-ni/research.jpg`, `hackathon_01.jpg` ... `hackathon_10.jpg` | the research line's photo pile: research lands first, the ten hackathon photos start stacking when "(18x" appears |
 | `00-ryan-ni/math.jpg`, `poker.jpg`, `camera.jpg` | the three photos on the math, poker and videos line |
+| `theater/pitch.jpg` (or `.mp4`) | the shot the theater screen cuts to after the credits, captioned by `theater.caption` in `about.json` |
 | `theater/room.avif`, `theater/seats.webp`, `theater/loop.mp4` | act one photo mode; set `theater.screen` `{left, top, width}` (% of the photo) in `about.json` |
 
 Encoding: H.264 MP4 1080p at ~5 Mbps, a 480p `preview.mp4`, stills as AVIF at 2400px long edge.

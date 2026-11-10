@@ -67,7 +67,9 @@
     }
   },
   "theater": {
-    "files": [],
+    "files": [
+      "pitch.jpg"
+    ],
     "durations": {}
   }
 }

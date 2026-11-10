@@ -4,6 +4,11 @@
 .photo { object-fit: cover; }
 .screen { position: absolute; left: 50%; top: 14%; width: 56%; aspect-ratio: 2.39 / 1; transform: translateX(-50%); background: radial-gradient(ellipse at 50% 62%, color-mix(in srgb, var(--screen) 12%, var(--theater-black)), var(--theater-black) 75%); box-shadow: var(--screen-glow); border-radius: var(--radius-0); overflow: hidden; container-type: inline-size; }
 .placed { transform: none; }
+/* the pitch shot: hidden until the credits clear (the timeline fades it up), framed on the faces, captioned like a lower third */
+.pitch { position: absolute; inset: 0; opacity: 0; will-change: opacity, transform; }
+.pitch .media { object-position: 50% 32%; filter: saturate(.92) contrast(1.04); }
+.pitch::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, color-mix(in srgb, var(--theater-black) 78%, transparent), transparent 42%); pointer-events: none; }
+.caption { position: absolute; left: 3.5%; bottom: 7%; right: 3.5%; z-index: 1; color: var(--screen); font: 500 clamp(9px, 1.25cqw, 14px)/1.3 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; text-shadow: 0 1px 6px var(--theater-black); }
 .mobile .screen:not(.placed) { width: 88%; top: 24%; }
 .media { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 .rows { position: absolute; inset: 0; pointer-events: none; }

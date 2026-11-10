@@ -29,7 +29,8 @@ export function preloadPosters(projects: Project[]) {
   for (const p of projects) if (p.media.poster) image(p.media.poster);
 }
 
-/** resolves when a URL has loaded (or failed), so the theater can wait on the first project */
+/** resolves when a URL has loaded (or failed), so the theater can wait on the first project. A video counts once it has
+ * data: iOS Safari never buffers to canplay for a video that is not on the page, which held the intro at the screen. */
 export function preloadUrl(url: string | undefined, as: "image" | "video"): Promise<void> {
   if (!url) return Promise.resolve();
   return new Promise((res) => {
@@ -40,9 +41,11 @@ export function preloadUrl(url: string | undefined, as: "image" | "video"): Prom
     } else {
       const v = document.createElement("video");
       v.muted = true;
+      v.playsInline = true;
       v.preload = "auto";
-      v.oncanplay = v.onerror = () => res();
+      v.onloadeddata = v.oncanplay = v.onerror = () => res();
       v.src = url;
+      v.load();
     }
   });
 }

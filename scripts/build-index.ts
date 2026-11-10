@@ -87,12 +87,14 @@ const project = z.object({
 });
 const about = z.object({
   wordmark: z.string(),
-  titleCard: z.object({ title: z.string(), credit: z.string(), director: z.string() }),
+  titleCard: z.object({ title: z.string(), credit: z.string(), director: z.string(), tagline: z.string().optional() }),
   theater: z
     .object({
       room: z.string().nullish(),
       seats: z.string().nullish(),
       loop: z.string().nullish(),
+      pitch: z.string().nullish(),
+      caption: z.string().nullish(),
       screen: z.object({ left: z.number(), top: z.number(), width: z.number() }).nullish(),
     })
     .default({}),
@@ -307,6 +309,8 @@ function main() {
     seats: ab.theater.seats ?? findTh("seats", isImage),
     loop: ab.theater.loop ?? findTh("loop", (f) => isVideo(f) || isImage(f)),
     screen: ab.theater.screen ?? undefined,
+    pitch: ab.theater.pitch ?? findTh("pitch", (f) => isVideo(f) || isImage(f)),
+    caption: ab.theater.caption ?? undefined,
   };
 
   const dirs = fs.readdirSync(path.join(CONTENT, "projects"), { withFileTypes: true }).filter((d) => d.isDirectory()).map((d) => d.name).sort();
