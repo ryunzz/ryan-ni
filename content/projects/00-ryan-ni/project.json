@@ -51,12 +51,12 @@
       "place": "San Francisco",
       "summary": "Lightyear funded startup (HF0 incubated residency).",
       "bullets": [
-        "Built agent harnesses with built-in wallets that let partners pay users for tasks run on their devices; shipped for media distribution and built to extend to distributed workloads like market simulations and federated learning."
+        "Built consumer agent harnesses with wallets so partners pay users to run tasks on their devices; live for media distribution, extensible to market simulations and federated learning."
       ],
       "links": [
         {
           "label": "Lightyear",
-          "href": "https://x.com/eostudi0/status/2085019791077900397"
+          "href": "https://joinlightyear.com/"
         },
         {
           "label": "HF0",
